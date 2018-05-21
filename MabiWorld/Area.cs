@@ -17,7 +17,7 @@ namespace MabiWorld
 		public short Unk8 { get; set; }
 		[Browsable(false)]
 		public int Length { get; set; }
-		public short Number { get; set; }
+		public ushort Id { get; set; }
 		public ushort RegionId { get; set; }
 		public string ServerName { get; set; }
 		public string Name { get; set; }
@@ -80,7 +80,7 @@ namespace MabiWorld
 				area.Version = br.ReadInt16();
 				area.Unk8 = br.ReadInt16();
 				area.Length = br.ReadInt32();
-				area.Number = br.ReadInt16();
+				area.Id = br.ReadUInt16();
 				area.RegionId = br.ReadUInt16();
 				area.ServerName = br.ReadWString();
 				area.Name = br.ReadWString();
@@ -159,7 +159,7 @@ namespace MabiWorld
 				var lengthPos = (int)bw.BaseStream.Position;
 				bw.Write(this.Length);
 
-				bw.Write(this.Number);
+				bw.Write(this.Id);
 				bw.Write(this.RegionId);
 				bw.WriteWString(this.ServerName);
 				bw.WriteWString(this.Name);
