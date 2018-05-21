@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mabioned", "Mabioned\Mabioned.csproj", "{D93CF173-D9FD-4600-8EA7-12D800E3AC27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabiWorld", "MabiWorld\MabiWorld.csproj", "{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTest", "WorldTest\WorldTest.csproj", "{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D93CF173-D9FD-4600-8EA7-12D800E3AC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93CF173-D9FD-4600-8EA7-12D800E3AC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93CF173-D9FD-4600-8EA7-12D800E3AC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93CF173-D9FD-4600-8EA7-12D800E3AC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8F2DDEA-6D04-420E-94A6-F8076B94A9D6}
+	EndGlobalSection
+EndGlobal
