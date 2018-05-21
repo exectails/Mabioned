@@ -1422,13 +1422,13 @@ namespace Mabioned
 			{
 				if (e.ChangedItem.PropertyDescriptor?.Name == "Id")
 				{
-					var newRegionId = (ushort)(int)e.ChangedItem.Value;
+					var newId = (ushort)(int)e.ChangedItem.Value;
 					var clearMask = 0x0000_FFFF_0000_0000UL;
-					var newMask = ((ulong)newRegionId << 32);
+					var newMask = ((ulong)newId << 32);
 
 					foreach (var area in _areas)
 					{
-						area.RegionId = newRegionId;
+						area.RegionId = newId;
 						foreach (var prop in area.Props)
 						{
 							prop.EntityId &= ~clearMask;
@@ -1439,6 +1439,28 @@ namespace Mabioned
 							evnt.EntityId &= ~clearMask;
 							evnt.EntityId |= newMask;
 						}
+					}
+
+					this.CreateTree();
+				}
+			}
+			else if (this.PropertyGrid.SelectedObject is MabiWorld.Area area)
+			{
+				if (e.ChangedItem.PropertyDescriptor?.Name == "Id")
+				{
+					var newId = (ushort)e.ChangedItem.Value;
+					var clearMask = 0x0000_0000_FFFF_0000UL;
+					var newMask = ((ulong)newId << 16);
+
+					foreach (var prop in area.Props)
+					{
+						prop.EntityId &= ~clearMask;
+						prop.EntityId |= newMask;
+					}
+					foreach (var evnt in area.Events)
+					{
+						evnt.EntityId &= ~clearMask;
+						evnt.EntityId |= newMask;
 					}
 
 					this.CreateTree();
