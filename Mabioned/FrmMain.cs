@@ -1418,6 +1418,32 @@ namespace Mabioned
 					}
 				}
 			}
+			else if (this.PropertyGrid.SelectedObject is MabiWorld.Region region)
+			{
+				if (e.ChangedItem.PropertyDescriptor?.Name == "Id")
+				{
+					var newRegionId = (ushort)(int)e.ChangedItem.Value;
+					var clearMask = 0x0000_FFFF_0000_0000UL;
+					var newMask = ((ulong)newRegionId << 32);
+
+					foreach (var area in _areas)
+					{
+						area.RegionId = newRegionId;
+						foreach (var prop in area.Props)
+						{
+							prop.EntityId &= ~clearMask;
+							prop.EntityId |= newMask;
+						}
+						foreach (var evnt in area.Events)
+						{
+							evnt.EntityId &= ~clearMask;
+							evnt.EntityId |= newMask;
+						}
+					}
+
+					this.CreateTree();
+				}
+			}
 
 			this.SetModified(true);
 			this.DrawMap();
