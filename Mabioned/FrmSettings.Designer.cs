@@ -28,10 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSettings));
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.label3 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.LblSelectionColor = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -44,11 +46,12 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.label3 = new System.Windows.Forms.Label();
-			this.TxtDataFolder = new System.Windows.Forms.TextBox();
-			this.LblDataFolder = new System.Windows.Forms.Label();
 			this.BtnSelectDataFolder = new System.Windows.Forms.Button();
+			this.LblDataFolder = new System.Windows.Forms.Label();
+			this.TxtDataFolder = new System.Windows.Forms.TextBox();
 			this.DlgFolder = new System.Windows.Forms.FolderBrowserDialog();
+			this.label7 = new System.Windows.Forms.Label();
+			this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabPage1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -97,14 +100,24 @@
 			this.tabPage1.Text = "Colors";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ForeColor = System.Drawing.Color.Gray;
+			this.label3.Location = new System.Drawing.Point(16, 120);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(232, 13);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "Right-click a color to reset it to the default color.";
+			// 
 			// label5
 			// 
-			this.label5.AutoSize = true;
 			this.label5.Location = new System.Drawing.Point(16, 89);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(51, 13);
+			this.label5.Size = new System.Drawing.Size(235, 13);
 			this.label5.TabIndex = 9;
 			this.label5.Text = "Selection";
+			this.ToolTip.SetToolTip(this.label5, "Color of selected entities.");
 			// 
 			// LblSelectionColor
 			// 
@@ -119,12 +132,12 @@
 			// 
 			// label2
 			// 
-			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(16, 13);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(65, 13);
+			this.label2.Size = new System.Drawing.Size(235, 13);
 			this.label2.TabIndex = 7;
 			this.label2.Text = "Background";
+			this.ToolTip.SetToolTip(this.label2, "Map background color.");
 			// 
 			// LblBackgroundColor
 			// 
@@ -139,12 +152,12 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(16, 32);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(34, 13);
+			this.label1.Size = new System.Drawing.Size(235, 13);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Props";
+			this.ToolTip.SetToolTip(this.label1, "Prop shape color.");
 			// 
 			// LblAreasColor
 			// 
@@ -181,21 +194,21 @@
 			// 
 			// label6
 			// 
-			this.label6.AutoSize = true;
 			this.label6.Location = new System.Drawing.Point(16, 70);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(34, 13);
+			this.label6.Size = new System.Drawing.Size(235, 13);
 			this.label6.TabIndex = 5;
 			this.label6.Text = "Areas";
+			this.ToolTip.SetToolTip(this.label6, "Area bounding box color.");
 			// 
 			// label4
 			// 
-			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(16, 51);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(40, 13);
+			this.label4.Size = new System.Drawing.Size(235, 13);
 			this.label4.TabIndex = 3;
 			this.label4.Text = "Events";
+			this.ToolTip.SetToolTip(this.label4, "Event shape color.");
 			// 
 			// tabControl1
 			// 
@@ -212,6 +225,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.Controls.Add(this.label7);
 			this.tabPage2.Controls.Add(this.BtnSelectDataFolder);
 			this.tabPage2.Controls.Add(this.LblDataFolder);
 			this.tabPage2.Controls.Add(this.TxtDataFolder);
@@ -223,32 +237,6 @@
 			this.tabPage2.Text = "Folders";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.ForeColor = System.Drawing.Color.Gray;
-			this.label3.Location = new System.Drawing.Point(16, 120);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(232, 13);
-			this.label3.TabIndex = 11;
-			this.label3.Text = "Right-click a color to reset it to the default color.";
-			// 
-			// TxtDataFolder
-			// 
-			this.TxtDataFolder.Location = new System.Drawing.Point(66, 10);
-			this.TxtDataFolder.Name = "TxtDataFolder";
-			this.TxtDataFolder.Size = new System.Drawing.Size(176, 20);
-			this.TxtDataFolder.TabIndex = 1;
-			// 
-			// LblDataFolder
-			// 
-			this.LblDataFolder.AutoSize = true;
-			this.LblDataFolder.Location = new System.Drawing.Point(16, 13);
-			this.LblDataFolder.Name = "LblDataFolder";
-			this.LblDataFolder.Size = new System.Drawing.Size(30, 13);
-			this.LblDataFolder.TabIndex = 2;
-			this.LblDataFolder.Text = "Data";
-			// 
 			// BtnSelectDataFolder
 			// 
 			this.BtnSelectDataFolder.Location = new System.Drawing.Point(248, 10);
@@ -259,9 +247,36 @@
 			this.BtnSelectDataFolder.UseVisualStyleBackColor = true;
 			this.BtnSelectDataFolder.Click += new System.EventHandler(this.BtnSelectDataFolder_Click);
 			// 
+			// LblDataFolder
+			// 
+			this.LblDataFolder.Location = new System.Drawing.Point(16, 13);
+			this.LblDataFolder.Name = "LblDataFolder";
+			this.LblDataFolder.Size = new System.Drawing.Size(44, 13);
+			this.LblDataFolder.TabIndex = 2;
+			this.LblDataFolder.Text = "Data";
+			this.ToolTip.SetToolTip(this.LblDataFolder, "Extracted Mabinogi data folder, used to get additional information, like prop nam" +
+        "es.");
+			// 
+			// TxtDataFolder
+			// 
+			this.TxtDataFolder.Location = new System.Drawing.Point(66, 10);
+			this.TxtDataFolder.Name = "TxtDataFolder";
+			this.TxtDataFolder.Size = new System.Drawing.Size(176, 20);
+			this.TxtDataFolder.TabIndex = 1;
+			// 
 			// DlgFolder
 			// 
 			this.DlgFolder.ShowNewFolderButton = false;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.ForeColor = System.Drawing.Color.Gray;
+			this.label7.Location = new System.Drawing.Point(16, 120);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(244, 13);
+			this.label7.TabIndex = 4;
+			this.label7.Text = "Some options might require a restart to take effect.";
 			// 
 			// FrmSettings
 			// 
@@ -311,5 +326,7 @@
 		private System.Windows.Forms.Label LblDataFolder;
 		private System.Windows.Forms.TextBox TxtDataFolder;
 		private System.Windows.Forms.FolderBrowserDialog DlgFolder;
+		private System.Windows.Forms.ToolTip ToolTip;
+		private System.Windows.Forms.Label label7;
 	}
 }
