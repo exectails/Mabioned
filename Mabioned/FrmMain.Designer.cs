@@ -51,6 +51,7 @@
 			this.MnuShowEventsUndefined = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.MnuShowAreas = new System.Windows.Forms.MenuItem();
+			this.MnuShowHeightmap = new System.Windows.Forms.MenuItem();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.MnuScaleToFit = new System.Windows.Forms.MenuItem();
 			this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -66,6 +67,7 @@
 			this.BtnScrollTool = new System.Windows.Forms.ToolStripButton();
 			this.BtnMoveTool = new System.Windows.Forms.ToolStripButton();
 			this.BtnRotateTool = new System.Windows.Forms.ToolStripButton();
+			this.BtnFreeTool = new System.Windows.Forms.ToolStripButton();
 			this.StatusStrip = new System.Windows.Forms.StatusStrip();
 			this.LblCurrentPosition = new System.Windows.Forms.ToolStripStatusLabel();
 			this.LblScale = new System.Windows.Forms.ToolStripStatusLabel();
@@ -74,13 +76,13 @@
 			this.TreeRegion = new System.Windows.Forms.TreeView();
 			this.ImgsTree = new System.Windows.Forms.ImageList(this.components);
 			this.PropertyGrid = new System.Windows.Forms.PropertyGrid();
+			this.RegionCanvas = new PrimitiveCanvas.Canvas();
 			this.ImgMap = new System.Windows.Forms.PictureBox();
 			this.OfdRegion = new System.Windows.Forms.OpenFileDialog();
 			this.CtxMap = new System.Windows.Forms.ContextMenu();
 			this.MnuCopyCoordinates = new System.Windows.Forms.MenuItem();
 			this.MnuCopyAuraWarp = new System.Windows.Forms.MenuItem();
 			this.SfdRegion = new System.Windows.Forms.SaveFileDialog();
-			this.MnuShowHeightmap = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -210,7 +212,7 @@
 			this.MnuShowProps.Checked = true;
 			this.MnuShowProps.Index = 0;
 			this.MnuShowProps.Text = "Show Props";
-			this.MnuShowProps.Click += new System.EventHandler(this.MnuShowToggle_Click);
+			this.MnuShowProps.Click += new System.EventHandler(this.MnuShowProps_Click);
 			// 
 			// MnuShowEvents
 			// 
@@ -244,7 +246,13 @@
 			// 
 			this.MnuShowAreas.Index = 2;
 			this.MnuShowAreas.Text = "Show Areas";
-			this.MnuShowAreas.Click += new System.EventHandler(this.MnuShowToggle_Click);
+			this.MnuShowAreas.Click += new System.EventHandler(this.MnuShowAreas_Click);
+			// 
+			// MnuShowHeightmap
+			// 
+			this.MnuShowHeightmap.Enabled = false;
+			this.MnuShowHeightmap.Index = 3;
+			this.MnuShowHeightmap.Text = "Show Heightmap";
 			// 
 			// menuItem1
 			// 
@@ -297,7 +305,8 @@
 			this.toolStripSeparator1,
 			this.BtnScrollTool,
 			this.BtnMoveTool,
-			this.BtnRotateTool});
+			this.BtnRotateTool,
+			this.BtnFreeTool});
 			this.ToolStrip.Location = new System.Drawing.Point(0, 0);
 			this.ToolStrip.Name = "ToolStrip";
 			this.ToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -343,33 +352,45 @@
 			// 
 			// BtnScrollTool
 			// 
+			this.BtnScrollTool.Checked = true;
+			this.BtnScrollTool.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.BtnScrollTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.BtnScrollTool.Enabled = false;
 			this.BtnScrollTool.Image = ((System.Drawing.Image)(resources.GetObject("BtnScrollTool.Image")));
 			this.BtnScrollTool.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.BtnScrollTool.Name = "BtnScrollTool";
 			this.BtnScrollTool.Size = new System.Drawing.Size(23, 22);
-			this.BtnScrollTool.Text = "Hand Tool";
+			this.BtnScrollTool.Text = "Hand Tool (1)";
+			this.BtnScrollTool.Click += new System.EventHandler(this.BtnScrollTool_Click);
 			// 
 			// BtnMoveTool
 			// 
 			this.BtnMoveTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.BtnMoveTool.Enabled = false;
 			this.BtnMoveTool.Image = ((System.Drawing.Image)(resources.GetObject("BtnMoveTool.Image")));
 			this.BtnMoveTool.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.BtnMoveTool.Name = "BtnMoveTool";
 			this.BtnMoveTool.Size = new System.Drawing.Size(23, 22);
-			this.BtnMoveTool.Text = "Move Tool";
+			this.BtnMoveTool.Text = "Move Tool (2)";
+			this.BtnMoveTool.Click += new System.EventHandler(this.BtnMoveTool_Click);
 			// 
 			// BtnRotateTool
 			// 
 			this.BtnRotateTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.BtnRotateTool.Enabled = false;
 			this.BtnRotateTool.Image = ((System.Drawing.Image)(resources.GetObject("BtnRotateTool.Image")));
 			this.BtnRotateTool.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.BtnRotateTool.Name = "BtnRotateTool";
 			this.BtnRotateTool.Size = new System.Drawing.Size(23, 22);
-			this.BtnRotateTool.Text = "Rotate Tool";
+			this.BtnRotateTool.Text = "Rotate Tool (3)";
+			this.BtnRotateTool.Click += new System.EventHandler(this.BtnRotateTool_Click);
+			// 
+			// BtnFreeTool
+			// 
+			this.BtnFreeTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.BtnFreeTool.Image = ((System.Drawing.Image)(resources.GetObject("BtnFreeTool.Image")));
+			this.BtnFreeTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.BtnFreeTool.Name = "BtnFreeTool";
+			this.BtnFreeTool.Size = new System.Drawing.Size(23, 22);
+			this.BtnFreeTool.Text = "Free Tool (0)";
+			this.BtnFreeTool.Click += new System.EventHandler(this.BtnFreeTool_Click);
 			// 
 			// StatusStrip
 			// 
@@ -394,8 +415,8 @@
 			// 
 			this.LblScale.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
 			this.LblScale.Name = "LblScale";
-			this.LblScale.Size = new System.Drawing.Size(62, 19);
-			this.LblScale.Text = "Scale 1:50";
+			this.LblScale.Size = new System.Drawing.Size(56, 19);
+			this.LblScale.Text = "Scale 1:1";
 			// 
 			// SplMain
 			// 
@@ -412,6 +433,7 @@
 			// 
 			this.SplMain.Panel2.AutoScroll = true;
 			this.SplMain.Panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.SplMain.Panel2.Controls.Add(this.RegionCanvas);
 			this.SplMain.Panel2.Controls.Add(this.ImgMap);
 			this.SplMain.Size = new System.Drawing.Size(1034, 611);
 			this.SplMain.SplitterDistance = 320;
@@ -451,7 +473,6 @@
 			this.TreeRegion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeRegion_AfterSelect);
 			this.TreeRegion.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeRegion_NodeMouseClick);
 			this.TreeRegion.DoubleClick += new System.EventHandler(this.TreeRegion_DoubleClick);
-			this.TreeRegion.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TreeRegion_KeyUp);
 			// 
 			// ImgsTree
 			// 
@@ -476,6 +497,28 @@
 			this.PropertyGrid.ViewBorderColor = System.Drawing.Color.White;
 			this.PropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGrid_PropertyValueChanged);
 			this.PropertyGrid.PropertySortChanged += new System.EventHandler(this.PropertyGrid_PropertySortChanged);
+			// 
+			// RegionCanvas
+			// 
+			this.RegionCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.RegionCanvas.DrawOutsideCanvasArea = false;
+			this.RegionCanvas.InvertY = true;
+			this.RegionCanvas.Location = new System.Drawing.Point(0, 0);
+			this.RegionCanvas.Name = "RegionCanvas";
+			this.RegionCanvas.ScaleCurrent = 1F;
+			this.RegionCanvas.ScaleMax = 1000F;
+			this.RegionCanvas.ScaleMin = 1F;
+			this.RegionCanvas.ScaleStep = 5F;
+			this.RegionCanvas.Size = new System.Drawing.Size(710, 611);
+			this.RegionCanvas.TabIndex = 1;
+			this.RegionCanvas.Text = "canvas1";
+			this.RegionCanvas.ObjectMoved += new System.EventHandler<PrimitiveCanvas.Objects.ObjectMovedEventArgs>(this.RegionCanvas_ObjectMoved);
+			this.RegionCanvas.ObjectRotated += new System.EventHandler<PrimitiveCanvas.Objects.ObjectRotatedEventArgs>(this.RegionCanvas_ObjectRotated);
+			this.RegionCanvas.ObjectSelected += new System.EventHandler<PrimitiveCanvas.Objects.ObjectSelectedEventArgs>(this.RegionCanvas_ObjectSelected);
+			this.RegionCanvas.ScaleChanged += new System.EventHandler<PrimitiveCanvas.Objects.ScaleChangedEventArgs>(this.RegionCanvas_ScaleChanged);
+			this.RegionCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RegionCanvas_MouseClick);
+			this.RegionCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RegionCanvas_MouseDown);
+			this.RegionCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RegionCanvas_MouseMove);
 			// 
 			// ImgMap
 			// 
@@ -512,12 +555,6 @@
 			this.MnuCopyAuraWarp.Text = "Copy Aura Warp Command";
 			this.MnuCopyAuraWarp.Click += new System.EventHandler(this.MnuCopyAuraWarp_Click);
 			// 
-			// MnuShowHeightmap
-			// 
-			this.MnuShowHeightmap.Enabled = false;
-			this.MnuShowHeightmap.Index = 3;
-			this.MnuShowHeightmap.Text = "Show Heightmap";
-			// 
 			// FrmMain
 			// 
 			this.AllowDrop = true;
@@ -528,6 +565,7 @@
 			this.Controls.Add(this.StatusStrip);
 			this.Controls.Add(this.ToolStrip);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.Menu = this.MainMenu;
 			this.Name = "FrmMain";
 			this.Text = "Mabioned";
@@ -535,6 +573,7 @@
 			this.Load += new System.EventHandler(this.FrmMain_Load);
 			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FrmMain_DragDrop);
 			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FrmMain_DragEnter);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyUp);
 			this.ToolStrip.ResumeLayout(false);
 			this.ToolStrip.PerformLayout();
 			this.StatusStrip.ResumeLayout(false);
@@ -606,6 +645,8 @@
 		private System.Windows.Forms.MenuItem MnuEdit;
 		private System.Windows.Forms.MenuItem MnuEditSettings;
 		private System.Windows.Forms.MenuItem MnuShowHeightmap;
+		private PrimitiveCanvas.Canvas RegionCanvas;
+		private System.Windows.Forms.ToolStripButton BtnFreeTool;
 	}
 }
 

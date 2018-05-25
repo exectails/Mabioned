@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\OpenPainter.ColorPicker.dll</HintPath>
     </Reference>
+    <Reference Include="PrimitiveCanvas">
+      <HintPath>..\Libs\PrimitiveCanvas.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />

@@ -1,0 +1,1089 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PrimitiveCanvas</name>
+    </assembly>
+    <members>
+        <member name="T:PrimitiveCanvas.Canvas">
+            <summary>
+            Draws objects on an area in itself.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.IsDragging">
+            <summary>
+            Returns true if something is currently dragged in this control.
+            For example, moving or rotating an object.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.MultiSelect">
+            <summary>
+            Gets or sets whether multiple objects can be selected
+            at the same time.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.BackColor">
+            <summary>
+            Gets or sets the controls background color.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.CanvasBackColor">
+            <summary>
+            Gets or sets the color of the actual draw area inside
+            the control.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.ScaleMin">
+            <summary>
+            Gets or sets the minimum scale value, specifying how far
+            you can "zoom in".
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.ScaleMax">
+            <summary>
+            Gets or sets the maximum scale value, specifying how far
+            you can "zoom out".
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.ScaleCurrent">
+            <summary>
+            Gets or sets the current scale.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.ScaleStep">
+            <summary>
+            Gets or sets by how much the scale changes when the mouse wheel
+            is used.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.InvertY">
+            <summary>
+            Gets or sets whether the canvas is inverted and 0,0 is found
+            at the bottom left instead of the top right.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.SelectedObjectsCount">
+            <summary>
+            Returns the number of objects currently selected.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.DrawOutsideCanvasArea">
+            <summary>
+            Gets or sets whether to draw outside of the canvas' drawing
+            area or to clip it.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.SelectedTool">
+            <summary>
+            Gets or sets the selected interaction tool.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Canvas.CanvasAreaSize">
+            <summary>
+            Gets or sets the canvas' drawing area size.
+            </summary>
+        </member>
+        <member name="E:PrimitiveCanvas.Canvas.ObjectMoved">
+            <summary>
+            Raised when an object was moved.
+            </summary>
+        </member>
+        <member name="E:PrimitiveCanvas.Canvas.ObjectRotated">
+            <summary>
+            Raised when an object was rotated.
+            </summary>
+        </member>
+        <member name="E:PrimitiveCanvas.Canvas.ObjectSelected">
+            <summary>
+            Raised when an object was selected.
+            </summary>
+        </member>
+        <member name="E:PrimitiveCanvas.Canvas.ScaleChanged">
+            <summary>
+            Raised when the canvas' scale changed.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.#ctor">
+            <summary>
+            Creates new instance.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.BeginUpdate">
+            <summary>
+            Stops redraws of the control until EndUpdate is called.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.EndUpdate">
+            <summary>
+            Reactivates redraws and invalidates control.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnCreateControl">
+            <summary>
+            Initializes canvas area after the control was created.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.SetCanvasArea(System.Single,System.Single)">
+            <summary>
+            Sets the canvas drawing area's size.
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ScaleToFitCenter">
+            <summary>
+            Scales canvas area to fit into the control's area and
+            centers it.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ScaleToFit">
+            <summary>
+            Scales canvas area to fit into the control's area.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.CenterCanvas">
+            <summary>
+            Centers canvas area on control's area.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.Add(PrimitiveCanvas.Objects.CanvasObject)">
+            <summary>
+            Adds object to the canvas for it to be drawn.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.SortObjects">
+            <summary>
+            Sorts objects by draw order.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetFirstObjectAt(System.Drawing.PointF)">
+            <summary>
+            Returns the first object at the given world position.
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetObject(System.Func{PrimitiveCanvas.Objects.CanvasObject,System.Boolean})">
+            <summary>
+            Returns first object that matches the given predicate, or null
+            no object was found.
+            </summary>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.Remove(PrimitiveCanvas.Objects.CanvasObject)">
+            <summary>
+            Removes the given object from this canvas.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetObjectsAt(System.Drawing.PointF,System.Func{PrimitiveCanvas.Objects.CanvasObject,System.Boolean})">
+            <summary>
+            Returns the first object at the given world position.
+            </summary>
+            <param name="position"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ClearObjects">
+            <summary>
+            Removes all canvas objects.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Paints control, incl canvas area and all objects.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Paints control's background.
+            </summary>
+            <param name="pevent"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetWorldPosition(System.Drawing.PointF)">
+            <summary>
+            Returns the position in 1:1 scale, relative to the canvas
+            area and its scale.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetCanvasPosition(System.Drawing.PointF)">
+            <summary>
+            Inverse of GetWorldPosition, returns position on the canvas
+            relative to a scaled point on it.
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.TransformCanvasPosition(System.Drawing.PointF)">
+            <summary>
+            Returns position in canvas area, based on a point on the control.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.SelectObject(PrimitiveCanvas.Objects.CanvasObject,System.Boolean)">
+            <summary>
+            Marks the given object as selected.
+            </summary>
+            <param name="obj">Canvas object to select.</param>
+            <param name="addToSelection">
+            Set to true if object should be added to the currently
+            selected objects.
+            </param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ClearSelectionInternal">
+            <summary>
+            Unselects all selected objects without invalidating.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ClearSelection">
+            <summary>
+            Unselects all selected objects.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.UnselectObject(PrimitiveCanvas.Objects.CanvasObject)">
+            <summary>
+            Unselected the given object.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.HandleSelection(System.Collections.Generic.List{PrimitiveCanvas.Objects.CanvasObject})">
+            <summary>
+            Updates selected objects with the given ones.
+            </summary>
+            <param name="objects"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.GetSelectedObjects">
+            <summary>
+            Returns list of all selected objects.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Initializes drag process when the mouse is pressed down.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Ends drag process when mouse is let go off.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles dragging process while the mouse moves over the control.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnMouseWheel(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Modifies scale, zooming in and out when the mouse wheel is used.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnMouseDoubleClick(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Resets scale area on double middle click.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnObjectMoved(PrimitiveCanvas.Objects.ObjectMovedEventArgs)">
+            <summary>
+            Called when an object was moved.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnObjectRotated(PrimitiveCanvas.Objects.ObjectRotatedEventArgs)">
+            <summary>
+            Called when an object was rotated.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnObjectSelected(PrimitiveCanvas.Objects.ObjectSelectedEventArgs)">
+            <summary>
+            Called when an object was selected.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.OnScaleChanged(PrimitiveCanvas.Objects.ScaleChangedEventArgs)">
+            <summary>
+            Called when the canvas' scale changed..
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Canvas.ScrollToWorldPosition(System.Drawing.PointF)">
+            <summary>
+            Scrolls the given position to the center of the canvas.
+            </summary>
+            <param name="pos"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Interactions.InteractionMode">
+            <summary>
+            Specifies how objects can be interacted with.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.InteractionMode.Direct">
+            <summary>
+            Objects can be directly moved, rotated, etc.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.InteractionMode.Tools">
+            <summary>
+            The respective tool must be active to interact with an object.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Interactions.Tool">
+            <summary>
+            Specifies which tool is currently selected.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.Tool.Free">
+            <summary>
+            Direct control over everything.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.Tool.Scroll">
+            <summary>
+            Scroll over map by using the mouse.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.Tool.Move">
+            <summary>
+            Move an object with the mouse.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.Tool.Rotate">
+            <summary>
+            Rotate an object with the mouse.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.CanvasObject">
+            <summary>
+            An object on the canvas that can consist of multiple primitives.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.CanvasObject.DefaultPriority">
+            <summary>
+            Default priority assigned to new objects.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Canvas">
+            <summary>
+            Gets or sets the canvas this object is part of.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Position">
+            <summary>
+            Gets or sets the object's position. Its primitives are moved
+            relative to it.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Primitives">
+            <summary>
+            Returns a list of the object's primitives.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Tag">
+            <summary>
+            Gets or sets a tag that associates other data with this object.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Interactions">
+            <summary>
+            Gets or sets what interactions this object accepts.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Priority">
+            <summary>
+            Gets or sets the interaction priority for this object.
+            </summary>
+            <remarks>
+            On selection the canvas prioritizes objects with a low priority
+            property, cycling through the ones at the given position.
+            </remarks>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.DrawOrder">
+            <summary>
+            Gets or sets the object's draw order.
+            </summary>
+            <remarks>
+            The higher the property's value, the later the object is drawn,
+            layering on top of objects with lower draw orders.
+            
+            Property currently doesn't affect draw order if it's set after
+            the object was added to a canvas.
+            </remarks>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Selected">
+            <summary>
+            Returns true if this object is currently selected.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Visible">
+            <summary>
+            Gets or sets whether this object is visible.
+            </summary>
+            <remarks>
+            Objects that aren't visible can't be interacted with.
+            </remarks>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.CanvasObject.Style">
+            <summary>
+            Gets or sets the object's style, specifying how its
+            primitives are drawn.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.#ctor(System.Single,System.Single,PrimitiveCanvas.Primitives.Primitive[])">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="primitives"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.#ctor(System.Drawing.PointF,PrimitiveCanvas.Primitives.Primitive[])">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="position"></param>
+            <param name="primitives"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.Add(PrimitiveCanvas.Primitives.Primitive)">
+            <summary>
+            Adds primitive to object.
+            </summary>
+            <param name="primitive"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.Is(PrimitiveCanvas.Objects.ObjectInteractions)">
+            <summary>
+            Returns true if the given interaction is enabled by the
+            object.
+            </summary>
+            <param name="interaction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves object and its primitives by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.MoveTo(System.Single,System.Single)">
+            <summary>
+            Moves object to given position and updates its primitive's
+            position's relative to it.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.Rotate(System.Double)">
+            <summary>
+            Rotates the object's primitives by the given amount of radians
+            around the object's position as the pivot point.
+            </summary>
+            <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if the given position is inside one of the
+            object's primitives.
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.GetOutlinePen">
+            <summary>
+            Returns a pen to draw the object primitive's outlines.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.GetForegroundBrush">
+            <summary>
+            Returns a brush to draw the object primitive's outlines.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws object's primitives to graphics.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.op_Implicit(PrimitiveCanvas.Primitives.Primitive)~PrimitiveCanvas.Objects.CanvasObject">
+            <summary>
+            Implicitly converts primitive to a canvas object.
+            </summary>
+            <param name="primitive"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.DragMode">
+            <summary>
+            Specifies what kind of drag process is in progress.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.DragMode.None">
+            <summary>
+            No dragging here.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.DragMode.Move">
+            <summary>
+            Moving an object.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.DragMode.Rotate">
+            <summary>
+            Rotate an object.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.DragMode.Scroll">
+            <summary>
+            Moving the canvas area.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.DrawStyle">
+            <summary>
+            Specifies how primitives are drawn.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.ForeColor">
+            <summary>
+            Gets or sets the color used for foreground colors, such as
+            text.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.SelectedForeColor">
+            <summary>
+            Gets or sets the color used for foreground colors, such as
+            text, if the object is selected.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.OutlineColor">
+            <summary>
+            Gets or sets the color of the outline.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.SelectedOutlineColor">
+            <summary>
+            Gets or sets the color of the outline if the object
+            is selected.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.OutlineWidth">
+            <summary>
+            Gets or sets the width of the outline.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.DrawStyle.SelectedOutlineWidth">
+            <summary>
+            Gets or sets the width of the outline if the object
+            is selected.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.ObjectInteractions">
+            <summary>
+            Specifies which interaction's an object accepts.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.ObjectInteractions.None">
+            <summary>
+            No interactions.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.ObjectInteractions.Selectable">
+            <summary>
+            Object can be selected.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.ObjectInteractions.Movable">
+            <summary>
+            Object can be moved around.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.ObjectInteractions.Rotatable">
+            <summary>
+            Object can be rotated.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Objects.ObjectInteractions.All">
+            <summary>
+            Object accepts all interactions.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.ObjectSelectedEventArgs">
+            <summary>
+            Event argument for when an object was selected.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ObjectSelectedEventArgs.Object">
+            <summary>
+            Returns the selected object.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.ObjectSelectedEventArgs.#ctor(PrimitiveCanvas.Objects.CanvasObject)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.ScaleChangedEventArgs">
+            <summary>
+            Event argument for when the canvas' scale changed.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ScaleChangedEventArgs.ScaleBefore">
+            <summary>
+            Returns the scale before it changed.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ScaleChangedEventArgs.Scale">
+            <summary>
+            Returns the current scale.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.ScaleChangedEventArgs.#ctor(System.Single,System.Single)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="scaleBefore"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.ObjectRotatedEventArgs">
+            <summary>
+            Event argument for when an object was rotated.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ObjectRotatedEventArgs.Object">
+            <summary>
+            Returns the moved object.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ObjectRotatedEventArgs.Radians">
+            <summary>
+            Returns the number of degree the object was rotated by.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.ObjectRotatedEventArgs.#ctor(PrimitiveCanvas.Objects.CanvasObject,System.Double)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="obj"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Objects.ObjectMovedEventArgs">
+            <summary>
+            Event argument for when an object was moved.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ObjectMovedEventArgs.Object">
+            <summary>
+            Returns the moved object.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Objects.ObjectMovedEventArgs.Delta">
+            <summary>
+            Returns by how much the object's position changed.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Objects.ObjectMovedEventArgs.#ctor(PrimitiveCanvas.Objects.CanvasObject,System.Drawing.PointF)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="obj"></param>
+            <param name="deltaPos"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Extensions.PointExtensions">
+            <summary>
+            Extensions for Point(F).
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Extensions.PointExtensions.RotatePoint(System.Drawing.PointF,System.Drawing.PointF,System.Double)">
+            <summary>
+            Rotates point around pivot.
+            </summary>
+            <param name="point">Point to rotate.</param>
+            <param name="pivot">Center of the rotation.</param>
+            <param name="radians">Angle to rotate by in radians.</param>
+            <returns></returns>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.Circle">
+            <summary>
+            A circular primitive.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Circle.Position">
+            <summary>
+            Gets or sets the primitive's center point.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Circle.Radius">
+            <summary>
+            Gets or sets the circle's radius.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="radius"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.#ctor(System.Drawing.PointF,System.Single)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="pos"></param>
+            <param name="radius"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws primitive.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if given position is inside this primitive.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves circle by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Does not rotate this circle, as that would be pointless.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.FlatRect">
+            <summary>
+            A rectangle filled with a color.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.FlatRect.Position">
+            <summary>
+            Gets or sets the rect's position.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.FlatRect.Color">
+            <summary>
+            Gets or sets the rect's color.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.FlatRect.Rectangle">
+            <summary>
+            Gets or sets the rect's area.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.#ctor(System.Drawing.RectangleF,System.Drawing.Color)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="rectangle"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws rect to graphics.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if given position is within the rect.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves rect by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Does nothing for rect.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.Picture">
+            <summary>
+            An image to be drawn on a canvas.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Picture.Position">
+            <summary>
+            Gets or sets the picture's position.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Picture.Image">
+            <summary>
+            Gets or sets the image to draw.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Picture.SrcRect">
+            <summary>
+            Gets or sets the section of the image to drawn.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.#ctor(System.Drawing.Image)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="image"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.#ctor(System.Drawing.Image,System.Drawing.RectangleF)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="image"></param>
+            <param name="srcRect"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws image to graphics.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if the given position is within the image's bounds.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves the image by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Does nothing for an image.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.Primitive">
+            <summary>
+            Represents a primitive shape to be drawn on the canvas.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Primitive.Object">
+            <summary>
+            Gets or sets the object this primitive is part of.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Primitive.Position">
+            <summary>
+            Gets or sets the primitive's center position.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if the given position is inside this primitive.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws the primitive.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves the primitive by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.Rotate(System.Double)">
+            <summary>
+            Rotates this primitive by the given amount of radians.
+            </summary>
+            <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Rotates this primitive by the given amount of radians.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.Polygon">
+            <summary>
+            A polygon shape made up of several points.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Polygon.Points">
+            <summary>
+            Gets or sets the primitive's points that make up its shape.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Polygon.Position">
+            <summary>
+            Gets or sets the primitive's center position.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.#ctor">
+            <summary>
+            Creates new, uninitialized instance.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.#ctor(System.Drawing.PointF[])">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="points"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws this primitive.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if the given point is inside this primitive.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves the polygon's points by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Rotates the primitive by the given amount of radian degrees.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.Rect">
+            <summary>
+            A rectangular primitive made up of four points.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Rect.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="centerX"></param>
+            <param name="centerY"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Rect.#ctor(System.Drawing.PointF,System.Single,System.Single)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="center"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="T:PrimitiveCanvas.Primitives.TextString">
+            <summary>
+            A string to be drawn on a canvas.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.TextString.Position">
+            <summary>
+            Gets or sets the text's position.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.TextString.Font">
+            <summary>
+            Gets or sets the font the text is drawn with.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.TextString.Text">
+            <summary>
+            Gets or sets the string's value.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.TextString.StringFormat">
+            <summary>
+            Gets or sets the text's alignment.
+            </summary>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.String)">
+            <summary>
+            Creates new instance with Arial as its font.
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.Drawing.Font,System.String)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="font"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
+            <summary>
+            Draws string to graphics.
+            </summary>
+            <param name="g"></param>
+            <param name="scale"></param>
+            <param name="invertHeight"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.IsInside(System.Drawing.PointF)">
+            <summary>
+            Returns true if the given position is within the text's bounds.
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.MoveBy(System.Single,System.Single)">
+            <summary>
+            Moves the text by the given amount.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.Rotate(System.Drawing.PointF,System.Double)">
+            <summary>
+            Does nothing for a string.
+            </summary>
+            <param name="pivot"></param>
+            <param name="radians"></param>
+        </member>
+    </members>
+</doc>

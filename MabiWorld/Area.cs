@@ -56,6 +56,12 @@ namespace MabiWorld
 		public byte[] Unk10 { get; set; }
 
 		/// <summary>
+		/// Gets or sets an object associated with this event.
+		/// </summary>
+		[Browsable(false)]
+		public object Tag { get; set; }
+
+		/// <summary>
 		/// Reads area from given file.
 		/// </summary>
 		/// <param name="filePath"></param>

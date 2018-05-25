@@ -52,6 +52,12 @@ namespace MabiWorld
 		public Area Area { get; }
 
 		/// <summary>
+		/// Gets or sets an object associated with this prop.
+		/// </summary>
+		[Browsable(false)]
+		public object Tag { get; set; }
+
+		/// <summary>
 		/// Creates new instance.
 		/// </summary>
 		/// <param name="area"></param>

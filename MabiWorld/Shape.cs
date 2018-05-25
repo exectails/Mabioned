@@ -105,14 +105,14 @@ namespace MabiWorld
 			double a02 = this.DirY1 * this.LenY;
 			double a03 = this.DirY2 * this.LenY;
 
-			double sx1 = pX - a00 - a02; if (sx1 < pX) sx1 = Math.Ceiling(sx1);
-			double sy1 = pY - a01 - a03; if (sy1 < pY) sy1 = Math.Ceiling(sy1);
-			double sx2 = pX + a00 - a02; if (sx2 < pX) sx2 = Math.Ceiling(sx2);
-			double sy2 = pY + a01 - a03; if (sy2 < pY) sy2 = Math.Ceiling(sy2);
-			double sx3 = pX + a00 + a02; if (sx3 < pX) sx3 = Math.Ceiling(sx3);
-			double sy3 = pY + a01 + a03; if (sy3 < pY) sy3 = Math.Ceiling(sy3);
-			double sx4 = pX - a00 + a02; if (sx4 < pX) sx4 = Math.Ceiling(sx4);
-			double sy4 = pY - a01 + a03; if (sy4 < pY) sy4 = Math.Ceiling(sy4);
+			var sx1 = pX - a00 - a02; if (sx1 < pX) sx1 = Math.Ceiling(sx1);
+			var sy1 = pY - a01 - a03; if (sy1 < pY) sy1 = Math.Ceiling(sy1);
+			var sx2 = pX + a00 - a02; if (sx2 < pX) sx2 = Math.Ceiling(sx2);
+			var sy2 = pY + a01 - a03; if (sy2 < pY) sy2 = Math.Ceiling(sy2);
+			var sx3 = pX + a00 + a02; if (sx3 < pX) sx3 = Math.Ceiling(sx3);
+			var sy3 = pY + a01 + a03; if (sy3 < pY) sy3 = Math.Ceiling(sy3);
+			var sx4 = pX - a00 + a02; if (sx4 < pX) sx4 = Math.Ceiling(sx4);
+			var sy4 = pY - a01 + a03; if (sy4 < pY) sy4 = Math.Ceiling(sy4);
 
 			if (a02 * a01 > a03 * a00)
 			{
@@ -144,6 +144,30 @@ namespace MabiWorld
 			}
 
 			return points;
+		}
+
+		/// <summary>
+		/// Sets the shape's values based on the four given points.
+		/// </summary>
+		/// <param name="points"></param>
+		public void SetFromPoints(PointF[] points)
+		{
+			if (points.Length != 4)
+				throw new ArgumentException("Expected 4 points.");
+
+			var x = (points[0].X + points[2].X) * 0.5;
+			var y = (points[0].Y + points[2].Y) * 0.5;
+
+			var angle = Math.Atan2(points[1].Y - points[0].Y, points[1].X - points[0].X);
+
+			this.Position = new PointF((float)x, (float)y);
+			this.DirX1 = (float)Math.Cos(angle);
+			this.DirX2 = (float)Math.Sin(angle);
+			this.DirY1 = (float)Math.Sin(angle);
+			this.DirY2 = (float)-Math.Cos(angle);
+			this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
+			this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+
 		}
 
 		/// <summary>

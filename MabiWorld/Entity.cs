@@ -21,7 +21,7 @@ namespace MabiWorld
 		/// <summary>
 		/// Returns the entity's position.
 		/// </summary>
-		Vector3F Position { get; }
+		Vector3F Position { get; set; }
 
 		/// <summary>
 		/// Returns a list of the entity's shapes.
@@ -41,5 +41,10 @@ namespace MabiWorld
 		/// <param name="flipHeight"></param>
 		/// <returns></returns>
 		PointF GetPoint(float scale, int? flipHeight);
+
+		/// <summary>
+		/// Returns an object associated with the entity.
+		/// </summary>
+		object Tag { get; }
 	}
 }

@@ -37,7 +37,10 @@ namespace MabiWorld
 		public Vector3F TopRight { get; set; }
 		public Vector3F TopLeft { get; set; }
 		public RegionType Type { get; set; }
+
+		[Browsable(false)]
 		public LegacyRegionType LegacyType { get; set; }
+
 		public IndoorType IndoorType { get; set; }
 		public float Unk2 { get; set; }
 		public string Scene { get; set; }

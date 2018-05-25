@@ -1,5 +1,9 @@
 ﻿using MabiWorld;
 using MabiWorld.PropertyEditing;
+using PrimitiveCanvas.Extensions;
+using PrimitiveCanvas.Interactions;
+using PrimitiveCanvas.Objects;
+using PrimitiveCanvas.Primitives;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +49,10 @@ namespace Mabioned
 		private bool _draggingMap;
 		private Point _mapDragStart;
 		private Point _mapRightClickLocation;
+
+		private DrawStyle _areaStyle = new DrawStyle() { OutlineColor = Settings.Default.AreasColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+		private DrawStyle _propStyle = new DrawStyle() { OutlineColor = Settings.Default.PropsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+		private DrawStyle _eventStyle = new DrawStyle() { OutlineColor = Settings.Default.EventsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 
 		/// <summary>
 		/// Returns true if a single area is open.
@@ -143,6 +151,8 @@ namespace Mabioned
 
 			if (Settings.Default.SplitterSidebar != -1)
 				this.SplSidebar.SplitterDistance = Settings.Default.SplitterSidebar;
+
+			this.SelectTool((Tool)Settings.Default.Tool);
 		}
 
 		/// <summary>
@@ -169,6 +179,10 @@ namespace Mabioned
 				_eventTypeMenuItems[eventType] = menuItem;
 			}
 
+			_areaStyle = new DrawStyle() { OutlineColor = Settings.Default.AreasColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+			_propStyle = new DrawStyle() { OutlineColor = Settings.Default.PropsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+			_eventStyle = new DrawStyle() { OutlineColor = Settings.Default.EventsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+
 			this.UpdateShowEventsAll();
 		}
 
@@ -194,6 +208,8 @@ namespace Mabioned
 			Settings.Default.SplitterMain = this.SplMain.SplitterDistance;
 			Settings.Default.SplitterSidebar = this.SplSidebar.SplitterDistance;
 
+			Settings.Default.Tool = (int)this.RegionCanvas.SelectedTool;
+
 			Settings.Default.Save();
 		}
 
@@ -208,12 +224,12 @@ namespace Mabioned
 
 			if (list.Count > 0)
 			{
-				for (int i = list.Count - 1, j = 1; i >= 0; --i, ++j)
+				for (int i = list.Count - 1, j = 1; i >= 0; --i)
 				{
-					var filepath = list[i];
-					var menuItem = new MenuItem(j + " " + filepath);
+					var filePath = list[i];
+					var menuItem = new MenuItem(j++ + " " + filePath);
 					menuItem.Click += this.MnuRecentItem_Click;
-					menuItem.Tag = filepath;
+					menuItem.Tag = filePath;
 
 					this.MnuRecent.MenuItems.Add(menuItem);
 				}
@@ -325,17 +341,106 @@ namespace Mabioned
 				_topRight = new PointF(maxX, maxY);
 
 				this.CreateTree();
-				this.SetScale(this.GetFitScale(), false);
-				this.DrawMap();
+				this.InitCanvas();
 
 				_openFilePath = filePath;
 				this.AddLastOpenedFile(filePath);
 				this.SetModified(false);
+				this.RegionCanvas_ScaleChanged(this, new ScaleChangedEventArgs(0, this.RegionCanvas.ScaleCurrent));
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show("Failed to open file." + Environment.NewLine + ex);
 			}
+		}
+
+		/// <summary>
+		/// Initializes canvas for current region and areas.
+		/// </summary>
+		private void InitCanvas()
+		{
+			var canvas = this.RegionCanvas;
+
+			canvas.ClearObjects();
+
+			var region = _region;
+			var areas = _areas;
+			if (areas == null || !areas.Any())
+			{
+				canvas.SetCanvasArea(0, 0);
+				return;
+			}
+
+			canvas.SetCanvasArea(_topRight.X, _topRight.Y);
+			canvas.ScaleToFitCenter();
+
+			canvas.BeginUpdate();
+
+			canvas.CanvasBackColor = Settings.Default.BackgroundColor;
+
+			for (var j = 0; j < areas.Count; ++j)
+			{
+				var area = areas[j];
+
+				var w = (area.BottomRight.X - area.BottomLeft.X);
+				var h = (area.TopLeft.Y - area.BottomLeft.Y);
+				var x = (area.BottomLeft.X + w / 2);
+				var y = (area.TopLeft.Y + h / 2);
+
+				var areaObj = new CanvasObject(x, y);
+				areaObj.Add(new Rect(x, y, w, h));
+				areaObj.Interactions = ObjectInteractions.None;
+				areaObj.Visible = this.ShowAreas;
+				areaObj.DrawOrder = 100;
+				areaObj.Tag = area;
+				areaObj.Style = _areaStyle;
+				canvas.Add(areaObj);
+
+				area.Tag = areaObj;
+
+				for (var i = 0; i < area.Events.Count; ++i)
+				{
+					var evnt = area.Events[i];
+
+					var evntObj = new CanvasObject(evnt.Position.X, evnt.Position.Y);
+					foreach (var shape in evnt.Shapes)
+						evntObj.Add(new Polygon(shape.GetPoints(1, null)));
+					evntObj.Visible = this.DisplayEventType(evnt.Type);
+					evntObj.DrawOrder = 100;
+					evntObj.Priority = 200;
+					evntObj.Tag = evnt;
+					evntObj.Style = _eventStyle;
+					canvas.Add(evntObj);
+
+					evnt.Tag = evntObj;
+				}
+
+				for (var i = 0; i < area.Props.Count; ++i)
+				{
+					var prop = area.Props[i];
+
+					var propObj = new CanvasObject(prop.Position.X, prop.Position.Y);
+					if (prop.Shapes.Any())
+					{
+						foreach (var shape in prop.Shapes)
+							propObj.Add(new Polygon(shape.GetPoints(1, null)));
+					}
+					else
+					{
+						propObj.Add(new Circle(prop.Position.X, prop.Position.Y, 50));
+					}
+					propObj.Visible = this.ShowProps;
+					propObj.DrawOrder = 200;
+					propObj.Priority = 100;
+					propObj.Tag = prop;
+					propObj.Style = _propStyle;
+					canvas.Add(propObj);
+
+					prop.Tag = propObj;
+				}
+			}
+
+			canvas.EndUpdate();
 		}
 
 		/// <summary>
@@ -468,6 +573,7 @@ namespace Mabioned
 						_region.WriteTo(fs);
 
 					_openFilePath = filePath;
+					this.AddLastOpenedFile(filePath);
 					this.SetModified(false);
 				}
 				catch (Exception ex)
@@ -491,6 +597,7 @@ namespace Mabioned
 					return false;
 
 				_openFilePath = filePath;
+				this.AddLastOpenedFile(filePath);
 				this.SetModified(false);
 
 			}
@@ -593,144 +700,6 @@ namespace Mabioned
 		}
 
 		/// <summary>
-		/// (Re)draws map.
-		/// </summary>
-		private void DrawMap()
-		{
-			var region = _region;
-			var areas = _areas;
-			if (areas == null || !areas.Any())
-				return;
-
-			var backBrush = new SolidBrush(Settings.Default.BackgroundColor);
-			var propPen = new Pen(Settings.Default.PropsColor);
-			var eventPen = new Pen(Settings.Default.EventsColor);
-			var areaPen = new Pen(Settings.Default.AreasColor);
-			var selectedPen = new Pen(Settings.Default.SelectionColor, 3);
-			var boundingShapePen = Pens.DarkRed;
-
-			var minX = _lowerLeft.X;
-			var minY = _lowerLeft.Y;
-			var maxX = _topRight.X;
-			var maxY = _topRight.Y;
-
-			var scale = _scale;
-
-			var width = (int)maxX;
-			var height = (int)maxY;
-			var scaledWidth = (int)(maxX / scale);
-			var scaledHeight = (int)(maxY / scale);
-			var imgWidth = (int)(maxX / scale);
-			var imgHeight = (int)(maxY / scale);
-			var regionWidth = (maxX - minX) / scale;
-			var regionHeight = (maxY - minY) / scale;
-			var offsetX = minX / scale;
-			var offsetY = minY / scale;
-
-			var transformX = 0;
-			var transformY = 0;
-			if (region == null && areas.Count == 1)
-			{
-				var area = areas[0];
-				var prevWidth = imgWidth;
-				var prevHeight = imgHeight;
-
-				imgWidth = (int)((area.BottomRight.X - area.BottomLeft.X) / scale);
-				imgHeight = (int)((area.TopLeft.Y - area.BottomLeft.Y) / scale);
-				transformX = (imgWidth - prevWidth);
-				transformY = 0;
-			}
-
-			var showProps = this.ShowProps;
-			var showEvents = this.ShowEvents;
-			var showAreas = this.ShowAreas;
-
-			var bmp = new Bitmap(imgWidth, imgHeight);
-			var g = Graphics.FromImage(bmp);
-
-			g.TranslateTransform(transformX, transformY);
-			_drawTansform = new PointF(transformX, transformY);
-
-			{
-				g.Clear(Color.White);
-				g.FillRectangle(backBrush, offsetX, scaledHeight - offsetY - regionHeight, regionWidth, regionHeight);
-
-				if (showAreas)
-				{
-					for (var i = 0; i < areas.Count; ++i)
-					{
-						var area = areas[i];
-
-						var x = (int)(area.BottomLeft.X / scale);
-						var y = (int)((maxY - area.TopLeft.Y) / scale);
-						var w = (int)((area.BottomRight.X - area.BottomLeft.X) / scale);
-						var h = (int)((area.TopLeft.Y - area.BottomLeft.Y) / scale);
-
-						g.DrawRectangle(areaPen, new Rectangle(x, y, w, h));
-					}
-				}
-
-				if (showEvents)
-				{
-					for (var i = 0; i < areas.Count; ++i)
-					{
-						var area = areas[i];
-
-						for (var j = 0; j < area.Events.Count; ++j)
-						{
-							var evnt = area.Events[j];
-
-							if (!this.DisplayEventType(evnt.Type))
-								continue;
-
-							var pen = (evnt.EntityId == _selectedEntityId ? selectedPen : eventPen);
-
-							foreach (var shape in evnt.Shapes)
-							{
-								var points = shape.GetPoints(scale, height);
-								g.DrawPolygon(pen, points);
-
-								//if (evnt.EntityId == _selectedEntityId)
-								//	g.DrawRectangle(boundingShapePen, shape.GetBoundingBox(scale, height));
-							}
-						}
-					}
-				}
-
-				if (showProps)
-				{
-					for (var i = 0; i < areas.Count; ++i)
-					{
-						var area = areas[i];
-
-						for (var j = 0; j < area.Props.Count; ++j)
-						{
-							var prop = area.Props[j];
-							var pen = (prop.EntityId == _selectedEntityId ? selectedPen : propPen);
-
-							if (prop.Shapes.Any())
-							{
-								foreach (var shape in prop.Shapes)
-								{
-									var points = shape.GetPoints(scale, height);
-									g.DrawPolygon(pen, points);
-								}
-							}
-							else
-							{
-								var point = prop.GetPoint(scale, height);
-								var size = NoPropShapesSize / scale;
-								g.DrawEllipse(pen, point.X - size / 2, point.Y - size / 2, size, size);
-							}
-						}
-					}
-				}
-			}
-
-			this.ImgMap.Image = bmp;
-		}
-
-		/// <summary>
 		/// Returns the height at the given position on the map.
 		/// </summary>
 		/// <param name="regionPos"></param>
@@ -826,7 +795,7 @@ namespace Mabioned
 
 			// Redraw map if selection was changed by the user.
 			if (e.Action != TreeViewAction.Unknown)
-				this.DrawMap();
+				this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -856,7 +825,7 @@ namespace Mabioned
 			var tag = this.TreeRegion.SelectedNode?.Tag;
 
 			if (tag is IEntity entity)
-				this.ScrollToRegionPosition(new PointF(entity.Position.X, entity.Position.Y));
+				this.RegionCanvas.ScrollToWorldPosition(entity.Position);
 		}
 
 		/// <summary>
@@ -901,7 +870,7 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void ImgMap_MouseDown(object sender, MouseEventArgs e)
 		{
-			_mapDragStart = e.Location;
+			//_mapDragStart = e.Location;
 		}
 
 		/// <summary>
@@ -911,8 +880,8 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void ImgMap_MouseUp(object sender, MouseEventArgs e)
 		{
-			this.Cursor = Cursors.Default;
-			_draggingMap = false;
+			//this.Cursor = Cursors.Default;
+			//_draggingMap = false;
 		}
 
 		/// <summary>
@@ -922,34 +891,17 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void ImgMap_MouseMove(object sender, MouseEventArgs e)
 		{
-			var pos = ToRegionPosition(e.Location);
-			this.LblCurrentPosition.Text = string.Format("{0:0} x {1:0}", pos.X, pos.Y);
+			//var pos = ToRegionPosition(e.Location);
+			//this.LblCurrentPosition.Text = string.Format("{0:0} x {1:0}", pos.X, pos.Y);
 
-			if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Middle)
-			{
-				this.Cursor = Cursors.SizeAll;
-				_draggingMap = true;
+			//if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Middle)
+			//{
+			//	this.Cursor = Cursors.SizeAll;
+			//	_draggingMap = true;
 
-				var deltaTotal = new Point(e.Location.X - _mapDragStart.X, e.Location.Y - _mapDragStart.Y);
-				this.SplMain.Panel2.AutoScrollPosition = new Point(-this.SplMain.Panel2.AutoScrollPosition.X - deltaTotal.X, -this.SplMain.Panel2.AutoScrollPosition.Y - deltaTotal.Y);
-
-				//_mapDragStart = e.Location;
-				//if (_selectedEntity != null)
-				//{
-				//	var delta = new Vector3F(deltaTotal.X * _scale, -deltaTotal.Y * _scale, 0);
-
-				//	var oldPos = _selectedEntity.Position;
-				//	(_selectedEntity as Event).Position += delta;
-				//	foreach (var shape in _selectedEntity.Shapes)
-				//	{
-				//		shape.PosX += delta.X;
-				//		shape.PosY += delta.Y;
-				//	}
-
-				//	this.PropertyGrid.SelectedObject = _selectedEntity;
-				//	this.DrawMap();
-				//}
-			}
+			//	var deltaTotal = new Point(e.Location.X - _mapDragStart.X, e.Location.Y - _mapDragStart.Y);
+			//	this.SplMain.Panel2.AutoScrollPosition = new Point(-this.SplMain.Panel2.AutoScrollPosition.X - deltaTotal.X, -this.SplMain.Panel2.AutoScrollPosition.Y - deltaTotal.Y);
+			//}
 		}
 
 		/// <summary>
@@ -959,26 +911,25 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void ImgMap_MouseClick(object sender, MouseEventArgs e)
 		{
-			var isLeft = (e.Button == MouseButtons.Left);
-			var isRight = (e.Button == MouseButtons.Right);
+			//var isLeft = (e.Button == MouseButtons.Left);
+			//var isRight = (e.Button == MouseButtons.Right);
 
-			if (!isLeft && !isRight)
-				return;
+			//if (!isLeft && !isRight)
+			//	return;
 
-			if (!_draggingMap)
-			{
-				var getNextEntity = isLeft;
+			//if (!_draggingMap)
+			//{
+			//	var getNextEntity = isLeft;
 
-				var entity = this.GetEntityAtMapPosition(e.Location, getNextEntity);
-				this.SetSelectedEntity(entity);
-				this.DrawMap();
-			}
+			//	var entity = this.GetEntityAtMapPosition(e.Location, getNextEntity);
+			//	this.SetSelectedEntity(entity);
+			//}
 
-			if (isRight)
-			{
-				this.CtxMap.Show(this.ImgMap, e.Location);
-				_mapRightClickLocation = e.Location;
-			}
+			//if (isRight)
+			//{
+			//	this.CtxMap.Show(this.ImgMap, e.Location);
+			//	_mapRightClickLocation = e.Location;
+			//}
 
 			//Console.WriteLine(this.ProbeHeight(this.ToRegionPosition(e.Location)));
 		}
@@ -994,147 +945,180 @@ namespace Mabioned
 		/// to iterate through all available ones.
 		/// </param>
 		/// <returns></returns>
-		private IEntity GetEntityAtMapPosition(PointF pos, bool getNextEntity)
-		{
-			var regionPos = this.ToRegionPosition(pos);
-			IEntity entity = null;
+		//private IEntity GetEntityAtMapPosition(PointF pos, bool getNextEntity)
+		//{
+		//	var regionPos = this.ToRegionPosition(pos);
+		//	IEntity entity = null;
 
-			var eventsAtPos = new List<Event>();
+		//	var eventsAtPos = new List<Event>();
 
-			for (var i = 0; i < _areas.Count && entity == null; ++i)
-			{
-				var area = _areas[i];
-				var props = area.Props;
-				var events = area.Events;
+		//	for (var i = 0; i < _areas.Count && entity == null; ++i)
+		//	{
+		//		var area = _areas[i];
+		//		var props = area.Props;
+		//		var events = area.Events;
 
-				// Search for props first, as they're usually small and
-				// the most likely target
-				if (this.ShowProps)
-				{
-					for (var j = 0; j < props.Count && entity == null; ++j)
-					{
-						var prop = props[j];
-						var shapes = prop.Shapes;
+		//		// Search for props first, as they're usually small and
+		//		// the most likely target
+		//		if (this.ShowProps)
+		//		{
+		//			for (var j = 0; j < props.Count && entity == null; ++j)
+		//			{
+		//				var prop = props[j];
+		//				var shapes = prop.Shapes;
 
-						for (var k = 0; k < shapes.Count && entity == null; ++k)
-						{
-							if (shapes[k].IsInside(regionPos))
-							{
-								entity = prop;
-								break;
-							}
-						}
-					}
-				}
+		//				for (var k = 0; k < shapes.Count && entity == null; ++k)
+		//				{
+		//					if (shapes[k].IsInside(regionPos))
+		//					{
+		//						entity = prop;
+		//						break;
+		//					}
+		//				}
+		//			}
+		//		}
 
-				// If no props were found under the cursor, search for all
-				// events under it and save them for later.
-				if (entity == null && this.ShowEvents)
-				{
-					for (var j = 0; j < events.Count; ++j)
-					{
-						var evnt = events[j];
-						if (!this.DisplayEventType(evnt.Type))
-							continue;
+		//		// If no props were found under the cursor, search for all
+		//		// events under it and save them for later.
+		//		if (entity == null && this.ShowEvents)
+		//		{
+		//			for (var j = 0; j < events.Count; ++j)
+		//			{
+		//				var evnt = events[j];
+		//				if (!this.DisplayEventType(evnt.Type))
+		//					continue;
 
-						var shapes = evnt.Shapes;
+		//				var shapes = evnt.Shapes;
 
-						for (var k = 0; k < shapes.Count; ++k)
-						{
-							var shape = shapes[k];
-							if (shape.IsInside(regionPos))
-							{
-								eventsAtPos.Add(evnt);
-								break;
-							}
-						}
-					}
-				}
-			}
+		//				for (var k = 0; k < shapes.Count; ++k)
+		//				{
+		//					var shape = shapes[k];
+		//					if (shape.IsInside(regionPos))
+		//					{
+		//						eventsAtPos.Add(evnt);
+		//						break;
+		//					}
+		//				}
+		//			}
+		//		}
+		//	}
 
-			// If no entity was found in all props in all regions we fall
-			// back to the list of events from all areas and cycle through
-			// them, since they're usually layered on top of each other.
-			if (entity == null && eventsAtPos.Any())
-			{
-				// Get the index of the currently selected event if any.
-				var index = -1;
-				for (var j = 0; j < eventsAtPos.Count; ++j)
-				{
-					if (eventsAtPos[j].EntityId == _selectedEntityId)
-					{
-						index = j;
-						break;
-					}
-				}
+		//	// If no entity was found in all props in all regions we fall
+		//	// back to the list of events from all areas and cycle through
+		//	// them, since they're usually layered on top of each other.
+		//	if (entity == null && eventsAtPos.Any())
+		//	{
+		//		// Get the index of the currently selected event if any.
+		//		var index = -1;
+		//		for (var j = 0; j < eventsAtPos.Count; ++j)
+		//		{
+		//			if (eventsAtPos[j].EntityId == _selectedEntityId)
+		//			{
+		//				index = j;
+		//				break;
+		//			}
+		//		}
 
-				// Return the first entity if the currently selected one
-				// is not at this position.
-				if (index == -1)
-				{
-					entity = eventsAtPos[0];
-				}
-				// Return the next entity in the list of available ones
-				// if one is currently selected.
-				else if (getNextEntity)
-				{
-					if (index == eventsAtPos.Count - 1)
-						entity = eventsAtPos[0];
-					else
-						entity = eventsAtPos[index + 1];
-				}
-				// Return the currently selected entity if iterating is
-				// disabled.
-				else if (!getNextEntity)
-				{
-					entity = eventsAtPos[index];
-				}
-			}
+		//		// Return the first entity if the currently selected one
+		//		// is not at this position.
+		//		if (index == -1)
+		//		{
+		//			entity = eventsAtPos[0];
+		//		}
+		//		// Return the next entity in the list of available ones
+		//		// if one is currently selected.
+		//		else if (getNextEntity)
+		//		{
+		//			if (index == eventsAtPos.Count - 1)
+		//				entity = eventsAtPos[0];
+		//			else
+		//				entity = eventsAtPos[index + 1];
+		//		}
+		//		// Return the currently selected entity if iterating is
+		//		// disabled.
+		//		else if (!getNextEntity)
+		//		{
+		//			entity = eventsAtPos[index];
+		//		}
+		//	}
 
-			return entity;
-		}
+		//	return entity;
+		//}
 
 		/// <summary>
 		/// Returns position in region from position on the displayed map.
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <returns></returns>
-		private PointF ToRegionPosition(PointF pos)
-		{
-			var x = pos.X;
-			var y = pos.Y;
+		//private PointF ToRegionPosition(PointF pos)
+		//{
+		//	var x = pos.X;
+		//	var y = pos.Y;
 
-			x -= _drawTansform.X;
-			y -= _drawTansform.Y;
+		//	x -= _drawTansform.X;
+		//	y -= _drawTansform.Y;
 
-			x = (x * _scale);
-			y = _topRight.Y - (y * _scale);
+		//	x = (x * _scale);
+		//	y = _topRight.Y - (y * _scale);
 
-			return new PointF(x, y);
-			//return new PointF((pos.X * _scale), ((this.ImgMap.Height - pos.Y) * _scale));
-		}
+		//	return new PointF(x, y);
+		//	//return new PointF((pos.X * _scale), ((this.ImgMap.Height - pos.Y) * _scale));
+		//}
 
 		/// <summary>
 		/// Returns position in displayed map from position in region.
 		/// </summary>
 		/// <param name="pos"></param>
 		/// <returns></returns>
-		private PointF ToMapPosition(PointF pos)
-		{
-			return new PointF((pos.X / _scale), ((_topRight.Y - pos.Y) / _scale));
-		}
+		//private PointF ToMapPosition(PointF pos)
+		//{
+		//	return new PointF((pos.X / _scale), ((_topRight.Y - pos.Y) / _scale));
+		//}
 
 		/// <summary>
-		/// Called when a "Show ..." menu option is clicked.
+		/// Called when the "Show Props" menu option is clicked,
+		/// toggles prop visibility.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuShowToggle_Click(object sender, EventArgs e)
+		private void MnuShowProps_Click(object sender, EventArgs e)
 		{
 			var menuItem = (sender as MenuItem);
-			menuItem.Checked = !menuItem.Checked;
+			var visible = (menuItem.Checked = !menuItem.Checked);
 
-			this.DrawMap();
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+				var props = area.Props;
+
+				for (var j = 0; j < props.Count; ++j)
+				{
+					var prop = props[j];
+					((CanvasObject)prop.Tag).Visible = visible;
+				}
+			}
+
+			this.RegionCanvas.Invalidate();
+		}
+
+		/// <summary>
+		/// Called when the "Show Areas" menu option is clicked,
+		/// toggles area visibility.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuShowAreas_Click(object sender, EventArgs e)
+		{
+			var menuItem = (sender as MenuItem);
+			var visible = (menuItem.Checked = !menuItem.Checked);
+
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+				((CanvasObject)area.Tag).Visible = visible;
+			}
+
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1158,12 +1142,14 @@ namespace Mabioned
 			{
 				this.TreeRegion.SelectedNode = node;
 				_selectedEntity = node.Tag as IEntity;
+				this.RegionCanvas.SelectObject((CanvasObject)_selectedEntity.Tag, false);
 			}
 			else
 			{
 				this.TreeRegion.SelectedNode = null;
 				this.PropertyGrid.SelectedObject = null;
 				_selectedEntity = null;
+				this.RegionCanvas.ClearSelection();
 			}
 		}
 
@@ -1174,124 +1160,123 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void OnMouseWheel(object sender, MouseEventArgs e)
 		{
-			var regionPos = this.ToRegionPosition(e.Location);
-			var prevScale = _scale;
+			//var regionPos = this.ToRegionPosition(e.Location);
+			//var prevScale = _scale;
 
-			if (e.Delta > 0)
-			{
-				this.ModifyScale(-ScaleStep);
-			}
-			else if (e.Delta < 0)
-			{
-				this.ModifyScale(+ScaleStep);
-			}
+			//if (e.Delta > 0)
+			//{
+			//	this.ModifyScale(-ScaleStep);
+			//}
+			//else if (e.Delta < 0)
+			//{
+			//	this.ModifyScale(+ScaleStep);
+			//}
 
-			if (prevScale > _scale)
-				this.ScrollToRegionPosition(regionPos);
+			//if (prevScale > _scale)
+			//	this.ScrollToRegionPosition(regionPos);
 
-			// Don't let event bubble up, so the panel doesn't scroll
-			((HandledMouseEventArgs)e).Handled = true;
+			//// Don't let event bubble up, so the panel doesn't scroll
+			//((HandledMouseEventArgs)e).Handled = true;
 		}
 
 		/// <summary>
 		/// Modifies scale and redraws map.
 		/// </summary>
 		/// <param name="modifier"></param>
-		private void ModifyScale(float modifier)
-		{
-			var scale = _scale + modifier;
-			this.SetScale(scale, true);
-		}
+		//private void ModifyScale(float modifier)
+		//{
+		//	var scale = _scale + modifier;
+		//	this.SetScale(scale, true);
+		//}
 
 		/// <summary>
 		/// Sets the scale and optionally redraws map.
 		/// </summary>
 		/// <param name="scale"></param>
 		/// <param name="redraw"></param>
-		private void SetScale(float scale, bool redraw)
-		{
-			var scaleBefore = _scale;
+		//private void SetScale(float scale, bool redraw)
+		//{
+		//	var scaleBefore = _scale;
 
-			var maxX = _topRight.X;
-			var maxY = _topRight.Y;
+		//	var maxX = _topRight.X;
+		//	var maxY = _topRight.Y;
 
-			if (maxX / scale > MaxMapSize)
-				scale = (maxX / MaxMapSize);
-			else if (maxY / scale > MaxMapSize)
-				scale = (maxY / MaxMapSize);
+		//	if (maxX / scale > MaxMapSize)
+		//		scale = (maxX / MaxMapSize);
+		//	else if (maxY / scale > MaxMapSize)
+		//		scale = (maxY / MaxMapSize);
 
-			scale = Math.Max(MinScale, Math.Min(MaxScale, scale));
+		//	scale = Math.Max(MinScale, Math.Min(MaxScale, scale));
 
-			if (scaleBefore != scale)
-			{
-				_scale = scale;
-				this.LblScale.Text = string.Format("Scale 1:{0:0}", _scale);
-			}
+		//	if (scaleBefore != scale)
+		//	{
+		//		_scale = scale;
+		//		this.LblScale.Text = string.Format("Scale 1:{0:0}", _scale);
+		//	}
 
-			if (redraw)
-				this.DrawMap();
-		}
+		//	if (redraw)
+		//}
 
 		/// <summary>
 		/// Returns a scale that allows the map to fit just into the panel.
 		/// </summary>
 		/// <returns></returns>
-		private float GetFitScale()
-		{
-			var panelSize = this.SplMain.Panel2.ClientSize;
-			var fitX = (int)Math.Ceiling(_topRight.X / (panelSize.Width - 30));
-			var fitY = (int)Math.Ceiling(_topRight.Y / (panelSize.Height - 30));
+		//private float GetFitScale()
+		//{
+		//	var panelSize = this.SplMain.Panel2.ClientSize;
+		//	var fitX = (int)Math.Ceiling(_topRight.X / (panelSize.Width - 30));
+		//	var fitY = (int)Math.Ceiling(_topRight.Y / (panelSize.Height - 30));
 
-			return (fitX > fitY ? fitX : fitY);
-		}
+		//	return (fitX > fitY ? fitX : fitY);
+		//}
 
 		/// <summary>
 		/// Scrolls map panel to show given region's position in the center.
 		/// </summary>
 		/// <param name="centerPos"></param>
-		private void ScrollToRegionPosition(PointF centerPos)
-		{
-			var panelSize = this.SplMain.Panel2.Size;
-			var mapPos = this.ToMapPosition(centerPos);
+		//private void ScrollToRegionPosition(PointF centerPos)
+		//{
+		//	var panelSize = this.SplMain.Panel2.Size;
+		//	var mapPos = this.ToMapPosition(centerPos);
 
-			var scrollPos = Point.Empty;
-			scrollPos.X = (int)mapPos.X - panelSize.Width / 2;
-			scrollPos.Y = (int)mapPos.Y - panelSize.Height / 2;
+		//	var scrollPos = Point.Empty;
+		//	scrollPos.X = (int)mapPos.X - panelSize.Width / 2;
+		//	scrollPos.Y = (int)mapPos.Y - panelSize.Height / 2;
 
-			this.SplMain.Panel2.AutoScrollPosition = scrollPos;
-		}
+		//	this.SplMain.Panel2.AutoScrollPosition = scrollPos;
+		//}
 
 		/// <summary>
 		/// Returns the position in the middle of the currently displayed
 		/// map.
 		/// </summary>
 		/// <returns></returns>
-		private PointF GetMapDisplayCenter()
-		{
-			var point = PointF.Empty;
+		//private PointF GetMapDisplayCenter()
+		//{
+		//	var point = PointF.Empty;
 
-			var mapSize = this.ImgMap.Size;
-			var panel = this.SplMain.Panel2;
-			var panelSize = panel.Size;
+		//	var mapSize = this.ImgMap.Size;
+		//	var panel = this.SplMain.Panel2;
+		//	var panelSize = panel.Size;
 
-			if (mapSize.Width > panelSize.Width)
-				point.X = ((panelSize.Width / 2f) + Math.Abs(panel.AutoScrollPosition.X));
+		//	if (mapSize.Width > panelSize.Width)
+		//		point.X = ((panelSize.Width / 2f) + Math.Abs(panel.AutoScrollPosition.X));
 
-			if (mapSize.Height > panelSize.Height)
-				point.Y = ((panelSize.Height / 2f) + Math.Abs(panel.AutoScrollPosition.Y));
+		//	if (mapSize.Height > panelSize.Height)
+		//		point.Y = ((panelSize.Height / 2f) + Math.Abs(panel.AutoScrollPosition.Y));
 
-			return point;
-		}
+		//	return point;
+		//}
 
 		/// <summary>
 		/// Returns the position in the middle of the currently displayed
 		/// region.
 		/// </summary>
 		/// <returns></returns>
-		private PointF GetRegionDisplayCenter()
-		{
-			return this.ToRegionPosition(this.GetMapDisplayCenter());
-		}
+		//private PointF GetRegionDisplayCenter()
+		//{
+		//	return this.ToRegionPosition(this.GetMapDisplayCenter());
+		//}
 
 		/// <summary>
 		/// Called when the property grid's sort order changed.
@@ -1318,7 +1303,7 @@ namespace Mabioned
 			foreach (MenuItem menuItem in this.MnuShowEvents.MenuItems)
 				menuItem.Checked = this.MnuShowEventsAll.Checked;
 
-			this.DrawMap();
+			this.UpdateCanvasEventVisibility();
 		}
 
 		/// <summary>
@@ -1333,7 +1318,7 @@ namespace Mabioned
 			menuItem.Checked = !menuItem.Checked;
 
 			this.UpdateShowEventsAll();
-			this.DrawMap();
+			this.UpdateCanvasEventVisibility();
 		}
 
 		/// <summary>
@@ -1343,6 +1328,27 @@ namespace Mabioned
 		private void UpdateShowEventsAll()
 		{
 			this.MnuShowEventsAll.Checked = this.MnuShowEvents.MenuItems.Cast<MenuItem>().Where(a => a.Tag is int).All(a => a.Checked);
+		}
+
+		/// <summary>
+		/// Updates visibility of all event canvas objects based on their
+		/// type's visibility setting.
+		/// </summary>
+		private void UpdateCanvasEventVisibility()
+		{
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+				var events = area.Events;
+
+				for (var j = 0; j < events.Count; ++j)
+				{
+					var evnt = events[j];
+					((CanvasObject)evnt.Tag).Visible = this.DisplayEventType(evnt.Type);
+				}
+			}
+
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1366,7 +1372,7 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuCopyCoordinates_Click(object sender, EventArgs e)
 		{
-			var pos = this.ToRegionPosition(_mapRightClickLocation);
+			var pos = this.RegionCanvas.GetWorldPosition(_mapRightClickLocation);
 			Clipboard.SetText(string.Format("{0:0}; {1:0}", pos.X, pos.Y));
 		}
 
@@ -1380,7 +1386,7 @@ namespace Mabioned
 		private void MnuCopyAuraWarp_Click(object sender, EventArgs e)
 		{
 			var regionId = (_region?.Id ?? _areas?.First().RegionId) ?? 0;
-			var pos = this.ToRegionPosition(_mapRightClickLocation);
+			var pos = this.RegionCanvas.GetWorldPosition(_mapRightClickLocation);
 			Clipboard.SetText(string.Format(">warp {0} {1:0} {2:0}", regionId, pos.X, pos.Y));
 		}
 
@@ -1391,36 +1397,48 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void PropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
+			var propertyName = e.ChangedItem.PropertyDescriptor?.Name;
+
 			if (this.PropertyGrid.SelectedObject is IEntity entity)
 			{
-				if (e.ChangedItem.PropertyDescriptor?.Name == "Position")
+				if (propertyName == "Position")
 				{
 					var oldValue = (Vector3F)e.OldValue;
 					var newValue = (Vector3F)e.ChangedItem.Value;
+					var diff = (SizeF)(newValue - oldValue);
+
+					foreach (var shape in entity.Shapes)
+					{
+						shape.Position += diff;
+						shape.BottomLeft += diff;
+						shape.TopRight += diff;
+					}
+
+					if (entity.Tag is CanvasObject obj)
+						obj.MoveBy(diff.Width, diff.Height);
+				}
+				else if (propertyName == "Rotation")
+				{
+					var oldValue = (float)e.OldValue;
+					var newValue = (float)e.ChangedItem.Value;
 					var diff = (newValue - oldValue);
 
 					foreach (var shape in entity.Shapes)
 					{
-						var pos = shape.Position;
-						pos.X += diff.X;
-						pos.Y += diff.Y;
-						shape.Position = pos;
+						var points = shape.GetPoints(1, null);
+						for (var i = 0; i < points.Length; ++i)
+							points[i] = points[i].RotatePoint(entity.Position, diff);
 
-						var bl = shape.BottomLeft;
-						bl.X += diff.X;
-						bl.Y += diff.Y;
-						shape.BottomLeft = bl;
-
-						var tr = shape.TopRight;
-						tr.X += diff.X;
-						tr.Y += diff.Y;
-						shape.TopRight = tr;
+						shape.SetFromPoints(points);
 					}
+
+					if (entity.Tag is CanvasObject obj)
+						obj.Rotate(diff);
 				}
 			}
 			else if (this.PropertyGrid.SelectedObject is MabiWorld.Region region)
 			{
-				if (e.ChangedItem.PropertyDescriptor?.Name == "Id")
+				if (propertyName == "Id")
 				{
 					var newId = (ushort)(int)e.ChangedItem.Value;
 					var clearMask = 0x0000_FFFF_0000_0000UL;
@@ -1446,7 +1464,7 @@ namespace Mabioned
 			}
 			else if (this.PropertyGrid.SelectedObject is MabiWorld.Area area)
 			{
-				if (e.ChangedItem.PropertyDescriptor?.Name == "Id")
+				if (propertyName == "Id")
 				{
 					var newId = (ushort)e.ChangedItem.Value;
 					var clearMask = 0x0000_0000_FFFF_0000UL;
@@ -1468,7 +1486,7 @@ namespace Mabioned
 			}
 
 			this.SetModified(true);
-			this.DrawMap();
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1479,7 +1497,7 @@ namespace Mabioned
 		private void OnCollectionEditorFormClosed(object sender, FormClosedEventArgs e)
 		{
 			//this.SetModified(true);
-			this.DrawMap();
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1490,7 +1508,7 @@ namespace Mabioned
 		private void OnCollectionChanged(object sender, EventArgs e)
 		{
 			this.SetModified(true);
-			this.DrawMap();
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1501,7 +1519,7 @@ namespace Mabioned
 		private void OnCollectionPropertyChanged(object sender, PropertyValueChangedEventArgs e)
 		{
 			this.SetModified(true);
-			this.DrawMap();
+			this.RegionCanvas.Invalidate();
 		}
 
 		/// <summary>
@@ -1512,37 +1530,7 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuScaleToFit_Click(object sender, EventArgs e)
 		{
-			var scale = this.GetFitScale();
-			this.SetScale(scale, true);
-		}
-
-		/// <summary>
-		/// Called when a key is let go on the tree.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void TreeRegion_KeyUp(object sender, KeyEventArgs e)
-		{
-			// Remove selected entity
-			if (e.KeyCode == Keys.Delete)
-			{
-				var node = this.TreeRegion.SelectedNode;
-				if (node?.Tag is IEntity entity)
-				{
-					var area = entity.Area;
-
-					switch (entity)
-					{
-						case Prop prop: area.Props.Remove(prop); break;
-						case Event evnt: area.Events.Remove(evnt); break;
-					}
-
-					node.Remove();
-					this.SetSelectedEntity(null);
-					this.SetModified(true);
-					this.DrawMap();
-				}
-			}
+			this.RegionCanvas.ScaleToFitCenter();
 		}
 
 		/// <summary>
@@ -1599,8 +1587,267 @@ namespace Mabioned
 		private void MnuEditSettings_Click(object sender, EventArgs e)
 		{
 			var form = new FrmSettings();
-			if (form.ShowDialog() == DialogResult.OK)
-				this.DrawMap();
+			if (form.ShowDialog() != DialogResult.OK)
+				return;
+
+			_areaStyle.OutlineColor = Settings.Default.AreasColor;
+			_propStyle.OutlineColor = Settings.Default.PropsColor;
+			_eventStyle.OutlineColor = Settings.Default.EventsColor;
+			_propStyle.SelectedOutlineColor = _eventStyle.SelectedOutlineColor = Settings.Default.SelectionColor;
+
+			this.RegionCanvas.CanvasBackColor = Settings.Default.BackgroundColor;
+
+			this.RegionCanvas.Invalidate();
+		}
+
+		/// <summary>
+		/// Changes the selected tool.
+		/// </summary>
+		/// <param name="tool"></param>
+		private void SelectTool(Tool tool)
+		{
+			this.BtnScrollTool.Checked = (tool == Tool.Scroll);
+			this.BtnMoveTool.Checked = (tool == Tool.Move);
+			this.BtnRotateTool.Checked = (tool == Tool.Rotate);
+			this.BtnFreeTool.Checked = (tool == Tool.Free);
+
+			this.RegionCanvas.SelectedTool = tool;
+		}
+
+		/// <summary>
+		/// Selects the scroll tool.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BtnScrollTool_Click(object sender, EventArgs e)
+		{
+			this.SelectTool(Tool.Scroll);
+		}
+
+		/// <summary>
+		/// Selects the move tool.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BtnMoveTool_Click(object sender, EventArgs e)
+		{
+			this.SelectTool(Tool.Move);
+		}
+
+		/// <summary>
+		/// Selects the rotate tool.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BtnRotateTool_Click(object sender, EventArgs e)
+		{
+			this.SelectTool(Tool.Rotate);
+		}
+
+		/// <summary>
+		/// Selects the free tool.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BtnFreeTool_Click(object sender, EventArgs e)
+		{
+			this.SelectTool(Tool.Free);
+		}
+
+		/// <summary>
+		/// Called when a key is released.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void FrmMain_KeyUp(object sender, KeyEventArgs e)
+		{
+			// Only check key if the properties aren't currently being edited.
+			if (this.PropertyGrid.ContainsFocus)
+				return;
+
+			switch (e.KeyCode)
+			{
+				// Switch tools
+				case Keys.D0:
+				case Keys.NumPad0:
+					this.SelectTool(Tool.Free);
+					e.SuppressKeyPress = true;
+					break;
+
+				case Keys.D1:
+				case Keys.NumPad1:
+					this.SelectTool(Tool.Scroll);
+					e.SuppressKeyPress = true;
+					break;
+
+				case Keys.D2:
+				case Keys.NumPad2:
+					this.SelectTool(Tool.Move);
+					e.SuppressKeyPress = true;
+					break;
+
+				case Keys.D3:
+				case Keys.NumPad3:
+					this.SelectTool(Tool.Rotate);
+					e.SuppressKeyPress = true;
+					break;
+
+				// Unselect entity
+				case Keys.Escape:
+					this.SetSelectedEntity(null);
+					break;
+
+				// Remove selected entity
+				case Keys.Delete:
+					var node = this.TreeRegion.SelectedNode;
+					if (node?.Tag is IEntity entity)
+					{
+						var area = entity.Area;
+
+						switch (entity)
+						{
+							case Prop prop: area.Props.Remove(prop); break;
+							case Event evnt: area.Events.Remove(evnt); break;
+						}
+
+						if (entity.Tag is CanvasObject obj)
+							this.RegionCanvas.Remove(obj);
+
+						node.Remove();
+						this.SetSelectedEntity(null);
+						this.SetModified(true);
+						this.RegionCanvas.Invalidate();
+					}
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Selects entity in tree after it was selected in the canvas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_ObjectSelected(object sender, ObjectSelectedEventArgs e)
+		{
+			if (e.Object == null)
+			{
+				this.SetSelectedEntity(null);
+				return;
+			}
+
+			if (!(e.Object.Tag is IEntity entity))
+				return;
+
+			if (!_entityNodes.TryGetValue(entity.EntityId, out var node))
+				return;
+
+			this.SetSelectedEntity(entity);
+		}
+
+		/// <summary>
+		/// Updates scale in status bar.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_ScaleChanged(object sender, ScaleChangedEventArgs e)
+		{
+			this.LblScale.Text = string.Format("Scale 1:{0:0.##}", e.Scale);
+		}
+
+		/// <summary>
+		/// Updates current location in status bar.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (!this.IsFileOpen)
+				return;
+
+			var pos = this.RegionCanvas.GetWorldPosition(e.Location);
+			this.LblCurrentPosition.Text = string.Format("{0:0} x {1:0}", pos.X, pos.Y);
+		}
+
+		/// <summary>
+		/// Focuses the canvas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_MouseDown(object sender, MouseEventArgs e)
+		{
+			this.RegionCanvas.Select();
+		}
+
+		/// <summary>
+		/// Updates object's position based on changes on canvas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_ObjectMoved(object sender, ObjectMovedEventArgs e)
+		{
+			if (!(e.Object.Tag is IEntity entity))
+				return;
+
+			var delta = new SizeF(e.Delta);
+
+			entity.Position += delta;
+
+			foreach (var shape in entity.Shapes)
+			{
+				shape.Position += delta;
+				shape.BottomLeft += delta;
+				shape.TopRight += delta;
+			}
+
+			this.SetModified(true);
+			this.PropertyGrid.Refresh();
+		}
+
+		/// <summary>
+		/// Updates object's rotation based on changes on canvas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_ObjectRotated(object sender, ObjectRotatedEventArgs e)
+		{
+			if (!(e.Object.Tag is IEntity entity))
+				return;
+
+			var delta = e.Radians;
+
+			if (entity is Prop prop)
+				prop.Rotation += (float)delta;
+
+			foreach (var shape in entity.Shapes)
+			{
+				var points = shape.GetPoints(1, null);
+				for (var i = 0; i < points.Length; ++i)
+					points[i] = points[i].RotatePoint(entity.Position, delta);
+
+				shape.SetFromPoints(points);
+			}
+
+			this.SetModified(true);
+			this.PropertyGrid.Refresh();
+		}
+
+		/// <summary>
+		/// Called when the canvas is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RegionCanvas_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				if (this.IsFileOpen && !this.RegionCanvas.IsDragging)
+				{
+					this.CtxMap.Show(this.ImgMap, e.Location);
+					_mapRightClickLocation = e.Location;
+				}
+			}
+
+			//Console.WriteLine(this.ProbeHeight(this.ToRegionPosition(e.Location)));
 		}
 	}
 }
