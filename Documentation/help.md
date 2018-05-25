@@ -82,3 +82,24 @@ with names like "Unk3", "Unk4", etc. These are values in the files which's
 purpose is currently unknown. They are displayed only to give full access
 to the file's information, and modifying them might have unexpected
 consequences.
+
+Auto-updating properties
+-----------------------------------------------------------------------------
+
+In its current form Mabioned provides easy access to all of a region's
+data and properties, and technically *everything* about a region can
+be modified already, but comfort features are still being added.
+For example, you could modify the terrain and its textures, but you'd
+have to modify all values by hand.
+
+Here's what the application already does automatically for you.
+
+### Position and Rotation
+
+If you modify an entity's position or rotation, its shapes' positions,
+rotations, and bounding boxes are updated as well, as you would expect.
+
+### Ids
+
+If you modify a region's or area's ids the change is reflected in all
+areas and it's entities, updating region, area, and entity ids.
