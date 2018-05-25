@@ -1162,6 +1162,9 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void OnCollectionEditorFormClosed(object sender, FormClosedEventArgs e)
 		{
+			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
+				this.UpdateCanvasShapes(entity);
+
 			//this.SetModified(true);
 			this.RegionCanvas.Invalidate();
 		}
@@ -1174,12 +1177,7 @@ namespace Mabioned
 		private void OnCollectionChanged(object sender, CollectionChangedEventArgs e)
 		{
 			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
-			{
-				var obj = (entity.Tag as CanvasObject);
-				obj.Primitives.Clear();
-				foreach (var shape in entity.Shapes)
-					obj.Add(new Polygon(shape.GetPoints()));
-			}
+				this.UpdateCanvasShapes(entity);
 
 			this.SetModified(true);
 			this.RegionCanvas.Invalidate();
@@ -1193,15 +1191,29 @@ namespace Mabioned
 		private void OnCollectionPropertyChanged(object sender, PropertyValueChangedEventArgs e)
 		{
 			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
-			{
-				var obj = (entity.Tag as CanvasObject);
-				obj.Primitives.Clear();
-				foreach (var shape in entity.Shapes)
-					obj.Add(new Polygon(shape.GetPoints()));
-			}
+				this.UpdateCanvasShapes(entity);
 
 			this.SetModified(true);
 			this.RegionCanvas.Invalidate();
+		}
+
+		/// <summary>
+		/// Updates shapes of entity on canvas.
+		/// </summary>
+		/// <param name="entity"></param>
+		private void UpdateCanvasShapes(IEntity entity)
+		{
+			var obj = (entity.Tag as CanvasObject);
+			obj.Primitives.Clear();
+			if (entity.Shapes.Any())
+			{
+				foreach (var shape in entity.Shapes)
+					obj.Add(new Polygon(shape.GetPoints()));
+			}
+			else
+			{
+				obj.Add(new Circle(entity.Position.X, entity.Position.Y, 50));
+			}
 		}
 
 		/// <summary>
