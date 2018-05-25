@@ -76,8 +76,8 @@ namespace MabiWorld.PropertyEditing
 			{
 				var shape = entity.Shapes.Last();
 
-				shape.DirX1 = 0;
-				shape.DirX2 = 1;
+				shape.DirX1 = 1;
+				shape.DirX2 = 0;
 				shape.DirY1 = 0;
 				shape.DirY2 = 1;
 				shape.LenX = 100;
