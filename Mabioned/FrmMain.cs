@@ -1164,8 +1164,16 @@ namespace Mabioned
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void OnCollectionChanged(object sender, EventArgs e)
+		private void OnCollectionChanged(object sender, CollectionChangedEventArgs e)
 		{
+			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
+			{
+				var obj = (entity.Tag as CanvasObject);
+				obj.Primitives.Clear();
+				foreach (var shape in entity.Shapes)
+					obj.Add(new Polygon(shape.GetPoints()));
+			}
+
 			this.SetModified(true);
 			this.RegionCanvas.Invalidate();
 		}
@@ -1177,6 +1185,14 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void OnCollectionPropertyChanged(object sender, PropertyValueChangedEventArgs e)
 		{
+			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
+			{
+				var obj = (entity.Tag as CanvasObject);
+				obj.Primitives.Clear();
+				foreach (var shape in entity.Shapes)
+					obj.Add(new Polygon(shape.GetPoints()));
+			}
+
 			this.SetModified(true);
 			this.RegionCanvas.Invalidate();
 		}
