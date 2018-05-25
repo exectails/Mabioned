@@ -43,14 +43,21 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.label3 = new System.Windows.Forms.Label();
+			this.TxtDataFolder = new System.Windows.Forms.TextBox();
+			this.LblDataFolder = new System.Windows.Forms.Label();
+			this.BtnSelectDataFolder = new System.Windows.Forms.Button();
+			this.DlgFolder = new System.Windows.Forms.FolderBrowserDialog();
 			this.tabPage1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(157, 165);
+			this.BtnOK.Location = new System.Drawing.Point(157, 190);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 1;
@@ -61,7 +68,7 @@
 			// BtnCancel
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(238, 165);
+			this.BtnCancel.Location = new System.Drawing.Point(238, 190);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtnCancel.TabIndex = 2;
@@ -71,6 +78,7 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.label3);
 			this.tabPage1.Controls.Add(this.label5);
 			this.tabPage1.Controls.Add(this.LblSelectionColor);
 			this.tabPage1.Controls.Add(this.label2);
@@ -84,7 +92,7 @@
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(293, 121);
+			this.tabPage1.Size = new System.Drawing.Size(293, 146);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Colors";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -98,12 +106,12 @@
 			this.label5.TabIndex = 9;
 			this.label5.Text = "Selection";
 			// 
-			// LblColorSelection
+			// LblSelectionColor
 			// 
 			this.LblSelectionColor.BackColor = System.Drawing.Color.Silver;
 			this.LblSelectionColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LblSelectionColor.Location = new System.Drawing.Point(106, 88);
-			this.LblSelectionColor.Name = "LblColorSelection";
+			this.LblSelectionColor.Location = new System.Drawing.Point(261, 86);
+			this.LblSelectionColor.Name = "LblSelectionColor";
 			this.LblSelectionColor.Size = new System.Drawing.Size(16, 16);
 			this.LblSelectionColor.TabIndex = 10;
 			this.LblSelectionColor.Tag = "SelectionColor";
@@ -118,12 +126,12 @@
 			this.label2.TabIndex = 7;
 			this.label2.Text = "Background";
 			// 
-			// LblColorBackground
+			// LblBackgroundColor
 			// 
 			this.LblBackgroundColor.BackColor = System.Drawing.Color.Silver;
 			this.LblBackgroundColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LblBackgroundColor.Location = new System.Drawing.Point(106, 12);
-			this.LblBackgroundColor.Name = "LblColorBackground";
+			this.LblBackgroundColor.Location = new System.Drawing.Point(261, 10);
+			this.LblBackgroundColor.Name = "LblBackgroundColor";
 			this.LblBackgroundColor.Size = new System.Drawing.Size(16, 16);
 			this.LblBackgroundColor.TabIndex = 8;
 			this.LblBackgroundColor.Tag = "BackgroundColor";
@@ -138,34 +146,34 @@
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Props";
 			// 
-			// LblColorAreas
+			// LblAreasColor
 			// 
 			this.LblAreasColor.BackColor = System.Drawing.Color.Silver;
 			this.LblAreasColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LblAreasColor.Location = new System.Drawing.Point(106, 69);
-			this.LblAreasColor.Name = "LblColorAreas";
+			this.LblAreasColor.Location = new System.Drawing.Point(261, 67);
+			this.LblAreasColor.Name = "LblAreasColor";
 			this.LblAreasColor.Size = new System.Drawing.Size(16, 16);
 			this.LblAreasColor.TabIndex = 6;
 			this.LblAreasColor.Tag = "AreasColor";
 			this.LblAreasColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LblColor_MouseClick);
 			// 
-			// LblColorEvents
+			// LblEventsColor
 			// 
 			this.LblEventsColor.BackColor = System.Drawing.Color.Silver;
 			this.LblEventsColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LblEventsColor.Location = new System.Drawing.Point(106, 50);
-			this.LblEventsColor.Name = "LblColorEvents";
+			this.LblEventsColor.Location = new System.Drawing.Point(261, 48);
+			this.LblEventsColor.Name = "LblEventsColor";
 			this.LblEventsColor.Size = new System.Drawing.Size(16, 16);
 			this.LblEventsColor.TabIndex = 4;
 			this.LblEventsColor.Tag = "EventsColor";
 			this.LblEventsColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LblColor_MouseClick);
 			// 
-			// LblColorProps
+			// LblPropsColor
 			// 
 			this.LblPropsColor.BackColor = System.Drawing.Color.Silver;
 			this.LblPropsColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.LblPropsColor.Location = new System.Drawing.Point(106, 31);
-			this.LblPropsColor.Name = "LblColorProps";
+			this.LblPropsColor.Location = new System.Drawing.Point(261, 29);
+			this.LblPropsColor.Name = "LblPropsColor";
 			this.LblPropsColor.Size = new System.Drawing.Size(16, 16);
 			this.LblPropsColor.TabIndex = 2;
 			this.LblPropsColor.Tag = "PropsColor";
@@ -195,17 +203,71 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Location = new System.Drawing.Point(12, 12);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(301, 147);
+			this.tabControl1.Size = new System.Drawing.Size(301, 172);
 			this.tabControl1.TabIndex = 0;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.BtnSelectDataFolder);
+			this.tabPage2.Controls.Add(this.LblDataFolder);
+			this.tabPage2.Controls.Add(this.TxtDataFolder);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(293, 146);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Folders";
+			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ForeColor = System.Drawing.Color.Gray;
+			this.label3.Location = new System.Drawing.Point(16, 120);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(232, 13);
+			this.label3.TabIndex = 11;
+			this.label3.Text = "Right-click a color to reset it to the default color.";
+			// 
+			// TxtDataFolder
+			// 
+			this.TxtDataFolder.Location = new System.Drawing.Point(66, 10);
+			this.TxtDataFolder.Name = "TxtDataFolder";
+			this.TxtDataFolder.Size = new System.Drawing.Size(176, 20);
+			this.TxtDataFolder.TabIndex = 1;
+			// 
+			// LblDataFolder
+			// 
+			this.LblDataFolder.AutoSize = true;
+			this.LblDataFolder.Location = new System.Drawing.Point(16, 13);
+			this.LblDataFolder.Name = "LblDataFolder";
+			this.LblDataFolder.Size = new System.Drawing.Size(30, 13);
+			this.LblDataFolder.TabIndex = 2;
+			this.LblDataFolder.Text = "Data";
+			// 
+			// BtnSelectDataFolder
+			// 
+			this.BtnSelectDataFolder.Location = new System.Drawing.Point(248, 10);
+			this.BtnSelectDataFolder.Name = "BtnSelectDataFolder";
+			this.BtnSelectDataFolder.Size = new System.Drawing.Size(25, 20);
+			this.BtnSelectDataFolder.TabIndex = 3;
+			this.BtnSelectDataFolder.Text = "...";
+			this.BtnSelectDataFolder.UseVisualStyleBackColor = true;
+			this.BtnSelectDataFolder.Click += new System.EventHandler(this.BtnSelectDataFolder_Click);
+			// 
+			// DlgFolder
+			// 
+			this.DlgFolder.ShowNewFolderButton = false;
 			// 
 			// FrmSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(325, 200);
+			this.ClientSize = new System.Drawing.Size(325, 225);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
 			this.Controls.Add(this.tabControl1);
@@ -221,6 +283,8 @@
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
+			this.tabPage2.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -241,5 +305,11 @@
 		private System.Windows.Forms.Label LblSelectionColor;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label LblBackgroundColor;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.Button BtnSelectDataFolder;
+		private System.Windows.Forms.Label LblDataFolder;
+		private System.Windows.Forms.TextBox TxtDataFolder;
+		private System.Windows.Forms.FolderBrowserDialog DlgFolder;
 	}
 }

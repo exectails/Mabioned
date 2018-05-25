@@ -32,6 +32,8 @@ namespace Mabioned
 		public XmlColor AreasColor { get; set; } = Color.White;
 		public XmlColor SelectionColor { get; set; } = Color.Red;
 
+		public string DataFolder { get; set; } = "";
+
 		public bool ShowProps { get; set; } = true;
 		public bool ShowAreas { get; set; } = false;
 		public SerializableDictionary<int, bool> ShowEvents { get; set; } = new SerializableDictionary<int, bool>();

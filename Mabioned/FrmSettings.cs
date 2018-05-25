@@ -1,6 +1,7 @@
-﻿using OpenPainter.ColorPicker;
-using System;
+﻿using System;
+using System.IO;
 using System.Windows.Forms;
+using OpenPainter.ColorPicker;
 
 namespace Mabioned
 {
@@ -20,6 +21,8 @@ namespace Mabioned
 			this.LblEventsColor.BackColor = Settings.Default.EventsColor;
 			this.LblAreasColor.BackColor = Settings.Default.AreasColor;
 			this.LblSelectionColor.BackColor = Settings.Default.SelectionColor;
+
+			this.TxtDataFolder.Text = Settings.Default.DataFolder;
 		}
 
 		private void BtnOK_Click(object sender, EventArgs e)
@@ -29,6 +32,9 @@ namespace Mabioned
 			Settings.Default.EventsColor = this.LblEventsColor.BackColor;
 			Settings.Default.AreasColor = this.LblAreasColor.BackColor;
 			Settings.Default.SelectionColor = this.LblSelectionColor.BackColor;
+
+			if (this.IsDataFolder(this.TxtDataFolder.Text))
+				Settings.Default.DataFolder = this.TxtDataFolder.Text;
 
 			this.DialogResult = DialogResult.OK;
 			this.Close();
@@ -86,6 +92,33 @@ namespace Mabioned
 					this.LblSelectionColor.BackColor = Settings.Default.SelectionColor;
 					break;
 			}
+		}
+
+		private void BtnSelectDataFolder_Click(object sender, EventArgs e)
+		{
+			var prevPath = this.TxtDataFolder.Text;
+			if (Directory.Exists(prevPath))
+				this.DlgFolder.SelectedPath = prevPath;
+
+			if (this.DlgFolder.ShowDialog() != DialogResult.OK)
+				return;
+
+			var selectedPath = this.DlgFolder.SelectedPath;
+			if (!this.IsDataFolder(selectedPath))
+			{
+				MessageBox.Show("No prop data found in the selected folder, make sure to select a complete data folder that contains the db and world folders.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			this.TxtDataFolder.Text = selectedPath;
+		}
+
+		private bool IsDataFolder(string path)
+		{
+			var propDbPath = Path.Combine(path, "db", "propdb.xml");
+			var propPalettePath = Path.Combine(path, "world", "proppalette.plt");
+
+			return (File.Exists(propDbPath) && File.Exists(propPalettePath));
 		}
 	}
 }
