@@ -1,11 +1,12 @@
-﻿using MabiWorld.Extensions;
-using MabiWorld.PropertyEditing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using MabiWorld.Extensions;
+using MabiWorld.PropertyEditing;
 
 namespace MabiWorld
 {
@@ -153,40 +154,12 @@ namespace MabiWorld
 		}
 
 		/// <summary>
-		/// Returns the position as a point, adjusted for scale and
-		/// flip height.
-		/// </summary>
-		/// <remarks>
-		/// Since Mabi's coordinate system starts at the lower left,
-		/// but many 2D programs usually start at the top left,
-		/// flipHeight allows to directly get the correct Y coordinate.
-		/// </remarks>
-		/// <param name="scale"></param>
-		/// <param name="flipHeight"></param>
-		/// <returns></returns>
-		public PointF GetPoint(float scale, int? flipHeight)
-		{
-			var pos = this.Position;
-
-			if (flipHeight != null)
-				pos.Y = (float)(flipHeight - pos.Y);
-
-			if (scale != 1)
-			{
-				pos.X /= scale;
-				pos.Y /= scale;
-			}
-
-			return new PointF(pos.X, pos.Y);
-		}
-
-		/// <summary>
 		/// Returns string representation of prop.
 		/// </summary>
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return string.Format("Prop: 0x{0:X16}", this.EntityId);
+			return string.Format(CultureInfo.InvariantCulture, "Prop [Id: {1}, EntityId: 0x{0:X16}]", this.EntityId, this.Id);
 		}
 	}
 }

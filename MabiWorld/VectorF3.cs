@@ -1,7 +1,7 @@
-﻿using MabiWorld.PropertyEditing;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using MabiWorld.PropertyEditing;
 
 namespace MabiWorld
 {

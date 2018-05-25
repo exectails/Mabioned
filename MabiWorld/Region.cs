@@ -1,13 +1,14 @@
-﻿using MabiWorld.Extensions;
-using MabiWorld.PropertyEditing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using MabiWorld.Extensions;
+using MabiWorld.PropertyEditing;
 using Color = System.Drawing.Color;
 
 namespace MabiWorld
@@ -431,7 +432,7 @@ namespace MabiWorld
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return string.Format("Region: {0}, {1}", this.Id, this.Name);
+			return string.Format(CultureInfo.InvariantCulture, "Region [Id: {0}, Name: {1}]", this.Id, this.Name);
 		}
 	}
 }

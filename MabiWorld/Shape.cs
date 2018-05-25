@@ -1,10 +1,10 @@
-﻿using MabiWorld.Extensions;
-using MabiWorld.PropertyEditing;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
+using MabiWorld.Extensions;
+using MabiWorld.PropertyEditing;
 
 namespace MabiWorld
 {
@@ -85,15 +85,8 @@ namespace MabiWorld
 		/// <summary>
 		/// Returns the shape's 4 edge points, making up a polygon.
 		/// </summary>
-		/// <remarks>
-		/// Since Mabi's coordinate system starts at the lower left,
-		/// but many 2D programs usually start at the top left,
-		/// flipHeight allows to directly get the correct Y coordinate.
-		/// </remarks>
-		/// <param name="scale"></param>
-		/// <param name="flipHeight"></param>
 		/// <returns></returns>
-		public PointF[] GetPoints(float scale, int? flipHeight)
+		public PointF[] GetPoints()
 		{
 			var points = new PointF[4];
 
@@ -129,20 +122,6 @@ namespace MabiWorld
 				points[1] = new PointF((float)sx4, (float)sy4);
 			}
 
-			for (var i = 0; i < points.Length; ++i)
-			{
-				if (flipHeight != null)
-				{
-					points[i].Y = (float)(flipHeight - points[i].Y);
-				}
-
-				if (scale != 1)
-				{
-					points[i].X /= scale;
-					points[i].Y /= scale;
-				}
-			}
-
 			return points;
 		}
 
@@ -157,7 +136,6 @@ namespace MabiWorld
 
 			var x = (points[0].X + points[2].X) * 0.5;
 			var y = (points[0].Y + points[2].Y) * 0.5;
-
 			var angle = Math.Atan2(points[1].Y - points[0].Y, points[1].X - points[0].X);
 
 			this.Position = new PointF((float)x, (float)y);
@@ -167,23 +145,22 @@ namespace MabiWorld
 			this.DirY2 = (float)-Math.Cos(angle);
 			this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
 			this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
-
 		}
 
 		/// <summary>
-		/// Returns true if the given point is within this shape.
+		/// Returns true if the given position is within this shape.
 		/// </summary>
-		/// <param name="point"></param>
+		/// <param name="position"></param>
 		/// <returns></returns>
-		public bool IsInside(PointF point)
+		public bool IsInside(PointF position)
 		{
-			var points = this.GetPoints(1, null);
+			var points = this.GetPoints();
 
 			var result = false;
 
 			for (int i = 0, j = points.Length - 1; i < points.Length; j = i++)
 			{
-				if (((points[i].Y > point.Y) != (points[j].Y > point.Y)) && (point.X < (points[j].X - points[i].X) * (point.Y - points[i].Y) / (points[j].Y - points[i].Y) + points[i].X))
+				if (((points[i].Y > position.Y) != (points[j].Y > position.Y)) && (position.X < (points[j].X - points[i].X) * (position.Y - points[i].Y) / (points[j].Y - points[i].Y) + points[i].X))
 					result = !result;
 			}
 
@@ -193,10 +170,8 @@ namespace MabiWorld
 		/// <summary>
 		/// Returns shape's outer bounding box.
 		/// </summary>
-		/// <param name="scale"></param>
-		/// <param name="flipHeight"></param>
 		/// <returns></returns>
-		public Rectangle GetBoundingBox(float scale, int? flipHeight)
+		public RectangleF GetBoundingBox()
 		{
 			var blX = this.BottomLeft.X;
 			var blY = this.BottomLeft.Y;
@@ -208,20 +183,7 @@ namespace MabiWorld
 			var w = (trX - blX);
 			var h = (trY - blY);
 
-			if (flipHeight != null)
-			{
-				y = ((float)flipHeight - y - h);
-			}
-
-			if (scale != 1)
-			{
-				x /= scale;
-				y /= scale;
-				w /= scale;
-				h /= scale;
-			}
-
-			return new Rectangle((int)x, (int)y, (int)w, (int)h);
+			return new RectangleF(x, y, w, h);
 		}
 	}
 }

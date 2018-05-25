@@ -1,10 +1,10 @@
-﻿using OpenPainter.ColorPicker;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Globalization;
 using System.Windows.Forms;
+using OpenPainter.ColorPicker;
 
 namespace MabiWorld.PropertyEditing
 {

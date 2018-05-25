@@ -1,15 +1,13 @@
-﻿using MabiWorld.PropertyEditing.XML;
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Design;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Xml;
 using System.Xml.Linq;
+using MabiWorld.PropertyEditing.XML;
 
 namespace MabiWorld.PropertyEditing
 {

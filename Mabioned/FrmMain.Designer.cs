@@ -77,7 +77,6 @@
 			this.ImgsTree = new System.Windows.Forms.ImageList(this.components);
 			this.PropertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.RegionCanvas = new PrimitiveCanvas.Canvas();
-			this.ImgMap = new System.Windows.Forms.PictureBox();
 			this.OfdRegion = new System.Windows.Forms.OpenFileDialog();
 			this.CtxMap = new System.Windows.Forms.ContextMenu();
 			this.MnuCopyCoordinates = new System.Windows.Forms.MenuItem();
@@ -93,7 +92,6 @@
 			this.SplSidebar.Panel1.SuspendLayout();
 			this.SplSidebar.Panel2.SuspendLayout();
 			this.SplSidebar.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ImgMap)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// MainMenu
@@ -434,7 +432,6 @@
 			this.SplMain.Panel2.AutoScroll = true;
 			this.SplMain.Panel2.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.SplMain.Panel2.Controls.Add(this.RegionCanvas);
-			this.SplMain.Panel2.Controls.Add(this.ImgMap);
 			this.SplMain.Size = new System.Drawing.Size(1034, 611);
 			this.SplMain.SplitterDistance = 320;
 			this.SplMain.TabIndex = 4;
@@ -520,19 +517,6 @@
 			this.RegionCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RegionCanvas_MouseDown);
 			this.RegionCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RegionCanvas_MouseMove);
 			// 
-			// ImgMap
-			// 
-			this.ImgMap.Location = new System.Drawing.Point(0, 0);
-			this.ImgMap.Name = "ImgMap";
-			this.ImgMap.Size = new System.Drawing.Size(200, 200);
-			this.ImgMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-			this.ImgMap.TabIndex = 0;
-			this.ImgMap.TabStop = false;
-			this.ImgMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImgMap_MouseClick);
-			this.ImgMap.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImgMap_MouseDown);
-			this.ImgMap.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ImgMap_MouseMove);
-			this.ImgMap.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImgMap_MouseUp);
-			// 
 			// OfdRegion
 			// 
 			this.OfdRegion.Filter = "Region File|*.rgn|Area File|*.area";
@@ -580,14 +564,12 @@
 			this.StatusStrip.PerformLayout();
 			this.SplMain.Panel1.ResumeLayout(false);
 			this.SplMain.Panel2.ResumeLayout(false);
-			this.SplMain.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).EndInit();
 			this.SplMain.ResumeLayout(false);
 			this.SplSidebar.Panel1.ResumeLayout(false);
 			this.SplSidebar.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.SplSidebar)).EndInit();
 			this.SplSidebar.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ImgMap)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -608,7 +590,6 @@
 		private System.Windows.Forms.SplitContainer SplSidebar;
 		private System.Windows.Forms.TreeView TreeRegion;
 		private System.Windows.Forms.PropertyGrid PropertyGrid;
-		private System.Windows.Forms.PictureBox ImgMap;
 		private System.Windows.Forms.ToolStripStatusLabel LblCurrentPosition;
 		private System.Windows.Forms.ToolStripStatusLabel LblScale;
 		private System.Windows.Forms.MenuItem MnuView;

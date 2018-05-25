@@ -1,9 +1,9 @@
-﻿using MabiWorld.Extensions;
-using MabiWorld.PropertyEditing;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Runtime.CompilerServices;
+using MabiWorld.Extensions;
+using MabiWorld.PropertyEditing;
 
 namespace MabiWorld
 {

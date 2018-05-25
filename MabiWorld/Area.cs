@@ -1,10 +1,11 @@
-﻿using MabiWorld.Extensions;
-using MabiWorld.PropertyEditing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Globalization;
 using System.IO;
+using MabiWorld.Extensions;
+using MabiWorld.PropertyEditing;
 
 namespace MabiWorld
 {
@@ -242,7 +243,7 @@ namespace MabiWorld
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return string.Format("Area: {0}", this.Name);
+			return string.Format(CultureInfo.InvariantCulture, "Area [Name: {0}]", this.Name);
 		}
 	}
 }
