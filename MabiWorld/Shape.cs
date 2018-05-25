@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MabiWorld.Extensions;
 using MabiWorld.PropertyEditing;
@@ -126,7 +127,7 @@ namespace MabiWorld
 		}
 
 		/// <summary>
-		/// Sets the shape's values based on the four given points.
+		/// Sets the shape's rect values based on the four given points.
 		/// </summary>
 		/// <param name="points"></param>
 		public void SetFromPoints(PointF[] points)
@@ -145,6 +146,14 @@ namespace MabiWorld
 			this.DirY2 = (float)-Math.Cos(angle);
 			this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
 			this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+
+			var minX = points.Min(a => a.X);
+			var maxX = points.Max(a => a.X);
+			var minY = points.Min(a => a.Y);
+			var maxY = points.Max(a => a.Y);
+
+			this.BottomLeft = new PointF(minX, minY);
+			this.TopRight = new PointF(maxX, maxY);
 		}
 
 		/// <summary>
