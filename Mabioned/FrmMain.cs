@@ -104,6 +104,7 @@ namespace Mabioned
 			this.ToolStrip.Renderer = new ToolStripRendererNL();
 
 			this.LoadViewOptions();
+			this.LoadData();
 			this.SetGlobalPropertyEditors();
 
 			var args = Environment.GetCommandLineArgs();
@@ -111,6 +112,29 @@ namespace Mabioned
 				this.OpenFile(args[1]);
 
 			this.LoadRecentFilesList();
+		}
+
+		/// <summary>
+		/// Loads data if data folder setting is valid.
+		/// </summary>
+		private void LoadData()
+		{
+			try
+			{
+				var path = Settings.Default.DataFolder;
+				if (!Directory.Exists(path))
+					return;
+
+				var propDbPath = Path.Combine(path, "db", "propdb.xml");
+				if (File.Exists(propDbPath))
+				{
+					PropDb.Load(propDbPath);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("An error ocurred while loading data: " + ex, Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		/// <summary>

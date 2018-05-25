@@ -23,6 +23,13 @@ namespace MabiWorld
 		public ulong EntityId { get; set; }
 
 		public string Name { get; set; }
+
+		/// <summary>
+		/// Filled from loaded prop db, not part of the actual prop struct.
+		/// </summary>
+		[ReadOnly(true)]
+		public string ClassName { get; private set; }
+
 		public Vector3F Position { get; set; }
 		public byte ShapeCount => (byte)this.Shapes.Count;
 		public int ShapeType { get; set; }
@@ -113,6 +120,9 @@ namespace MabiWorld
 				var param = EntityParameter.ReadFrom(br);
 				prop.Parameters.Add(param);
 			}
+
+			if (PropDb.TryGetEntry(prop.Id, out var entry))
+				prop.ClassName = entry.ClassName;
 
 			return prop;
 		}
