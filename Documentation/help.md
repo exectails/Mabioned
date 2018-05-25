@@ -6,6 +6,9 @@ but has only few features that go beyond editing raw values at this
 point in time. This file gives you some basic information necessary
 to utilize this application.
 
+Take a look at the other documentation files as well to learn more
+about Mabioned.
+
 Terminology
 -----------------------------------------------------------------------------
 
@@ -42,8 +45,8 @@ certain circumstances. Examples of event signals are entering or
 leaving them.
 
 Events typically consist of only one rectangular section and are used
-to control the background music, show notices telling player where they
-are, provide warp locations to the official servers, and more.
+to control the background music, show notices telling players where they
+are, provide warp locations for the official servers, and more.
 
 ### Shape
 
@@ -79,37 +82,3 @@ with names like "Unk3", "Unk4", etc. These are values in the files which's
 purpose is currently unknown. They are displayed only to give full access
 to the file's information, and modifying them might have unexpected
 consequences.
-
-Control/Features
------------------------------------------------------------------------------
-
-### Moving entities
-
-Going by raw values, moving an entity would usually mean to edit both
-an entity's actual position, where it's placed in the world, and its
-shape's positions, because they are placed independently. For some reason.
-
-Because of this, when you modify an entity's position, its shape's
-positions are automatically updated as well.
-
-### Deleting entities
-
-To delete an entity, select it in the tree on the left and press
-the delete key. You can also click its shape on the map to select it.
-
-### Using the map
-
-To zoom the map in and out, use the mouse wheel over the map. To scroll,
-use either the scroll bars or drag the map with the left mouse button.
-
-To select a prop or event click into one of its shapes. If there are
-multiple events layered on top of each other clicking repeatedly
-cycles through them.
-
-Right-click anywhere to get options to copy the coordinates you
-clicked on or a warp command that can be used in Aura to get to
-that exact location.
-
-Use the View menu at the top to control what's displayed on the map.
-You can toggle the display of props, various known and unknown types
-of events, and areas.
