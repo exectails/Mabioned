@@ -5,15 +5,26 @@ using OpenPainter.ColorPicker;
 
 namespace Mabioned
 {
+	/// <summary>
+	/// Settings form that provides visual editing for several options.
+	/// </summary>
 	public partial class FrmSettings : Form
 	{
 		private MainOptions _defaultOptions = new MainOptions();
 
+		/// <summary>
+		/// Creates new instance.
+		/// </summary>
 		public FrmSettings()
 		{
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Initializes the controls with the settings data.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void FrmSettings_Load(object sender, EventArgs e)
 		{
 			this.LblBackgroundColor.BackColor = Settings.Default.BackgroundColor;
@@ -25,6 +36,11 @@ namespace Mabioned
 			this.TxtDataFolder.Text = Settings.Default.DataFolder;
 		}
 
+		/// <summary>
+		/// Saves settings and closes form.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void BtnOK_Click(object sender, EventArgs e)
 		{
 			Settings.Default.BackgroundColor = this.LblBackgroundColor.BackColor;
@@ -40,12 +56,23 @@ namespace Mabioned
 			this.Close();
 		}
 
+		/// <summary>
+		/// Closes form without saving settings.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void BtnCancel_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.Cancel;
 			this.Close();
 		}
 
+		/// <summary>
+		/// Opens a color picker on left click to select a new color,
+		/// or resets the color to the default on right-click.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void LblColor_MouseClick(object sender, MouseEventArgs e)
 		{
 			var control = (sender as Control);
@@ -63,6 +90,10 @@ namespace Mabioned
 			}
 		}
 
+		/// <summary>
+		/// Resets the option with the given name if supported.
+		/// </summary>
+		/// <param name="optionName"></param>
 		private void ResetOption(string optionName)
 		{
 			switch (optionName)
@@ -94,6 +125,11 @@ namespace Mabioned
 			}
 		}
 
+		/// <summary>
+		/// Opens a folder selection to change the data folder.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void BtnSelectDataFolder_Click(object sender, EventArgs e)
 		{
 			var prevPath = this.TxtDataFolder.Text;
@@ -113,6 +149,12 @@ namespace Mabioned
 			this.TxtDataFolder.Text = selectedPath;
 		}
 
+		/// <summary>
+		/// Returns true if the given path contains the data Mabioned
+		/// can make use of.
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
 		private bool IsDataFolder(string path)
 		{
 			var propDbPath = Path.Combine(path, "db", "propdb.xml");
