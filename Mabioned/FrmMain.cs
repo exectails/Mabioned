@@ -416,8 +416,15 @@ namespace Mabioned
 					var evnt = area.Events[i];
 
 					var evntObj = new CanvasObject(evnt.Position.X, evnt.Position.Y);
-					foreach (var shape in evnt.Shapes)
-						evntObj.Add(new Polygon(shape.GetPoints()));
+					if (evnt.Shapes.Any())
+					{
+						foreach (var shape in evnt.Shapes)
+							evntObj.Add(new Polygon(shape.GetPoints()));
+					}
+					else
+					{
+						evntObj.Add(new Circle(evnt.Position.X, evnt.Position.Y, 50));
+					}
 					evntObj.Visible = this.DisplayEventType(evnt.Type);
 					evntObj.DrawOrder = 100;
 					evntObj.Priority = 200;
