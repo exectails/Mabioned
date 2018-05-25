@@ -33,27 +33,27 @@
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
+			this.LblRightClickResetHint = new System.Windows.Forms.Label();
+			this.LblSelectionColorLabel = new System.Windows.Forms.Label();
 			this.LblSelectionColor = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.LblBackgroundColorName = new System.Windows.Forms.Label();
 			this.LblBackgroundColor = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.LblPropColorLabel = new System.Windows.Forms.Label();
 			this.LblAreasColor = new System.Windows.Forms.Label();
 			this.LblEventsColor = new System.Windows.Forms.Label();
 			this.LblPropsColor = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.LblAreaColorLabel = new System.Windows.Forms.Label();
+			this.LblEventColorLabel = new System.Windows.Forms.Label();
+			this.TabsMain = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.BtnSelectDataFolder = new System.Windows.Forms.Button();
 			this.LblDataFolder = new System.Windows.Forms.Label();
 			this.TxtDataFolder = new System.Windows.Forms.TextBox();
 			this.DlgFolder = new System.Windows.Forms.FolderBrowserDialog();
-			this.label7 = new System.Windows.Forms.Label();
+			this.LblRestartWarning = new System.Windows.Forms.Label();
 			this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tabPage1.SuspendLayout();
-			this.tabControl1.SuspendLayout();
+			this.TabsMain.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -81,17 +81,17 @@
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.label3);
-			this.tabPage1.Controls.Add(this.label5);
+			this.tabPage1.Controls.Add(this.LblRightClickResetHint);
+			this.tabPage1.Controls.Add(this.LblSelectionColorLabel);
 			this.tabPage1.Controls.Add(this.LblSelectionColor);
-			this.tabPage1.Controls.Add(this.label2);
+			this.tabPage1.Controls.Add(this.LblBackgroundColorName);
 			this.tabPage1.Controls.Add(this.LblBackgroundColor);
-			this.tabPage1.Controls.Add(this.label1);
+			this.tabPage1.Controls.Add(this.LblPropColorLabel);
 			this.tabPage1.Controls.Add(this.LblAreasColor);
 			this.tabPage1.Controls.Add(this.LblEventsColor);
 			this.tabPage1.Controls.Add(this.LblPropsColor);
-			this.tabPage1.Controls.Add(this.label6);
-			this.tabPage1.Controls.Add(this.label4);
+			this.tabPage1.Controls.Add(this.LblAreaColorLabel);
+			this.tabPage1.Controls.Add(this.LblEventColorLabel);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -100,24 +100,24 @@
 			this.tabPage1.Text = "Colors";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// label3
+			// LblRightClickResetHint
 			// 
-			this.label3.AutoSize = true;
-			this.label3.ForeColor = System.Drawing.Color.Gray;
-			this.label3.Location = new System.Drawing.Point(16, 120);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(232, 13);
-			this.label3.TabIndex = 11;
-			this.label3.Text = "Right-click a color to reset it to the default color.";
+			this.LblRightClickResetHint.AutoSize = true;
+			this.LblRightClickResetHint.ForeColor = System.Drawing.Color.Gray;
+			this.LblRightClickResetHint.Location = new System.Drawing.Point(16, 120);
+			this.LblRightClickResetHint.Name = "LblRightClickResetHint";
+			this.LblRightClickResetHint.Size = new System.Drawing.Size(232, 13);
+			this.LblRightClickResetHint.TabIndex = 11;
+			this.LblRightClickResetHint.Text = "Right-click a color to reset it to the default color.";
 			// 
-			// label5
+			// LblSelectionColorLabel
 			// 
-			this.label5.Location = new System.Drawing.Point(16, 89);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(235, 13);
-			this.label5.TabIndex = 9;
-			this.label5.Text = "Selection";
-			this.ToolTip.SetToolTip(this.label5, "Color of selected entities.");
+			this.LblSelectionColorLabel.Location = new System.Drawing.Point(16, 89);
+			this.LblSelectionColorLabel.Name = "LblSelectionColorLabel";
+			this.LblSelectionColorLabel.Size = new System.Drawing.Size(235, 13);
+			this.LblSelectionColorLabel.TabIndex = 9;
+			this.LblSelectionColorLabel.Text = "Selection";
+			this.ToolTip.SetToolTip(this.LblSelectionColorLabel, "Color of selected entities.");
 			// 
 			// LblSelectionColor
 			// 
@@ -130,14 +130,14 @@
 			this.LblSelectionColor.Tag = "SelectionColor";
 			this.LblSelectionColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LblColor_MouseClick);
 			// 
-			// label2
+			// LblBackgroundColorName
 			// 
-			this.label2.Location = new System.Drawing.Point(16, 13);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(235, 13);
-			this.label2.TabIndex = 7;
-			this.label2.Text = "Background";
-			this.ToolTip.SetToolTip(this.label2, "Map background color.");
+			this.LblBackgroundColorName.Location = new System.Drawing.Point(16, 13);
+			this.LblBackgroundColorName.Name = "LblBackgroundColorName";
+			this.LblBackgroundColorName.Size = new System.Drawing.Size(235, 13);
+			this.LblBackgroundColorName.TabIndex = 7;
+			this.LblBackgroundColorName.Text = "Background";
+			this.ToolTip.SetToolTip(this.LblBackgroundColorName, "Map background color.");
 			// 
 			// LblBackgroundColor
 			// 
@@ -150,14 +150,14 @@
 			this.LblBackgroundColor.Tag = "BackgroundColor";
 			this.LblBackgroundColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LblColor_MouseClick);
 			// 
-			// label1
+			// LblPropColorLabel
 			// 
-			this.label1.Location = new System.Drawing.Point(16, 32);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(235, 13);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "Props";
-			this.ToolTip.SetToolTip(this.label1, "Prop shape color.");
+			this.LblPropColorLabel.Location = new System.Drawing.Point(16, 32);
+			this.LblPropColorLabel.Name = "LblPropColorLabel";
+			this.LblPropColorLabel.Size = new System.Drawing.Size(235, 13);
+			this.LblPropColorLabel.TabIndex = 1;
+			this.LblPropColorLabel.Text = "Props";
+			this.ToolTip.SetToolTip(this.LblPropColorLabel, "Prop shape color.");
 			// 
 			// LblAreasColor
 			// 
@@ -192,40 +192,40 @@
 			this.LblPropsColor.Tag = "PropsColor";
 			this.LblPropsColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LblColor_MouseClick);
 			// 
-			// label6
+			// LblAreaColorLabel
 			// 
-			this.label6.Location = new System.Drawing.Point(16, 70);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(235, 13);
-			this.label6.TabIndex = 5;
-			this.label6.Text = "Areas";
-			this.ToolTip.SetToolTip(this.label6, "Area bounding box color.");
+			this.LblAreaColorLabel.Location = new System.Drawing.Point(16, 70);
+			this.LblAreaColorLabel.Name = "LblAreaColorLabel";
+			this.LblAreaColorLabel.Size = new System.Drawing.Size(235, 13);
+			this.LblAreaColorLabel.TabIndex = 5;
+			this.LblAreaColorLabel.Text = "Areas";
+			this.ToolTip.SetToolTip(this.LblAreaColorLabel, "Area bounding box color.");
 			// 
-			// label4
+			// LblEventColorLabel
 			// 
-			this.label4.Location = new System.Drawing.Point(16, 51);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(235, 13);
-			this.label4.TabIndex = 3;
-			this.label4.Text = "Events";
-			this.ToolTip.SetToolTip(this.label4, "Event shape color.");
+			this.LblEventColorLabel.Location = new System.Drawing.Point(16, 51);
+			this.LblEventColorLabel.Name = "LblEventColorLabel";
+			this.LblEventColorLabel.Size = new System.Drawing.Size(235, 13);
+			this.LblEventColorLabel.TabIndex = 3;
+			this.LblEventColorLabel.Text = "Events";
+			this.ToolTip.SetToolTip(this.LblEventColorLabel, "Event shape color.");
 			// 
-			// tabControl1
+			// TabsMain
 			// 
-			this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.TabsMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Location = new System.Drawing.Point(12, 12);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(301, 172);
-			this.tabControl1.TabIndex = 0;
+			this.TabsMain.Controls.Add(this.tabPage1);
+			this.TabsMain.Controls.Add(this.tabPage2);
+			this.TabsMain.Location = new System.Drawing.Point(12, 12);
+			this.TabsMain.Name = "TabsMain";
+			this.TabsMain.SelectedIndex = 0;
+			this.TabsMain.Size = new System.Drawing.Size(301, 172);
+			this.TabsMain.TabIndex = 0;
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Controls.Add(this.label7);
+			this.tabPage2.Controls.Add(this.LblRestartWarning);
 			this.tabPage2.Controls.Add(this.BtnSelectDataFolder);
 			this.tabPage2.Controls.Add(this.LblDataFolder);
 			this.tabPage2.Controls.Add(this.TxtDataFolder);
@@ -268,15 +268,15 @@
 			// 
 			this.DlgFolder.ShowNewFolderButton = false;
 			// 
-			// label7
+			// LblRestartWarning
 			// 
-			this.label7.AutoSize = true;
-			this.label7.ForeColor = System.Drawing.Color.Gray;
-			this.label7.Location = new System.Drawing.Point(16, 120);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(244, 13);
-			this.label7.TabIndex = 4;
-			this.label7.Text = "Some options might require a restart to take effect.";
+			this.LblRestartWarning.AutoSize = true;
+			this.LblRestartWarning.ForeColor = System.Drawing.Color.Gray;
+			this.LblRestartWarning.Location = new System.Drawing.Point(16, 120);
+			this.LblRestartWarning.Name = "LblRestartWarning";
+			this.LblRestartWarning.Size = new System.Drawing.Size(244, 13);
+			this.LblRestartWarning.TabIndex = 4;
+			this.LblRestartWarning.Text = "Some options might require a restart to take effect.";
 			// 
 			// FrmSettings
 			// 
@@ -285,7 +285,7 @@
 			this.ClientSize = new System.Drawing.Size(325, 225);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
-			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.TabsMain);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -297,7 +297,7 @@
 			this.Load += new System.EventHandler(this.FrmSettings_Load);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
+			this.TabsMain.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			this.ResumeLayout(false);
@@ -309,24 +309,24 @@
 		private System.Windows.Forms.Button BtnOK;
 		private System.Windows.Forms.Button BtnCancel;
 		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TabControl TabsMain;
+		private System.Windows.Forms.Label LblPropColorLabel;
 		private System.Windows.Forms.Label LblAreasColor;
 		private System.Windows.Forms.Label LblEventsColor;
 		private System.Windows.Forms.Label LblPropsColor;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label LblAreaColorLabel;
+		private System.Windows.Forms.Label LblEventColorLabel;
+		private System.Windows.Forms.Label LblSelectionColorLabel;
 		private System.Windows.Forms.Label LblSelectionColor;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label LblBackgroundColorName;
 		private System.Windows.Forms.Label LblBackgroundColor;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label LblRightClickResetHint;
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.Button BtnSelectDataFolder;
 		private System.Windows.Forms.Label LblDataFolder;
 		private System.Windows.Forms.TextBox TxtDataFolder;
 		private System.Windows.Forms.FolderBrowserDialog DlgFolder;
 		private System.Windows.Forms.ToolTip ToolTip;
-		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label LblRestartWarning;
 	}
 }

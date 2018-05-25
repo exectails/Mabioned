@@ -33,14 +33,14 @@
 			this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
 			this.MnuFile = new System.Windows.Forms.MenuItem();
 			this.MnuOpen = new System.Windows.Forms.MenuItem();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer5 = new System.Windows.Forms.MenuItem();
 			this.MnuNew = new System.Windows.Forms.MenuItem();
 			this.MnuSave = new System.Windows.Forms.MenuItem();
 			this.MnuSaveAs = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer4 = new System.Windows.Forms.MenuItem();
 			this.MnuRecent = new System.Windows.Forms.MenuItem();
 			this.MnuRecentNone = new System.Windows.Forms.MenuItem();
-			this.menuItem7 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer6 = new System.Windows.Forms.MenuItem();
 			this.MnuExit = new System.Windows.Forms.MenuItem();
 			this.MnuEdit = new System.Windows.Forms.MenuItem();
 			this.MnuEditSettings = new System.Windows.Forms.MenuItem();
@@ -49,12 +49,12 @@
 			this.MnuShowEvents = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsAll = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsUndefined = new System.Windows.Forms.MenuItem();
-			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer3 = new System.Windows.Forms.MenuItem();
 			this.MnuShowAreas = new System.Windows.Forms.MenuItem();
 			this.MnuShowHeightmap = new System.Windows.Forms.MenuItem();
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer1 = new System.Windows.Forms.MenuItem();
 			this.MnuScaleToFit = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer2 = new System.Windows.Forms.MenuItem();
 			this.MnuExpand = new System.Windows.Forms.MenuItem();
 			this.MnuCollapse = new System.Windows.Forms.MenuItem();
 			this.MnuHelp = new System.Windows.Forms.MenuItem();
@@ -63,7 +63,7 @@
 			this.BtnOpen = new System.Windows.Forms.ToolStripButton();
 			this.BtnNew = new System.Windows.Forms.ToolStripButton();
 			this.BtnSave = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.ToolStripSpacer1 = new System.Windows.Forms.ToolStripSeparator();
 			this.BtnScrollTool = new System.Windows.Forms.ToolStripButton();
 			this.BtnMoveTool = new System.Windows.Forms.ToolStripButton();
 			this.BtnRotateTool = new System.Windows.Forms.ToolStripButton();
@@ -97,24 +97,24 @@
 			// MainMenu
 			// 
 			this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuFile,
-			this.MnuEdit,
-			this.MnuView,
-			this.MnuHelp});
+            this.MnuFile,
+            this.MnuEdit,
+            this.MnuView,
+            this.MnuHelp});
 			// 
 			// MnuFile
 			// 
 			this.MnuFile.Index = 0;
 			this.MnuFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuOpen,
-			this.menuItem5,
-			this.MnuNew,
-			this.MnuSave,
-			this.MnuSaveAs,
-			this.menuItem4,
-			this.MnuRecent,
-			this.menuItem7,
-			this.MnuExit});
+            this.MnuOpen,
+            this.MnuSpacer5,
+            this.MnuNew,
+            this.MnuSave,
+            this.MnuSaveAs,
+            this.MnuSpacer4,
+            this.MnuRecent,
+            this.MnuSpacer6,
+            this.MnuExit});
 			this.MnuFile.Text = "File";
 			// 
 			// MnuOpen
@@ -123,10 +123,10 @@
 			this.MnuOpen.Text = "Open...";
 			this.MnuOpen.Click += new System.EventHandler(this.MnuOpen_Click);
 			// 
-			// menuItem5
+			// MnuSpacer5
 			// 
-			this.menuItem5.Index = 1;
-			this.menuItem5.Text = "-";
+			this.MnuSpacer5.Index = 1;
+			this.MnuSpacer5.Text = "-";
 			// 
 			// MnuNew
 			// 
@@ -148,16 +148,16 @@
 			this.MnuSaveAs.Text = "Save as...";
 			this.MnuSaveAs.Click += new System.EventHandler(this.MnuSaveAs_Click);
 			// 
-			// menuItem4
+			// MnuSpacer4
 			// 
-			this.menuItem4.Index = 5;
-			this.menuItem4.Text = "-";
+			this.MnuSpacer4.Index = 5;
+			this.MnuSpacer4.Text = "-";
 			// 
 			// MnuRecent
 			// 
 			this.MnuRecent.Index = 6;
 			this.MnuRecent.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuRecentNone});
+            this.MnuRecentNone});
 			this.MnuRecent.Text = "Recent Files";
 			// 
 			// MnuRecentNone
@@ -166,10 +166,10 @@
 			this.MnuRecentNone.Index = 0;
 			this.MnuRecentNone.Text = "None";
 			// 
-			// menuItem7
+			// MnuSpacer6
 			// 
-			this.menuItem7.Index = 7;
-			this.menuItem7.Text = "-";
+			this.MnuSpacer6.Index = 7;
+			this.MnuSpacer6.Text = "-";
 			// 
 			// MnuExit
 			// 
@@ -181,7 +181,7 @@
 			// 
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuEditSettings});
+            this.MnuEditSettings});
 			this.MnuEdit.Text = "Edit";
 			// 
 			// MnuEditSettings
@@ -194,15 +194,15 @@
 			// 
 			this.MnuView.Index = 2;
 			this.MnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuShowProps,
-			this.MnuShowEvents,
-			this.MnuShowAreas,
-			this.MnuShowHeightmap,
-			this.menuItem1,
-			this.MnuScaleToFit,
-			this.menuItem2,
-			this.MnuExpand,
-			this.MnuCollapse});
+            this.MnuShowProps,
+            this.MnuShowEvents,
+            this.MnuShowAreas,
+            this.MnuShowHeightmap,
+            this.MnuSpacer1,
+            this.MnuScaleToFit,
+            this.MnuSpacer2,
+            this.MnuExpand,
+            this.MnuCollapse});
 			this.MnuView.Text = "View";
 			// 
 			// MnuShowProps
@@ -216,9 +216,9 @@
 			// 
 			this.MnuShowEvents.Index = 1;
 			this.MnuShowEvents.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuShowEventsAll,
-			this.MnuShowEventsUndefined,
-			this.menuItem3});
+            this.MnuShowEventsAll,
+            this.MnuShowEventsUndefined,
+            this.MnuSpacer3});
 			this.MnuShowEvents.Text = "Show Events";
 			// 
 			// MnuShowEventsAll
@@ -235,10 +235,10 @@
 			this.MnuShowEventsUndefined.Text = "Undefined";
 			this.MnuShowEventsUndefined.Click += new System.EventHandler(this.MnuShowEventsToggle_Click);
 			// 
-			// menuItem3
+			// MnuSpacer3
 			// 
-			this.menuItem3.Index = 2;
-			this.menuItem3.Text = "-";
+			this.MnuSpacer3.Index = 2;
+			this.MnuSpacer3.Text = "-";
 			// 
 			// MnuShowAreas
 			// 
@@ -252,10 +252,10 @@
 			this.MnuShowHeightmap.Index = 3;
 			this.MnuShowHeightmap.Text = "Show Heightmap";
 			// 
-			// menuItem1
+			// MnuSpacer1
 			// 
-			this.menuItem1.Index = 4;
-			this.menuItem1.Text = "-";
+			this.MnuSpacer1.Index = 4;
+			this.MnuSpacer1.Text = "-";
 			// 
 			// MnuScaleToFit
 			// 
@@ -263,10 +263,10 @@
 			this.MnuScaleToFit.Text = "Scale to fit";
 			this.MnuScaleToFit.Click += new System.EventHandler(this.MnuScaleToFit_Click);
 			// 
-			// menuItem2
+			// MnuSpacer2
 			// 
-			this.menuItem2.Index = 6;
-			this.menuItem2.Text = "-";
+			this.MnuSpacer2.Index = 6;
+			this.MnuSpacer2.Text = "-";
 			// 
 			// MnuExpand
 			// 
@@ -284,7 +284,7 @@
 			// 
 			this.MnuHelp.Index = 3;
 			this.MnuHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuAbout});
+            this.MnuAbout});
 			this.MnuHelp.Text = "?";
 			// 
 			// MnuAbout
@@ -297,14 +297,14 @@
 			// 
 			this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.BtnOpen,
-			this.BtnNew,
-			this.BtnSave,
-			this.toolStripSeparator1,
-			this.BtnScrollTool,
-			this.BtnMoveTool,
-			this.BtnRotateTool,
-			this.BtnFreeTool});
+            this.BtnOpen,
+            this.BtnNew,
+            this.BtnSave,
+            this.ToolStripSpacer1,
+            this.BtnScrollTool,
+            this.BtnMoveTool,
+            this.BtnRotateTool,
+            this.BtnFreeTool});
 			this.ToolStrip.Location = new System.Drawing.Point(0, 0);
 			this.ToolStrip.Name = "ToolStrip";
 			this.ToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -343,10 +343,10 @@
 			this.BtnSave.Text = "Save";
 			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
-			// toolStripSeparator1
+			// ToolStripSpacer1
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			this.ToolStripSpacer1.Name = "ToolStripSpacer1";
+			this.ToolStripSpacer1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// BtnScrollTool
 			// 
@@ -393,8 +393,8 @@
 			// StatusStrip
 			// 
 			this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.LblCurrentPosition,
-			this.LblScale});
+            this.LblCurrentPosition,
+            this.LblScale});
 			this.StatusStrip.Location = new System.Drawing.Point(0, 636);
 			this.StatusStrip.Name = "StatusStrip";
 			this.StatusStrip.Size = new System.Drawing.Size(1034, 24);
@@ -524,8 +524,8 @@
 			// CtxMap
 			// 
 			this.CtxMap.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuCopyCoordinates,
-			this.MnuCopyAuraWarp});
+            this.MnuCopyCoordinates,
+            this.MnuCopyAuraWarp});
 			// 
 			// MnuCopyCoordinates
 			// 
@@ -597,32 +597,32 @@
 		private System.Windows.Forms.MenuItem MnuShowEvents;
 		private System.Windows.Forms.MenuItem MnuShowAreas;
 		private System.Windows.Forms.MenuItem MnuShowEventsAll;
-		private System.Windows.Forms.MenuItem menuItem3;
+		private System.Windows.Forms.MenuItem MnuSpacer3;
 		private System.Windows.Forms.MenuItem MnuShowEventsUndefined;
 		private System.Windows.Forms.MenuItem MnuNew;
-		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem MnuSpacer5;
 		private System.Windows.Forms.MenuItem MnuSave;
 		private System.Windows.Forms.MenuItem MnuSaveAs;
-		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem MnuSpacer4;
 		private System.Windows.Forms.ToolStripButton BtnNew;
 		private System.Windows.Forms.ToolStripButton BtnSave;
 		private System.Windows.Forms.ContextMenu CtxMap;
 		private System.Windows.Forms.MenuItem MnuCopyCoordinates;
 		private System.Windows.Forms.MenuItem MnuCopyAuraWarp;
-		private System.Windows.Forms.MenuItem menuItem1;
+		private System.Windows.Forms.MenuItem MnuSpacer1;
 		private System.Windows.Forms.MenuItem MnuScaleToFit;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripSeparator ToolStripSpacer1;
 		private System.Windows.Forms.ToolStripButton BtnScrollTool;
 		private System.Windows.Forms.ToolStripButton BtnMoveTool;
 		private System.Windows.Forms.ToolStripButton BtnRotateTool;
 		private System.Windows.Forms.ImageList ImgsTree;
-		private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem MnuSpacer2;
 		private System.Windows.Forms.MenuItem MnuExpand;
 		private System.Windows.Forms.MenuItem MnuCollapse;
 		private System.Windows.Forms.SaveFileDialog SfdRegion;
 		private System.Windows.Forms.MenuItem MnuRecent;
 		private System.Windows.Forms.MenuItem MnuRecentNone;
-		private System.Windows.Forms.MenuItem menuItem7;
+		private System.Windows.Forms.MenuItem MnuSpacer6;
 		private System.Windows.Forms.MenuItem MnuEdit;
 		private System.Windows.Forms.MenuItem MnuEditSettings;
 		private System.Windows.Forms.MenuItem MnuShowHeightmap;

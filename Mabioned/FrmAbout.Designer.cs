@@ -29,66 +29,66 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.PnlHeader = new System.Windows.Forms.Panel();
+			this.LblSubTitle = new System.Windows.Forms.Label();
+			this.LblName = new System.Windows.Forms.Label();
+			this.ImgIcon = new System.Windows.Forms.PictureBox();
 			this.BtnOK = new System.Windows.Forms.Button();
-			this.label3 = new System.Windows.Forms.Label();
+			this.LblCopyright = new System.Windows.Forms.Label();
 			this.LnkGithub = new System.Windows.Forms.LinkLabel();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.panel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.groupBox1.SuspendLayout();
+			this.GrpDescription = new System.Windows.Forms.GroupBox();
+			this.LblDescription = new System.Windows.Forms.Label();
+			this.PnlHeader.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).BeginInit();
+			this.GrpDescription.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// panel1
+			// PnlHeader
 			// 
-			this.panel1.BackColor = System.Drawing.Color.White;
-			this.panel1.Controls.Add(this.label2);
-			this.panel1.Controls.Add(this.label1);
-			this.panel1.Controls.Add(this.pictureBox1);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(394, 81);
-			this.panel1.TabIndex = 0;
+			this.PnlHeader.BackColor = System.Drawing.Color.White;
+			this.PnlHeader.Controls.Add(this.LblSubTitle);
+			this.PnlHeader.Controls.Add(this.LblName);
+			this.PnlHeader.Controls.Add(this.ImgIcon);
+			this.PnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+			this.PnlHeader.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.PnlHeader.Location = new System.Drawing.Point(0, 0);
+			this.PnlHeader.Name = "PnlHeader";
+			this.PnlHeader.Size = new System.Drawing.Size(394, 81);
+			this.PnlHeader.TabIndex = 0;
 			// 
-			// label2
+			// LblSubTitle
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(65, 43);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(111, 13);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Mabinogi Region Tool";
+			this.LblSubTitle.AutoSize = true;
+			this.LblSubTitle.Location = new System.Drawing.Point(65, 43);
+			this.LblSubTitle.Name = "LblSubTitle";
+			this.LblSubTitle.Size = new System.Drawing.Size(111, 13);
+			this.LblSubTitle.TabIndex = 2;
+			this.LblSubTitle.Text = "Mabinogi Region Tool";
 			// 
-			// label1
+			// LblName
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.label1.Location = new System.Drawing.Point(63, 20);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(95, 24);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Mabioned";
+			this.LblName.AutoSize = true;
+			this.LblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.LblName.Location = new System.Drawing.Point(63, 20);
+			this.LblName.Name = "LblName";
+			this.LblName.Size = new System.Drawing.Size(95, 24);
+			this.LblName.TabIndex = 2;
+			this.LblName.Text = "Mabioned";
 			// 
-			// pictureBox1
+			// ImgIcon
 			// 
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(25, 24);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-			this.pictureBox1.TabIndex = 2;
-			this.pictureBox1.TabStop = false;
+			this.ImgIcon.Image = ((System.Drawing.Image)(resources.GetObject("ImgIcon.Image")));
+			this.ImgIcon.Location = new System.Drawing.Point(25, 24);
+			this.ImgIcon.Name = "ImgIcon";
+			this.ImgIcon.Size = new System.Drawing.Size(32, 32);
+			this.ImgIcon.TabIndex = 2;
+			this.ImgIcon.TabStop = false;
 			// 
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(307, 170);
+			this.BtnOK.Location = new System.Drawing.Point(307, 199);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 1;
@@ -96,21 +96,21 @@
 			this.BtnOK.UseVisualStyleBackColor = true;
 			this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
 			// 
-			// label3
+			// LblCopyright
 			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 162);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(116, 13);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "Copyright © 2018 exec";
+			this.LblCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.LblCopyright.AutoSize = true;
+			this.LblCopyright.Location = new System.Drawing.Point(12, 191);
+			this.LblCopyright.Name = "LblCopyright";
+			this.LblCopyright.Size = new System.Drawing.Size(116, 13);
+			this.LblCopyright.TabIndex = 2;
+			this.LblCopyright.Text = "Copyright © 2018 exec";
 			// 
 			// LnkGithub
 			// 
 			this.LnkGithub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.LnkGithub.AutoSize = true;
-			this.LnkGithub.Location = new System.Drawing.Point(12, 175);
+			this.LnkGithub.Location = new System.Drawing.Point(12, 204);
 			this.LnkGithub.Name = "LnkGithub";
 			this.LnkGithub.Size = new System.Drawing.Size(141, 13);
 			this.LnkGithub.TabIndex = 3;
@@ -118,39 +118,39 @@
 			this.LnkGithub.Text = "https://github.com/exectails";
 			this.LnkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkGithub_LinkClicked);
 			// 
-			// groupBox1
+			// GrpDescription
 			// 
-			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.GrpDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox1.Controls.Add(this.label4);
-			this.groupBox1.Location = new System.Drawing.Point(12, 87);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(370, 68);
-			this.groupBox1.TabIndex = 4;
-			this.groupBox1.TabStop = false;
+			this.GrpDescription.Controls.Add(this.LblDescription);
+			this.GrpDescription.Location = new System.Drawing.Point(12, 87);
+			this.GrpDescription.Name = "GrpDescription";
+			this.GrpDescription.Size = new System.Drawing.Size(370, 97);
+			this.GrpDescription.TabIndex = 4;
+			this.GrpDescription.TabStop = false;
 			// 
-			// label4
+			// LblDescription
 			// 
-			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.LblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.label4.Location = new System.Drawing.Point(10, 16);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(354, 49);
-			this.label4.TabIndex = 0;
-			this.label4.Text = resources.GetString("label4.Text");
+			this.LblDescription.Location = new System.Drawing.Point(10, 16);
+			this.LblDescription.Name = "LblDescription";
+			this.LblDescription.Size = new System.Drawing.Size(354, 78);
+			this.LblDescription.TabIndex = 0;
+			this.LblDescription.Text = resources.GetString("LblDescription.Text");
 			// 
 			// FrmAbout
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(394, 205);
-			this.Controls.Add(this.groupBox1);
+			this.ClientSize = new System.Drawing.Size(394, 234);
+			this.Controls.Add(this.GrpDescription);
 			this.Controls.Add(this.LnkGithub);
-			this.Controls.Add(this.label3);
+			this.Controls.Add(this.LblCopyright);
 			this.Controls.Add(this.BtnOK);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.PnlHeader);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -160,10 +160,10 @@
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "About";
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.groupBox1.ResumeLayout(false);
+			this.PnlHeader.ResumeLayout(false);
+			this.PnlHeader.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).EndInit();
+			this.GrpDescription.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -171,14 +171,14 @@
 
 		#endregion
 
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Panel PnlHeader;
+		private System.Windows.Forms.Label LblSubTitle;
+		private System.Windows.Forms.Label LblName;
+		private System.Windows.Forms.PictureBox ImgIcon;
 		private System.Windows.Forms.Button BtnOK;
-		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label LblCopyright;
 		private System.Windows.Forms.LinkLabel LnkGithub;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.GroupBox GrpDescription;
+		private System.Windows.Forms.Label LblDescription;
 	}
 }
