@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace MabiWorld
+namespace MabiWorld.Data
 {
 	/// <summary>
-	/// Represents an entry in propdb.xml/PropClassList.
+	/// Represents an entry in "data/db/propdb.xml::PropDB/PropClassList".
 	/// </summary>
 	public class PropDbEntry
 	{
-		public int ClassID { get; set; }
-		public string ClassName { get; set; }
-		public string ClassPath { get; set; }
-		public int ColorType { get; set; }
-		public string Events { get; set; }
-		public string Actions { get; set; }
-		public bool HasState { get; set; }
-		public string Name { get; set; }
-		public bool ShowName { get; set; }
-		public bool IsHugeProp { get; set; }
-		public bool UsedServer { get; set; }
-		public bool NonTrivialAnimation { get; set; }
-		public bool PickRestrict { get; set; }
-		public int[] SoundDescIDs { get; set; }
-		public string StringID { get; set; }
+		public int ClassID { get; internal set; }
+		public string ClassName { get; internal set; }
+		public string ClassPath { get; internal set; }
+		public int ColorType { get; internal set; }
+		public string Events { get; internal set; }
+		public string Actions { get; internal set; }
+		public bool HasState { get; internal set; }
+		public string Name { get; internal set; }
+		public bool ShowName { get; internal set; }
+		public bool IsHugeProp { get; internal set; }
+		public bool UsedServer { get; internal set; }
+		public bool NonTrivialAnimation { get; internal set; }
+		public bool PickRestrict { get; internal set; }
+		public int[] SoundDescIDs { get; internal set; }
+		public string StringID { get; internal set; }
 	}
 
 	/// <summary>

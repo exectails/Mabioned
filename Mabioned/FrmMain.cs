@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using MabiWorld;
+using MabiWorld.Data;
 using MabiWorld.PropertyEditing;
 using PrimitiveCanvas.Extensions;
 using PrimitiveCanvas.Interactions;

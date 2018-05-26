@@ -57,7 +57,7 @@
     <Compile Include="Extensions\BinaryRW.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Prop.cs" />
-    <Compile Include="PropDb.cs" />
+    <Compile Include="Data\PropDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditing\Color.cs" />
     <Compile Include="PropertyEditing\XML\FrmXmlTextEditor.cs">
