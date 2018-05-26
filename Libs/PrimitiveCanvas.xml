@@ -1084,16 +1084,18 @@
             Gets or sets the text's alignment.
             </summary>
         </member>
-        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.String)">
+        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.Drawing.PointF,System.String)">
             <summary>
             Creates new instance with Arial as its font.
             </summary>
             <param name="text"></param>
+            <param name="position"></param>
         </member>
-        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.Drawing.Font,System.String)">
+        <member name="M:PrimitiveCanvas.Primitives.TextString.#ctor(System.Drawing.PointF,System.Drawing.Font,System.String)">
             <summary>
             Creates new instance.
             </summary>
+            <param name="position"></param>
             <param name="font"></param>
             <param name="text"></param>
         </member>
