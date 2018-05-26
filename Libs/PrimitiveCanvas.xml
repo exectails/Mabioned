@@ -55,6 +55,17 @@
             is used.
             </summary>
         </member>
+        <member name="P:PrimitiveCanvas.Canvas.ScaleType">
+            <summary>
+            Gets or sets how the canvas is scaled.
+            </summary>
+            <remarks>
+            If the Static type is used the canvas scales by exactly the
+            number in ScaleStep every time. The dynamic type uses ScaleStep
+            as a percentage of the current scale, to scale faster when
+            scaled out far and slower when scaled in close.
+            </remarks>
+        </member>
         <member name="P:PrimitiveCanvas.Canvas.InvertY">
             <summary>
             Gets or sets whether the canvas is inverted and 0,0 is found
@@ -336,6 +347,23 @@
         <member name="F:PrimitiveCanvas.Interactions.InteractionMode.Tools">
             <summary>
             The respective tool must be active to interact with an object.
+            </summary>
+        </member>
+        <member name="T:PrimitiveCanvas.Interactions.ScaleType">
+            <summary>
+            Defines how a canvas is scaled/zoomed.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.ScaleType.Static">
+            <summary>
+            Every scale action modifies the scale by a specific amount.
+            </summary>
+        </member>
+        <member name="F:PrimitiveCanvas.Interactions.ScaleType.Dynamic">
+            <summary>
+            The scale amount is dynamically chosen based on the current
+            scale. The farther out the scale is, the faster the
+            scaling is.
             </summary>
         </member>
         <member name="T:PrimitiveCanvas.Interactions.Tool">
@@ -846,7 +874,12 @@
         </member>
         <member name="P:PrimitiveCanvas.Primitives.Picture.SrcRect">
             <summary>
-            Gets or sets the section of the image to drawn.
+            Gets or sets the section of the image to draw.
+            </summary>
+        </member>
+        <member name="P:PrimitiveCanvas.Primitives.Picture.DestRect">
+            <summary>
+            Gets or sets the images drawn dimensions.
             </summary>
         </member>
         <member name="M:PrimitiveCanvas.Primitives.Picture.#ctor(System.Drawing.Image)">
@@ -861,6 +894,14 @@
             </summary>
             <param name="image"></param>
             <param name="srcRect"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.#ctor(System.Drawing.Image,System.Drawing.RectangleF,System.Drawing.RectangleF)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="image"></param>
+            <param name="srcRect"></param>
+            <param name="destRect"></param>
         </member>
         <member name="M:PrimitiveCanvas.Primitives.Picture.Draw(System.Drawing.Graphics,System.Single,System.Int32)">
             <summary>
