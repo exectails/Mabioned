@@ -49,6 +49,8 @@ namespace Mabioned
 		private DrawStyle _areaStyle = new DrawStyle() { OutlineColor = Settings.Default.AreasColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 		private DrawStyle _propStyle = new DrawStyle() { OutlineColor = Settings.Default.PropsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 		private DrawStyle _eventStyle = new DrawStyle() { OutlineColor = Settings.Default.EventsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+		private Font _areaNameFont = new Font("Arial", 200);
+		private StringFormat _areaNameFormat = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 		private CanvasObject _miniMapObject;
 
 		/// <summary>
@@ -479,6 +481,7 @@ namespace Mabioned
 
 				var areaObj = new CanvasObject(x, y);
 				areaObj.Add(new Rect(x, y, w, h));
+				areaObj.Add(new TextString(new PointF(x, y), _areaNameFont, area.Name) { StringFormat = _areaNameFormat });
 				areaObj.Interactions = ObjectInteractions.None;
 				areaObj.Visible = this.ShowAreas;
 				areaObj.DrawOrder = 100;
