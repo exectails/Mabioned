@@ -478,6 +478,7 @@ namespace Mabioned
 				var h = (area.TopLeft.Y - area.BottomLeft.Y);
 				var x = (area.BottomLeft.X + w / 2);
 				var y = (area.TopLeft.Y + h / 2);
+				y -= h;
 
 				var areaObj = new CanvasObject(x, y);
 				areaObj.Add(new Rect(x, y, w, h));
