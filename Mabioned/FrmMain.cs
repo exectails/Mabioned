@@ -133,11 +133,24 @@ namespace Mabioned
 				if (!Directory.Exists(path))
 					return;
 
+				var localPath = Path.Combine(path, "local");
+				if (Directory.Exists(localPath))
+					Local.Load(localPath);
+
+				var featuresPath = Path.Combine(path, "features.xml.compiled");
+				if (File.Exists(featuresPath))
+				{
+					Features.Load(featuresPath);
+					Features.SelectSetting("USA", false, false);
+				}
+
 				var propDbPath = Path.Combine(path, "db", "propdb.xml");
 				if (File.Exists(propDbPath))
-				{
 					PropDb.Load(propDbPath);
-				}
+
+				var miniMapInfoPath = Path.Combine(path, "db", "minimapinfo.xml");
+				if (File.Exists(miniMapInfoPath))
+					MiniMapInfo.Load(miniMapInfoPath);
 			}
 			catch (Exception ex)
 			{

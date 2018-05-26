@@ -50,6 +50,9 @@
     <Compile Include="Area.cs" />
     <Compile Include="AreaPlane.cs" />
     <Compile Include="Const.cs" />
+    <Compile Include="Data\Features.cs" />
+    <Compile Include="Data\Local.cs" />
+    <Compile Include="Data\MiniMapInfo.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityParameter.cs" />
     <Compile Include="Event.cs" />
