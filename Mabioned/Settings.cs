@@ -36,6 +36,7 @@ namespace Mabioned
 
 		public bool ShowProps { get; set; } = true;
 		public bool ShowAreas { get; set; } = false;
+		public bool ShowMiniMap { get; set; } = false;
 		public SerializableDictionary<int, bool> ShowEvents { get; set; } = new SerializableDictionary<int, bool>();
 
 		public int Tool { get; set; } = (int)PrimitiveCanvas.Interactions.Tool.Scroll;

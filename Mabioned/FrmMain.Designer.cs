@@ -51,6 +51,7 @@
 			this.MnuShowEventsUndefined = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer3 = new System.Windows.Forms.MenuItem();
 			this.MnuShowAreas = new System.Windows.Forms.MenuItem();
+			this.MnuShowMiniMap = new System.Windows.Forms.MenuItem();
 			this.MnuShowHeightmap = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer1 = new System.Windows.Forms.MenuItem();
 			this.MnuScaleToFit = new System.Windows.Forms.MenuItem();
@@ -197,6 +198,7 @@
             this.MnuShowProps,
             this.MnuShowEvents,
             this.MnuShowAreas,
+            this.MnuShowMiniMap,
             this.MnuShowHeightmap,
             this.MnuSpacer1,
             this.MnuScaleToFit,
@@ -246,37 +248,43 @@
 			this.MnuShowAreas.Text = "Show Areas";
 			this.MnuShowAreas.Click += new System.EventHandler(this.MnuShowAreas_Click);
 			// 
+			// MnuShowMiniMap
+			// 
+			this.MnuShowMiniMap.Index = 3;
+			this.MnuShowMiniMap.Text = "Show Mini Map (Experimental)";
+			this.MnuShowMiniMap.Click += new System.EventHandler(this.MnuShowMiniMap_Click);
+			// 
 			// MnuShowHeightmap
 			// 
 			this.MnuShowHeightmap.Enabled = false;
-			this.MnuShowHeightmap.Index = 3;
+			this.MnuShowHeightmap.Index = 4;
 			this.MnuShowHeightmap.Text = "Show Heightmap";
 			// 
 			// MnuSpacer1
 			// 
-			this.MnuSpacer1.Index = 4;
+			this.MnuSpacer1.Index = 5;
 			this.MnuSpacer1.Text = "-";
 			// 
 			// MnuScaleToFit
 			// 
-			this.MnuScaleToFit.Index = 5;
+			this.MnuScaleToFit.Index = 6;
 			this.MnuScaleToFit.Text = "Scale to fit";
 			this.MnuScaleToFit.Click += new System.EventHandler(this.MnuScaleToFit_Click);
 			// 
 			// MnuSpacer2
 			// 
-			this.MnuSpacer2.Index = 6;
+			this.MnuSpacer2.Index = 7;
 			this.MnuSpacer2.Text = "-";
 			// 
 			// MnuExpand
 			// 
-			this.MnuExpand.Index = 7;
+			this.MnuExpand.Index = 8;
 			this.MnuExpand.Text = "Expand tree";
 			this.MnuExpand.Click += new System.EventHandler(this.MnuExpand_Click);
 			// 
 			// MnuCollapse
 			// 
-			this.MnuCollapse.Index = 8;
+			this.MnuCollapse.Index = 9;
 			this.MnuCollapse.Text = "Collapse tree";
 			this.MnuCollapse.Click += new System.EventHandler(this.MnuCollapse_Click);
 			// 
@@ -628,6 +636,7 @@
 		private System.Windows.Forms.MenuItem MnuShowHeightmap;
 		private PrimitiveCanvas.Canvas RegionCanvas;
 		private System.Windows.Forms.ToolStripButton BtnFreeTool;
+		private System.Windows.Forms.MenuItem MnuShowMiniMap;
 	}
 }
 

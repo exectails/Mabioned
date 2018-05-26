@@ -49,6 +49,7 @@ namespace Mabioned
 		private DrawStyle _areaStyle = new DrawStyle() { OutlineColor = Settings.Default.AreasColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 		private DrawStyle _propStyle = new DrawStyle() { OutlineColor = Settings.Default.PropsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 		private DrawStyle _eventStyle = new DrawStyle() { OutlineColor = Settings.Default.EventsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
+		private CanvasObject _miniMapObject;
 
 		/// <summary>
 		/// Returns true if a single area is open.
@@ -200,6 +201,7 @@ namespace Mabioned
 		{
 			this.MnuShowProps.Checked = Settings.Default.ShowProps;
 			this.MnuShowAreas.Checked = Settings.Default.ShowAreas;
+			this.MnuShowMiniMap.Checked = Settings.Default.ShowMiniMap;
 
 			var eventTypeType = typeof(EventType);
 
@@ -231,6 +233,7 @@ namespace Mabioned
 		{
 			Settings.Default.ShowProps = this.MnuShowProps.Checked;
 			Settings.Default.ShowAreas = this.MnuShowAreas.Checked;
+			Settings.Default.ShowMiniMap = this.MnuShowMiniMap.Checked;
 
 			Settings.Default.ShowEvents[-1] = this.MnuShowEventsUndefined.Checked;
 			foreach (var menuItem in _eventTypeMenuItems.Values)
@@ -411,6 +414,60 @@ namespace Mabioned
 
 			canvas.CanvasBackColor = Settings.Default.BackgroundColor;
 
+			if (region != null && MiniMapInfo.TryGetEntry(region.Id, out var entry))
+			{
+				var miniMapImage = this.GetMiniMapImage(entry);
+				if (miniMapImage != null)
+				{
+					var x = 0;
+					var y = 0;
+					var width = _topRight.X;
+					var height = _topRight.Y;
+					var imgWidth = miniMapImage.Width;
+					var imgHeight = miniMapImage.Height;
+
+					if (entry.MapOffsetX != 0)
+					{
+						x += entry.MapOffsetX;
+						width -= entry.MapOffsetX;
+					}
+
+					if (entry.MapOffsetY != 0)
+					{
+						y += entry.MapOffsetY;
+						height -= entry.MapOffsetY;
+					}
+
+					// Keep aspect ratio? Didn't work well on the test case
+					// "dugald_aisle_keep", where the mini map is way too
+					// small if not stretched, but if streched it does kinda
+					// match.
+					//var xs = (width / imgWidth);
+					//var ys = (height / imgHeight);
+					//if (xs < ys)
+					//{
+					//	width = imgWidth * xs;
+					//	height = imgHeight * xs;
+					//}
+					//else if (ys < xs)
+					//{
+					//	width = imgWidth * ys;
+					//	height = imgHeight * ys;
+					//}
+
+					var pic = new Picture(miniMapImage, new RectangleF(0, 0, imgWidth, imgHeight), new RectangleF(x, y, width, height));
+					var rect = new FlatRect(new RectangleF(x, y, width, height), Color.FromArgb(127, 255, 255, 255));
+
+					var obj = new CanvasObject(0, 0, pic, rect);
+					obj.Interactions = ObjectInteractions.None;
+					obj.DrawOrder = 1;
+					obj.Visible = this.MnuShowMiniMap.Checked;
+
+					canvas.Add(obj);
+					_miniMapObject = obj;
+				}
+			}
+
 			for (var j = 0; j < areas.Count; ++j)
 			{
 				var area = areas[j];
@@ -481,6 +538,26 @@ namespace Mabioned
 			}
 
 			canvas.EndUpdate();
+		}
+
+		/// <summary>
+		/// Returns the mini map for the given region if it exists in the
+		/// data folder.
+		/// </summary>
+		/// <param name="entry"></param>
+		/// <returns></returns>
+		private Image GetMiniMapImage(MiniMapInfoEntry entry)
+		{
+			var filePath = entry.MapFile;
+			if (filePath.StartsWith("data/") || filePath.StartsWith("data\\"))
+				filePath = filePath.Substring(5);
+
+			filePath = Path.Combine(Settings.Default.DataFolder, filePath);
+
+			if (!File.Exists(filePath))
+				return null;
+
+			return new Bitmap(filePath);
 		}
 
 		/// <summary>
@@ -1564,6 +1641,20 @@ namespace Mabioned
 			}
 
 			//Console.WriteLine(this.ProbeHeight(this.ToRegionPosition(e.Location)));
+		}
+
+		/// <summary>
+		/// Toggles mini map canvas object's visibility.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuShowMiniMap_Click(object sender, EventArgs e)
+		{
+			var visible = (this.MnuShowMiniMap.Checked = !this.MnuShowMiniMap.Checked);
+
+			this.RegionCanvas.BeginUpdate();
+			_miniMapObject.Visible = visible;
+			this.RegionCanvas.EndUpdate();
 		}
 	}
 }
