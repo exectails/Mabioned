@@ -1720,6 +1720,60 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Flattens entire terrain.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuFlattenTerrain_Click(object sender, EventArgs e)
+		{
+			var result = MessageBox.Show("Adjust props' positions to place them on the floor?", Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+			if (result == DialogResult.Cancel)
+				return;
+
+			var adjustEntities = (result == DialogResult.Yes);
+
+			var areas = _areas;
+			var minHeight = areas.SelectMany(a => a.AreaPlanes).Min(a => a.MinHeight);
+			var maxHeight = areas.SelectMany(a => a.AreaPlanes).Max(a => a.MaxHeight);
+			var averageHeight = (minHeight + maxHeight) / 2;
+
+			for (var i = 0; i < areas.Count; ++i)
+			{
+				var area = areas[i];
+
+				for (var j = 0; j < area.AreaPlanes.Count; ++j)
+				{
+					var areaPlane = area.AreaPlanes[j];
+
+					areaPlane.MinHeight = averageHeight;
+					areaPlane.MaxHeight = averageHeight;
+
+					for (var k = 0; k < areaPlane.Planes.Count; ++k)
+					{
+						var plane = areaPlane.Planes[k];
+						plane.Height = averageHeight;
+					}
+				}
+
+				if (adjustEntities)
+				{
+					for (var j = 0; j < area.Props.Count; ++j)
+					{
+						var prop = area.Props[j];
+						var pos = prop.Position;
+						pos.Z = averageHeight;
+
+						prop.Position = pos;
+					}
+				}
+			}
+
+			MessageBox.Show($"Flattened all areas to average height {averageHeight}.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
 		/// Toggles mini map canvas object's visibility.
 		/// </summary>
 		/// <param name="sender"></param>

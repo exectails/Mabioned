@@ -43,6 +43,8 @@
 			this.MnuSpacer6 = new System.Windows.Forms.MenuItem();
 			this.MnuExit = new System.Windows.Forms.MenuItem();
 			this.MnuEdit = new System.Windows.Forms.MenuItem();
+			this.MnuFlattenTerrain = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer7 = new System.Windows.Forms.MenuItem();
 			this.MnuEditSettings = new System.Windows.Forms.MenuItem();
 			this.MnuView = new System.Windows.Forms.MenuItem();
 			this.MnuShowProps = new System.Windows.Forms.MenuItem();
@@ -189,12 +191,25 @@
 			// 
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MnuFlattenTerrain,
+            this.MnuSpacer7,
             this.MnuEditSettings});
 			this.MnuEdit.Text = "Edit";
 			// 
+			// MnuFlattenTerrain
+			// 
+			this.MnuFlattenTerrain.Index = 0;
+			this.MnuFlattenTerrain.Text = "Flatten Terrain";
+			this.MnuFlattenTerrain.Click += new System.EventHandler(this.MnuFlattenTerrain_Click);
+			// 
+			// MnuSpacer7
+			// 
+			this.MnuSpacer7.Index = 1;
+			this.MnuSpacer7.Text = "-";
+			// 
 			// MnuEditSettings
 			// 
-			this.MnuEditSettings.Index = 0;
+			this.MnuEditSettings.Index = 2;
 			this.MnuEditSettings.Text = "Settings";
 			this.MnuEditSettings.Click += new System.EventHandler(this.MnuEditSettings_Click);
 			// 
@@ -520,7 +535,8 @@
 			this.RegionCanvas.ScaleCurrent = 1F;
 			this.RegionCanvas.ScaleMax = 1000F;
 			this.RegionCanvas.ScaleMin = 1F;
-			this.RegionCanvas.ScaleStep = 5F;
+			this.RegionCanvas.ScaleStep = 10F;
+			this.RegionCanvas.ScaleType = PrimitiveCanvas.Interactions.ScaleType.Dynamic;
 			this.RegionCanvas.Size = new System.Drawing.Size(710, 611);
 			this.RegionCanvas.TabIndex = 1;
 			this.RegionCanvas.Text = "canvas1";
@@ -664,6 +680,8 @@
 		private System.Windows.Forms.ContextMenu CtxTreeArea;
 		private System.Windows.Forms.MenuItem MnuAreaRemoveAllProps;
 		private System.Windows.Forms.MenuItem MnuAreaRemoveAllEvents;
+		private System.Windows.Forms.MenuItem MnuFlattenTerrain;
+		private System.Windows.Forms.MenuItem MnuSpacer7;
 		private System.Windows.Forms.MenuItem MnuShowMiniMap;
 	}
 }
