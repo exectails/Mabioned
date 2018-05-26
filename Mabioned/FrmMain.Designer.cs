@@ -83,6 +83,9 @@
 			this.MnuCopyCoordinates = new System.Windows.Forms.MenuItem();
 			this.MnuCopyAuraWarp = new System.Windows.Forms.MenuItem();
 			this.SfdRegion = new System.Windows.Forms.SaveFileDialog();
+			this.CtxTreeArea = new System.Windows.Forms.ContextMenu();
+			this.MnuAreaRemoveAllProps = new System.Windows.Forms.MenuItem();
+			this.MnuAreaRemoveAllEvents = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -547,6 +550,24 @@
 			this.MnuCopyAuraWarp.Text = "Copy Aura Warp Command";
 			this.MnuCopyAuraWarp.Click += new System.EventHandler(this.MnuCopyAuraWarp_Click);
 			// 
+			// CtxTreeArea
+			// 
+			this.CtxTreeArea.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MnuAreaRemoveAllProps,
+            this.MnuAreaRemoveAllEvents});
+			// 
+			// MnuAreaRemoveAllProps
+			// 
+			this.MnuAreaRemoveAllProps.Index = 0;
+			this.MnuAreaRemoveAllProps.Text = "Remove all props";
+			this.MnuAreaRemoveAllProps.Click += new System.EventHandler(this.MnuAreaRemoveAllProps_Click);
+			// 
+			// MnuAreaRemoveAllEvents
+			// 
+			this.MnuAreaRemoveAllEvents.Index = 1;
+			this.MnuAreaRemoveAllEvents.Text = "Remove all events";
+			this.MnuAreaRemoveAllEvents.Click += new System.EventHandler(this.MnuAreaRemoveAllEvents_Click);
+			// 
 			// FrmMain
 			// 
 			this.AllowDrop = true;
@@ -636,6 +657,9 @@
 		private System.Windows.Forms.MenuItem MnuShowHeightmap;
 		private PrimitiveCanvas.Canvas RegionCanvas;
 		private System.Windows.Forms.ToolStripButton BtnFreeTool;
+		private System.Windows.Forms.ContextMenu CtxTreeArea;
+		private System.Windows.Forms.MenuItem MnuAreaRemoveAllProps;
+		private System.Windows.Forms.MenuItem MnuAreaRemoveAllEvents;
 		private System.Windows.Forms.MenuItem MnuShowMiniMap;
 	}
 }

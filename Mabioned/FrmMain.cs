@@ -904,10 +904,24 @@ namespace Mabioned
 		{
 			if (e.Button == MouseButtons.Right)
 			{
+				// Select clicked node on right-click
 				if (e.Node?.Tag is IEntity entity)
+				{
 					this.SetSelectedEntity(entity);
+				}
+				else
+				{
+					this.SetSelectedEntity(null);
+					this.TreeRegion.SelectedNode = e.Node;
+				}
 
 				//ShowPropertyEditor("Parameters");
+
+				// Show area context menu
+				if (e.Node?.Tag is Area area)
+				{
+					this.CtxTreeArea.Show(this.TreeRegion, e.Location);
+				}
 			}
 		}
 
@@ -1641,6 +1655,68 @@ namespace Mabioned
 			}
 
 			//Console.WriteLine(this.ProbeHeight(this.ToRegionPosition(e.Location)));
+		}
+
+		/// <summary>
+		/// Removes all props from selected area.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuAreaRemoveAllProps_Click(object sender, EventArgs e)
+		{
+			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
+				return;
+
+			// Remove props from canvas
+			this.RegionCanvas.BeginUpdate();
+			for (var i = 0; i < area.Props.Count; ++i)
+			{
+				var entity = area.Props[i];
+				if (entity.Tag is CanvasObject obj)
+					this.RegionCanvas.Remove(obj);
+			}
+			this.RegionCanvas.EndUpdate();
+
+			// Clear area props
+			area.Props.Clear();
+
+			this.TreeRegion.BeginUpdate();
+			this.TreeRegion.SelectedNode.FirstNode.Nodes.Clear();
+			this.TreeRegion.SelectedNode.FirstNode.Text = "Props (0)";
+			this.TreeRegion.EndUpdate();
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Removes all events from selected area.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuAreaRemoveAllEvents_Click(object sender, EventArgs e)
+		{
+			if (!(this.TreeRegion.SelectedNode.Tag is Area area))
+				return;
+
+			// Remove props from canvas
+			this.RegionCanvas.BeginUpdate();
+			for (var i = 0; i < area.Events.Count; ++i)
+			{
+				var entity = area.Events[i];
+				if (entity.Tag is CanvasObject obj)
+					this.RegionCanvas.Remove(obj);
+			}
+			this.RegionCanvas.EndUpdate();
+
+			// Clear area events
+			area.Events.Clear();
+
+			this.TreeRegion.BeginUpdate();
+			this.TreeRegion.SelectedNode.LastNode.Nodes.Clear();
+			this.TreeRegion.SelectedNode.LastNode.Text = "Events (0)";
+			this.TreeRegion.EndUpdate();
+
+			this.SetModified(true);
 		}
 
 		/// <summary>
