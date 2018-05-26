@@ -1739,48 +1739,87 @@ namespace Mabioned
 			if (heightForm.ShowDialog() == DialogResult.Cancel)
 				return;
 
-			averageHeight = heightForm.Value;
+			var newHeight = heightForm.Value;
 
 			var result = MessageBox.Show("Adjust props' positions to place them on the floor?", Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Cancel)
 				return;
 
-			var adjustEntities = (result == DialogResult.Yes);
+			var adjustProps = (result == DialogResult.Yes);
 
 			for (var i = 0; i < areas.Count; ++i)
+				this.FlattenArea(areas[i], adjustProps, newHeight);
+
+			MessageBox.Show($"Flattened all areas to height {newHeight}.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Flattens the selected area.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuAreaFlattenTerrain_Click(object sender, EventArgs e)
+		{
+			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
+				return;
+
+			var minHeight = area.AreaPlanes.Min(a => a.MinHeight);
+			var maxHeight = area.AreaPlanes.Max(a => a.MaxHeight);
+			var averageHeight = (minHeight + maxHeight) / 2;
+
+			var heightForm = new FrmFlattenHeight(averageHeight, averageHeight);
+			if (heightForm.ShowDialog() == DialogResult.Cancel)
+				return;
+
+			var newHeight = heightForm.Value;
+
+			var result = MessageBox.Show("Adjust props' positions to place them on the floor?", Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+			if (result == DialogResult.Cancel)
+				return;
+
+			var adjustProps = (result == DialogResult.Yes);
+
+			this.FlattenArea(area, adjustProps, newHeight);
+
+			MessageBox.Show($"Flattened area to height {newHeight}.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Flattens the given area.
+		/// </summary>
+		/// <param name="area"></param>
+		/// <param name="adjustProps"></param>
+		private void FlattenArea(Area area, bool adjustProps, float newHeight)
+		{
+			for (var j = 0; j < area.AreaPlanes.Count; ++j)
 			{
-				var area = areas[i];
+				var areaPlane = area.AreaPlanes[j];
 
-				for (var j = 0; j < area.AreaPlanes.Count; ++j)
+				areaPlane.MinHeight = newHeight;
+				areaPlane.MaxHeight = newHeight;
+
+				for (var k = 0; k < areaPlane.Planes.Count; ++k)
 				{
-					var areaPlane = area.AreaPlanes[j];
-
-					areaPlane.MinHeight = averageHeight;
-					areaPlane.MaxHeight = averageHeight;
-
-					for (var k = 0; k < areaPlane.Planes.Count; ++k)
-					{
-						var plane = areaPlane.Planes[k];
-						plane.Height = averageHeight;
-					}
-				}
-
-				if (adjustEntities)
-				{
-					for (var j = 0; j < area.Props.Count; ++j)
-					{
-						var prop = area.Props[j];
-						var pos = prop.Position;
-						pos.Z = averageHeight;
-
-						prop.Position = pos;
-					}
+					var plane = areaPlane.Planes[k];
+					plane.Height = newHeight;
 				}
 			}
 
-			MessageBox.Show($"Flattened all areas to average height {averageHeight}.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+			if (adjustProps)
+			{
+				for (var j = 0; j < area.Props.Count; ++j)
+				{
+					var prop = area.Props[j];
+					var pos = prop.Position;
+					pos.Z = newHeight;
 
-			this.SetModified(true);
+					prop.Position = pos;
+				}
+			}
 		}
 
 		/// <summary>

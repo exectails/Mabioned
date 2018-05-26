@@ -88,6 +88,7 @@
 			this.CtxTreeArea = new System.Windows.Forms.ContextMenu();
 			this.MnuAreaRemoveAllProps = new System.Windows.Forms.MenuItem();
 			this.MnuAreaRemoveAllEvents = new System.Windows.Forms.MenuItem();
+			this.MnuAreaFlattenTerrain = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -199,7 +200,7 @@
 			// MnuFlattenTerrain
 			// 
 			this.MnuFlattenTerrain.Index = 0;
-			this.MnuFlattenTerrain.Text = "Flatten Terrain...";
+			this.MnuFlattenTerrain.Text = "Flatten Entire Terrain...";
 			this.MnuFlattenTerrain.Click += new System.EventHandler(this.MnuFlattenTerrain_Click);
 			// 
 			// MnuSpacer7
@@ -574,7 +575,8 @@
 			// 
 			this.CtxTreeArea.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.MnuAreaRemoveAllProps,
-            this.MnuAreaRemoveAllEvents});
+            this.MnuAreaRemoveAllEvents,
+            this.MnuAreaFlattenTerrain});
 			// 
 			// MnuAreaRemoveAllProps
 			// 
@@ -587,6 +589,12 @@
 			this.MnuAreaRemoveAllEvents.Index = 1;
 			this.MnuAreaRemoveAllEvents.Text = "Remove all events";
 			this.MnuAreaRemoveAllEvents.Click += new System.EventHandler(this.MnuAreaRemoveAllEvents_Click);
+			// 
+			// MnuAreaFlattenTerrain
+			// 
+			this.MnuAreaFlattenTerrain.Index = 2;
+			this.MnuAreaFlattenTerrain.Text = "Flatten Terrain...";
+			this.MnuAreaFlattenTerrain.Click += new System.EventHandler(this.MnuAreaFlattenTerrain_Click);
 			// 
 			// FrmMain
 			// 
@@ -683,6 +691,7 @@
 		private System.Windows.Forms.MenuItem MnuFlattenTerrain;
 		private System.Windows.Forms.MenuItem MnuSpacer7;
 		private System.Windows.Forms.MenuItem MnuShowMiniMap;
+		private System.Windows.Forms.MenuItem MnuAreaFlattenTerrain;
 	}
 }
 
