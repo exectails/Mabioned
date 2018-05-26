@@ -100,7 +100,6 @@ namespace Mabioned
 		{
 			Settings.Default.Load();
 
-			this.UpdateWindow();
 			this.ToolStrip.Renderer = new ToolStripRendererNL();
 
 			this.LoadViewOptions();
@@ -112,6 +111,14 @@ namespace Mabioned
 				this.OpenFile(args[1]);
 
 			this.LoadRecentFilesList();
+
+			this.UpdateWindow();
+
+			if (this.IsFileOpen)
+			{
+				this.RegionCanvas.ScaleToFitCenter();
+				this.RegionCanvas_ScaleChanged(this, new ScaleChangedEventArgs(0, this.RegionCanvas.ScaleCurrent));
+			}
 		}
 
 		/// <summary>
@@ -374,6 +381,7 @@ namespace Mabioned
 		{
 			var canvas = this.RegionCanvas;
 
+			canvas.BeginUpdate();
 			canvas.ClearObjects();
 
 			var region = _region;
@@ -386,8 +394,6 @@ namespace Mabioned
 
 			canvas.SetCanvasArea(_topRight.X, _topRight.Y);
 			canvas.ScaleToFitCenter();
-
-			canvas.BeginUpdate();
 
 			canvas.CanvasBackColor = Settings.Default.BackgroundColor;
 
