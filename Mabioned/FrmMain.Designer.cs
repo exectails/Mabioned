@@ -124,6 +124,7 @@
 			// MnuOpen
 			// 
 			this.MnuOpen.Index = 0;
+			this.MnuOpen.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
 			this.MnuOpen.Text = "Open...";
 			this.MnuOpen.Click += new System.EventHandler(this.MnuOpen_Click);
 			// 
@@ -136,12 +137,14 @@
 			// 
 			this.MnuNew.Enabled = false;
 			this.MnuNew.Index = 2;
+			this.MnuNew.Shortcut = System.Windows.Forms.Shortcut.CtrlN;
 			this.MnuNew.Text = "New...";
 			// 
 			// MnuSave
 			// 
 			this.MnuSave.Enabled = false;
 			this.MnuSave.Index = 3;
+			this.MnuSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
 			this.MnuSave.Text = "Save";
 			this.MnuSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
@@ -149,6 +152,7 @@
 			// 
 			this.MnuSaveAs.Enabled = false;
 			this.MnuSaveAs.Index = 4;
+			this.MnuSaveAs.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftS;
 			this.MnuSaveAs.Text = "Save as...";
 			this.MnuSaveAs.Click += new System.EventHandler(this.MnuSaveAs_Click);
 			// 
