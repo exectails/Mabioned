@@ -1726,16 +1726,22 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuFlattenTerrain_Click(object sender, EventArgs e)
 		{
+			var areas = _areas;
+			var minHeight = areas.SelectMany(a => a.AreaPlanes).Min(a => a.MinHeight);
+			var maxHeight = areas.SelectMany(a => a.AreaPlanes).Max(a => a.MaxHeight);
+			var averageHeight = (minHeight + maxHeight) / 2;
+
+			var heightForm = new FrmFlattenHeight(averageHeight, averageHeight);
+			if (heightForm.ShowDialog() == DialogResult.Cancel)
+				return;
+
+			averageHeight = heightForm.Value;
+
 			var result = MessageBox.Show("Adjust props' positions to place them on the floor?", Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Cancel)
 				return;
 
 			var adjustEntities = (result == DialogResult.Yes);
-
-			var areas = _areas;
-			var minHeight = areas.SelectMany(a => a.AreaPlanes).Min(a => a.MinHeight);
-			var maxHeight = areas.SelectMany(a => a.AreaPlanes).Max(a => a.MaxHeight);
-			var averageHeight = (minHeight + maxHeight) / 2;
 
 			for (var i = 0; i < areas.Count; ++i)
 			{

@@ -199,7 +199,7 @@
 			// MnuFlattenTerrain
 			// 
 			this.MnuFlattenTerrain.Index = 0;
-			this.MnuFlattenTerrain.Text = "Flatten Terrain";
+			this.MnuFlattenTerrain.Text = "Flatten Terrain...";
 			this.MnuFlattenTerrain.Click += new System.EventHandler(this.MnuFlattenTerrain_Click);
 			// 
 			// MnuSpacer7
