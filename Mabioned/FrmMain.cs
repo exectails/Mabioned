@@ -789,7 +789,7 @@ namespace Mabioned
 		/// <returns></returns>
 		private TreeNode CreateAreaNode(Area area)
 		{
-			var areaNode = new TreeNode(string.Format("Area: {0}  ({1}, {2})", area.Name, area.Props.Count, area.Events.Count));
+			var areaNode = new TreeNode(GetAreaNodeName(area.Name, area.Props.Count, area.Events.Count));
 			areaNode.Tag = area;
 			areaNode.ImageKey = areaNode.SelectedImageKey = "area";
 
@@ -818,6 +818,18 @@ namespace Mabioned
 			}
 
 			return areaNode;
+		}
+
+		/// <summary>
+		/// Returns name for area tree node.
+		/// </summary>
+		/// <param name="areaName"></param>
+		/// <param name="propCount"></param>
+		/// <param name="eventCount"></param>
+		/// <returns></returns>
+		private static string GetAreaNodeName(string areaName, int propCount, int eventCount)
+		{
+			return string.Format("Area: {0}  ({1}, {2})", areaName, propCount, eventCount);
 		}
 
 		/// <summary>
@@ -1264,6 +1276,19 @@ namespace Mabioned
 					}
 
 					updateEntityNodes = true;
+				}
+				else if (propertyName == "Name" && this.TreeRegion.SelectedNode?.Tag == area)
+				{
+					if (_areas.Count(a => a.Name == area.Name) > 1)
+					{
+						MessageBox.Show("Area names must be unique.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+						area.Name = (string)e.OldValue;
+						this.PropertyGrid.Refresh();
+						return;
+					}
+
+					this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area.Name, area.Props.Count, area.Events.Count);
 				}
 			}
 
