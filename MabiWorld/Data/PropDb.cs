@@ -37,6 +37,11 @@ namespace MabiWorld.Data
 		private static Dictionary<int, PropDbEntry> _entries = new Dictionary<int, PropDbEntry>();
 
 		/// <summary>
+		/// Returns true if the db has any data loaded.
+		/// </summary>
+		public static bool HasEntries => (_entries.Count > 0);
+
+		/// <summary>
 		/// Returns entry with given class id via out if it exists, or null
 		/// if it doesn't.
 		/// </summary>

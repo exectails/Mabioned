@@ -106,24 +106,24 @@
 			// MainMenu
 			// 
 			this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuFile,
-            this.MnuEdit,
-            this.MnuView,
-            this.MnuHelp});
+			this.MnuFile,
+			this.MnuEdit,
+			this.MnuView,
+			this.MnuHelp});
 			// 
 			// MnuFile
 			// 
 			this.MnuFile.Index = 0;
 			this.MnuFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuOpen,
-            this.MnuSpacer5,
-            this.MnuNew,
-            this.MnuSave,
-            this.MnuSaveAs,
-            this.MnuSpacer4,
-            this.MnuRecent,
-            this.MnuSpacer6,
-            this.MnuExit});
+			this.MnuOpen,
+			this.MnuSpacer5,
+			this.MnuNew,
+			this.MnuSave,
+			this.MnuSaveAs,
+			this.MnuSpacer4,
+			this.MnuRecent,
+			this.MnuSpacer6,
+			this.MnuExit});
 			this.MnuFile.Text = "File";
 			// 
 			// MnuOpen
@@ -170,7 +170,7 @@
 			// 
 			this.MnuRecent.Index = 6;
 			this.MnuRecent.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuRecentNone});
+			this.MnuRecentNone});
 			this.MnuRecent.Text = "Recent Files";
 			// 
 			// MnuRecentNone
@@ -194,18 +194,18 @@
 			// 
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuEditRemoveAllProps,
-            this.MnuEditRemoveAllEvents,
-            this.MnuFlattenTerrain,
-            this.MnuSpacer7,
-            this.MnuEditSettings});
+			this.MnuEditRemoveAllProps,
+			this.MnuEditRemoveAllEvents,
+			this.MnuFlattenTerrain,
+			this.MnuSpacer7,
+			this.MnuEditSettings});
 			this.MnuEdit.Text = "Edit";
 			// 
 			// MnuEditRemoveAllProps
 			// 
 			this.MnuEditRemoveAllProps.Index = 0;
-			this.MnuEditRemoveAllProps.Text = "Remove All Props";
-			this.MnuEditRemoveAllProps.Click += new System.EventHandler(this.MnuEditRemoveAllProps_Click);
+			this.MnuEditRemoveAllProps.Text = "Remove Props...";
+			this.MnuEditRemoveAllProps.Click += new System.EventHandler(this.MnuEditRemoveProps_Click);
 			// 
 			// MnuEditRemoveAllEvents
 			// 
@@ -234,16 +234,16 @@
 			// 
 			this.MnuView.Index = 2;
 			this.MnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuShowProps,
-            this.MnuShowEvents,
-            this.MnuShowAreas,
-            this.MnuShowMiniMap,
-            this.MnuShowHeightmap,
-            this.MnuSpacer1,
-            this.MnuScaleToFit,
-            this.MnuSpacer2,
-            this.MnuExpand,
-            this.MnuCollapse});
+			this.MnuShowProps,
+			this.MnuShowEvents,
+			this.MnuShowAreas,
+			this.MnuShowMiniMap,
+			this.MnuShowHeightmap,
+			this.MnuSpacer1,
+			this.MnuScaleToFit,
+			this.MnuSpacer2,
+			this.MnuExpand,
+			this.MnuCollapse});
 			this.MnuView.Text = "View";
 			// 
 			// MnuShowProps
@@ -257,9 +257,9 @@
 			// 
 			this.MnuShowEvents.Index = 1;
 			this.MnuShowEvents.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuShowEventsAll,
-            this.MnuShowEventsUndefined,
-            this.MnuSpacer3});
+			this.MnuShowEventsAll,
+			this.MnuShowEventsUndefined,
+			this.MnuSpacer3});
 			this.MnuShowEvents.Text = "Show Events";
 			// 
 			// MnuShowEventsAll
@@ -331,7 +331,7 @@
 			// 
 			this.MnuHelp.Index = 3;
 			this.MnuHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuAbout});
+			this.MnuAbout});
 			this.MnuHelp.Text = "?";
 			// 
 			// MnuAbout
@@ -344,14 +344,14 @@
 			// 
 			this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.BtnOpen,
-            this.BtnNew,
-            this.BtnSave,
-            this.ToolStripSpacer1,
-            this.BtnScrollTool,
-            this.BtnMoveTool,
-            this.BtnRotateTool,
-            this.BtnFreeTool});
+			this.BtnOpen,
+			this.BtnNew,
+			this.BtnSave,
+			this.ToolStripSpacer1,
+			this.BtnScrollTool,
+			this.BtnMoveTool,
+			this.BtnRotateTool,
+			this.BtnFreeTool});
 			this.ToolStrip.Location = new System.Drawing.Point(0, 0);
 			this.ToolStrip.Name = "ToolStrip";
 			this.ToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -440,8 +440,8 @@
 			// StatusStrip
 			// 
 			this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LblCurrentPosition,
-            this.LblScale});
+			this.LblCurrentPosition,
+			this.LblScale});
 			this.StatusStrip.Location = new System.Drawing.Point(0, 636);
 			this.StatusStrip.Name = "StatusStrip";
 			this.StatusStrip.Size = new System.Drawing.Size(1034, 24);
@@ -572,8 +572,8 @@
 			// CtxMap
 			// 
 			this.CtxMap.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuCopyCoordinates,
-            this.MnuCopyAuraWarp});
+			this.MnuCopyCoordinates,
+			this.MnuCopyAuraWarp});
 			// 
 			// MnuCopyCoordinates
 			// 
@@ -590,20 +590,20 @@
 			// CtxTreeArea
 			// 
 			this.CtxTreeArea.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.MnuAreaRemoveAllProps,
-            this.MnuAreaRemoveAllEvents,
-            this.MnuAreaFlattenTerrain});
+			this.MnuAreaRemoveAllProps,
+			this.MnuAreaRemoveAllEvents,
+			this.MnuAreaFlattenTerrain});
 			// 
 			// MnuAreaRemoveAllProps
 			// 
 			this.MnuAreaRemoveAllProps.Index = 0;
-			this.MnuAreaRemoveAllProps.Text = "Remove all props";
-			this.MnuAreaRemoveAllProps.Click += new System.EventHandler(this.MnuAreaRemoveAllProps_Click);
+			this.MnuAreaRemoveAllProps.Text = "Remove Props...";
+			this.MnuAreaRemoveAllProps.Click += new System.EventHandler(this.MnuAreaRemoveProps_Click);
 			// 
 			// MnuAreaRemoveAllEvents
 			// 
 			this.MnuAreaRemoveAllEvents.Index = 1;
-			this.MnuAreaRemoveAllEvents.Text = "Remove all events";
+			this.MnuAreaRemoveAllEvents.Text = "Remove All Events";
 			this.MnuAreaRemoveAllEvents.Click += new System.EventHandler(this.MnuAreaRemoveAllEvents_Click);
 			// 
 			// MnuAreaFlattenTerrain

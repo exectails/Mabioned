@@ -1742,32 +1742,25 @@ namespace Mabioned
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuAreaRemoveAllProps_Click(object sender, EventArgs e)
+		private void MnuAreaRemoveProps_Click(object sender, EventArgs e)
 		{
 			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
 				return;
 
-			var result = MessageBox.Show("Remove all props in " + area.Name + "?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result != DialogResult.Yes)
+			var filter = new FrmFilterProps();
+			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
-			// Remove props from canvas
 			this.RegionCanvas.BeginUpdate();
-			for (var i = 0; i < area.Props.Count; ++i)
-			{
-				var entity = area.Props[i];
-				if (entity.Tag is CanvasObject obj)
-					this.RegionCanvas.Remove(obj);
-			}
+			this.TreeRegion.BeginUpdate();
+
+			this.RemoveProps(area.Props, filter);
+			this.UpdateAreaNode(area);
+
+			this.TreeRegion.EndUpdate();
 			this.RegionCanvas.EndUpdate();
 
-			// Clear area props
-			area.Props.Clear();
-
-			this.TreeRegion.BeginUpdate();
 			this.UpdateAreaNode(area);
-			this.TreeRegion.EndUpdate();
-
 			this.SetModified(true);
 		}
 
@@ -1806,14 +1799,14 @@ namespace Mabioned
 		}
 
 		/// <summary>
-		/// Removes all props in all areas.
+		/// Removes props in all areas.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuEditRemoveAllProps_Click(object sender, EventArgs e)
+		private void MnuEditRemoveProps_Click(object sender, EventArgs e)
 		{
-			var result = MessageBox.Show("Remove all props from all areas?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result != DialogResult.Yes)
+			var filter = new FrmFilterProps();
+			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
 			this.RegionCanvas.BeginUpdate();
@@ -1822,15 +1815,7 @@ namespace Mabioned
 			{
 				var area = _areas[i];
 
-				for (var j = 0; j < area.Props.Count; ++j)
-				{
-					var entity = area.Props[j];
-					if (entity.Tag is CanvasObject obj)
-						this.RegionCanvas.Remove(obj);
-				}
-
-				area.Props.Clear();
-
+				this.RemoveProps(area.Props, filter);
 				this.UpdateAreaNode(area);
 			}
 			this.TreeRegion.EndUpdate();
@@ -1839,6 +1824,40 @@ namespace Mabioned
 			this.TreeRegion.SelectedNode = this.TreeRegion.Nodes[0];
 
 			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Removes entities from canvas, tree, and the given list based
+		/// on the filter.
+		/// </summary>
+		/// <param name="props"></param>
+		/// <param name="filter"></param>
+		private void RemoveProps(IList<Prop> props, FrmFilterProps filter)
+		{
+			var toRemove = new List<Prop>();
+
+			for (var j = 0; j < props.Count; ++j)
+			{
+				var prop = props[j];
+				if (filter.Matches(prop, false))
+					toRemove.Add(prop);
+			}
+
+			for (var j = 0; j < toRemove.Count; ++j)
+			{
+				var prop = toRemove[j];
+
+				// Remove from canvas
+				if (prop.Tag is CanvasObject obj)
+					this.RegionCanvas.Remove(obj);
+
+				// Remove from tree
+				if (_entityNodes.TryGetValue(prop.EntityId, out var node))
+					node.Remove();
+
+				// Remove from area
+				props.Remove(prop);
+			}
 		}
 
 		/// <summary>
