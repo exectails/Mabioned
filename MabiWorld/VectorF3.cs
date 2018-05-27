@@ -29,6 +29,18 @@ namespace MabiWorld
 		}
 
 		/// <summary>
+		/// Creates new instance.
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <param name="z"></param>
+		public Vector3F(PointF pos, float z)
+		{
+			this.X = pos.X;
+			this.Y = pos.Y;
+			this.Z = z;
+		}
+
+		/// <summary>
 		/// Returns string representation of this instance.
 		/// </summary>
 		/// <returns></returns>

@@ -84,6 +84,8 @@
 			this.RegionCanvas = new PrimitiveCanvas.Canvas();
 			this.OfdRegion = new System.Windows.Forms.OpenFileDialog();
 			this.CtxMap = new System.Windows.Forms.ContextMenu();
+			this.MnuMapAddProp = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer8 = new System.Windows.Forms.MenuItem();
 			this.MnuCopyCoordinates = new System.Windows.Forms.MenuItem();
 			this.MnuCopyAuraWarp = new System.Windows.Forms.MenuItem();
 			this.SfdRegion = new System.Windows.Forms.SaveFileDialog();
@@ -575,18 +577,31 @@
 			// CtxMap
 			// 
 			this.CtxMap.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.MnuMapAddProp,
+			this.MnuSpacer8,
 			this.MnuCopyCoordinates,
 			this.MnuCopyAuraWarp});
 			// 
+			// MnuMapAddProp
+			// 
+			this.MnuMapAddProp.Index = 0;
+			this.MnuMapAddProp.Text = "Add Prop";
+			this.MnuMapAddProp.Click += new System.EventHandler(this.MnuMapAddProp_Click);
+			// 
+			// MnuSpacer8
+			// 
+			this.MnuSpacer8.Index = 1;
+			this.MnuSpacer8.Text = "-";
+			// 
 			// MnuCopyCoordinates
 			// 
-			this.MnuCopyCoordinates.Index = 0;
+			this.MnuCopyCoordinates.Index = 2;
 			this.MnuCopyCoordinates.Text = "Copy Coordinates";
 			this.MnuCopyCoordinates.Click += new System.EventHandler(this.MnuCopyCoordinates_Click);
 			// 
 			// MnuCopyAuraWarp
 			// 
-			this.MnuCopyAuraWarp.Index = 1;
+			this.MnuCopyAuraWarp.Index = 3;
 			this.MnuCopyAuraWarp.Text = "Copy Aura Warp Command";
 			this.MnuCopyAuraWarp.Click += new System.EventHandler(this.MnuCopyAuraWarp_Click);
 			// 
@@ -713,6 +728,8 @@
 		private System.Windows.Forms.MenuItem MnuAreaFlattenTerrain;
 		private System.Windows.Forms.MenuItem MnuEditRemoveAllProps;
 		private System.Windows.Forms.MenuItem MnuEditRemoveAllEvents;
+		private System.Windows.Forms.MenuItem MnuMapAddProp;
+		private System.Windows.Forms.MenuItem MnuSpacer8;
 	}
 }
 

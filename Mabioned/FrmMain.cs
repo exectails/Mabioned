@@ -500,53 +500,83 @@ namespace Mabioned
 				for (var i = 0; i < area.Events.Count; ++i)
 				{
 					var evnt = area.Events[i];
-
-					var evntObj = new CanvasObject(evnt.Position.X, evnt.Position.Y);
-					if (evnt.Shapes.Any())
-					{
-						foreach (var shape in evnt.Shapes)
-							evntObj.Add(new Polygon(shape.GetPoints()));
-					}
-					else
-					{
-						evntObj.Add(new Circle(evnt.Position.X, evnt.Position.Y, 50));
-					}
-					evntObj.Visible = this.DisplayEventType(evnt.Type);
-					evntObj.DrawOrder = 100;
-					evntObj.Priority = 200;
-					evntObj.Tag = evnt;
-					evntObj.Style = _eventStyle;
-					canvas.Add(evntObj);
+					var evntObj = this.GetEventCanvasObject(evnt);
 
 					evnt.Tag = evntObj;
+					canvas.Add(evntObj);
 				}
 
 				for (var i = 0; i < area.Props.Count; ++i)
 				{
 					var prop = area.Props[i];
-
-					var propObj = new CanvasObject(prop.Position.X, prop.Position.Y);
-					if (prop.Shapes.Any())
-					{
-						foreach (var shape in prop.Shapes)
-							propObj.Add(new Polygon(shape.GetPoints()));
-					}
-					else
-					{
-						propObj.Add(new Circle(prop.Position.X, prop.Position.Y, 50));
-					}
-					propObj.Visible = this.ShowProps;
-					propObj.DrawOrder = 200;
-					propObj.Priority = 100;
-					propObj.Tag = prop;
-					propObj.Style = _propStyle;
-					canvas.Add(propObj);
+					var propObj = this.GetPropCanvasObject(prop);
 
 					prop.Tag = propObj;
+					canvas.Add(propObj);
 				}
 			}
 
 			canvas.EndUpdate();
+		}
+
+		/// <summary>
+		/// Creates canvas object from prop.
+		/// </summary>
+		/// <param name="prop"></param>
+		/// <returns></returns>
+		private CanvasObject GetPropCanvasObject(Prop prop)
+		{
+			var obj = new CanvasObject(prop.Position.X, prop.Position.Y);
+
+			// Use a circle if prop doesn't have a shape, so it's still
+			// selectable on the map.
+			if (prop.Shapes.Any())
+			{
+				foreach (var shape in prop.Shapes)
+					obj.Add(new Polygon(shape.GetPoints()));
+			}
+			else
+			{
+				obj.Add(new Circle(prop.Position.X, prop.Position.Y, 50));
+			}
+
+			obj.Visible = this.ShowProps;
+			obj.DrawOrder = 200;
+			obj.Priority = 100;
+			obj.Tag = prop;
+			obj.Style = _propStyle;
+
+			return obj;
+		}
+
+		/// <summary>
+		/// Creates canvas object from event.
+		/// </summary>
+		/// <param name="evnt"></param>
+		/// <returns></returns>
+		private CanvasObject GetEventCanvasObject(Event evnt)
+		{
+			var obj = new CanvasObject(evnt.Position.X, evnt.Position.Y);
+
+			// Use a circle if event doesn't have a shape, so it's still
+			// selectable on the map.
+			if (evnt.Shapes.Any())
+			{
+				foreach (var shape in evnt.Shapes)
+					obj.Add(new Polygon(shape.GetPoints()));
+			}
+			else
+			{
+				obj.Add(new Circle(evnt.Position.X, evnt.Position.Y, 50));
+			}
+
+			obj.Visible = this.DisplayEventType(evnt.Type);
+			obj.DrawOrder = 100;
+			obj.Priority = 200;
+			obj.Tag = evnt;
+			obj.Style = _eventStyle;
+
+			return obj;
 		}
 
 		/// <summary>
@@ -802,35 +832,65 @@ namespace Mabioned
 		/// <returns></returns>
 		private TreeNode CreateAreaNode(Area area)
 		{
+			// Create base node
 			var areaNode = new TreeNode(GetAreaNodeName(area));
 			areaNode.Tag = area;
 			areaNode.ImageKey = areaNode.SelectedImageKey = "area";
 
+			// Create entity nodes
 			var propsNode = areaNode.Nodes.Add(string.Format("Props ({0})", area.Props.Count));
 			var eventsNode = areaNode.Nodes.Add(string.Format("Events ({0})", area.Events.Count));
 
 			propsNode.ImageKey = propsNode.SelectedImageKey = "prop";
 			eventsNode.ImageKey = eventsNode.SelectedImageKey = "event";
 
+			// Add props
 			foreach (var prop in area.Props)
 			{
-				var propNode = propsNode.Nodes.Add(string.Format("0x{0:X16}", prop.EntityId));
-				propNode.Tag = prop;
-				propNode.ImageKey = propNode.SelectedImageKey = "prop";
+				var propNode = this.GetPropNode(prop);
+				propsNode.Nodes.Add(propNode);
 
 				_entityNodes[prop.EntityId] = propNode;
 			}
 
+			// Add events
 			foreach (var evnt in area.Events)
 			{
-				var eventNode = eventsNode.Nodes.Add(string.Format("0x{0:X16}", evnt.EntityId));
-				eventNode.Tag = evnt;
-				eventNode.ImageKey = eventNode.SelectedImageKey = "event";
+				var eventNode = this.GetEventNode(evnt);
+				eventsNode.Nodes.Add(eventNode);
 
 				_entityNodes[evnt.EntityId] = eventNode;
 			}
 
 			return areaNode;
+		}
+
+		/// <summary>
+		/// Creates new tree node for prop.
+		/// </summary>
+		/// <param name="prop"></param>
+		/// <returns></returns>
+		private TreeNode GetPropNode(Prop prop)
+		{
+			var node = new TreeNode(string.Format("0x{0:X16}", prop.EntityId));
+			node.ImageKey = node.SelectedImageKey = "prop";
+			node.Tag = prop;
+
+			return node;
+		}
+
+		/// <summary>
+		/// Creates new tree node for event.
+		/// </summary>
+		/// <param name="evnt"></param>
+		/// <returns></returns>
+		private TreeNode GetEventNode(Event evnt)
+		{
+			var node = new TreeNode(string.Format("0x{0:X16}", evnt.EntityId));
+			node.ImageKey = node.SelectedImageKey = "event";
+			node.Tag = evnt;
+
+			return node;
 		}
 
 		/// <summary>
@@ -1751,10 +1811,12 @@ namespace Mabioned
 			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
 				return;
 
+			// Get filter
 			var filter = new FrmFilterProps();
 			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
+			// Find and remove props from area, tree, and canvas.
 			this.RegionCanvas.BeginUpdate();
 			this.TreeRegion.BeginUpdate();
 
@@ -1809,10 +1871,12 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuEditRemoveProps_Click(object sender, EventArgs e)
 		{
+			// Get filter
 			var filter = new FrmFilterProps();
 			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
+			// Find and remove props from area, tree, and canvas.
 			this.RegionCanvas.BeginUpdate();
 			this.TreeRegion.BeginUpdate();
 			for (var i = 0; i < _areas.Count; ++i)
@@ -1840,6 +1904,7 @@ namespace Mabioned
 		{
 			var toRemove = new List<Prop>();
 
+			// Find props to remove
 			for (var j = 0; j < props.Count; ++j)
 			{
 				var prop = props[j];
@@ -1847,6 +1912,7 @@ namespace Mabioned
 					toRemove.Add(prop);
 			}
 
+			// Remove props from canvas, tree, and the given list.
 			for (var j = 0; j < toRemove.Count; ++j)
 			{
 				var prop = toRemove[j];
@@ -2014,6 +2080,79 @@ namespace Mabioned
 				_miniMapObject.Visible = visible;
 				this.RegionCanvas.EndUpdate();
 			}
+		}
+
+		/// <summary>
+		/// Creates new prop.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuMapAddProp_Click(object sender, EventArgs e)
+		{
+			var worldPos = this.RegionCanvas.GetWorldPosition(_mapRightClickLocation);
+			var z = this.ProbeHeight(worldPos);
+			var vector3 = new Vector3F(worldPos, z);
+
+			// Get info about new prop
+			var form = new FrmNewProp(vector3);
+			if (form.ShowDialog() != DialogResult.OK)
+				return;
+
+			// Get and check entity id
+			var prop = form.Prop;
+			var area = this.GetAreaAt(prop.Position);
+
+			prop.Area = area;
+			prop.EntityId = area.GetNewPropId();
+
+			if (prop.EntityId == 0)
+			{
+				MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			// Add prop to area, canvas, and tree, selecting it at the end.
+			area.Props.Add(prop);
+
+			this.RegionCanvas.BeginUpdate();
+
+			var propObj = this.GetPropCanvasObject(prop);
+			prop.Tag = propObj;
+
+			this.RegionCanvas.Add(propObj);
+			this.RegionCanvas.EndUpdate();
+
+			if (_areaNodes.TryGetValue(area, out var node))
+			{
+				var propNode = this.GetPropNode(prop);
+				node.FirstNode.Nodes.Add(propNode);
+				_entityNodes[prop.EntityId] = propNode;
+
+				this.UpdateAreaNode(area);
+				this.SetSelectedEntity(prop.EntityId);
+			}
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Returns the area at the given world position, or null if no
+		/// area was found.
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		private Area GetAreaAt(PointF pos)
+		{
+			var areas = _areas;
+
+			for (var i = 0; i < areas.Count; ++i)
+			{
+				var area = areas[i];
+				if (area.IsInside(pos))
+					return area;
+			}
+
+			return null;
 		}
 	}
 }

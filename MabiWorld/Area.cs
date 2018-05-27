@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Design;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using MabiWorld.Extensions;
 using MabiWorld.PropertyEditing;
 
@@ -14,6 +16,8 @@ namespace MabiWorld
 	/// </summary>
 	public class Area
 	{
+		private ulong _highestPropEntityId = 0;
+
 		public short Version { get; set; }
 		public short Unk8 { get; set; }
 		[Browsable(false)]
@@ -235,6 +239,40 @@ namespace MabiWorld
 						throw new Exception();
 				}
 			}
+		}
+
+		/// <summary>
+		/// Returns an unused prop id for this area. If no available ids
+		/// were found, 0 is returned.
+		/// </summary>
+		/// <returns></returns>
+		public ulong GetNewPropId()
+		{
+			var baseId = 0x00A0_0000_0000_0000UL;
+
+			baseId |= ((ulong)this.RegionId) << 32;
+			baseId |= ((ulong)this.Id) << 16;
+
+			for (ulong i = 1; i <= ushort.MaxValue; ++i)
+			{
+				var id = (baseId | i);
+				var prop = this.Props.FirstOrDefault(a => a.EntityId == id);
+				if (prop == null)
+					return id;
+			}
+
+			return 0;
+		}
+
+		/// <summary>
+		/// Returns true if the given position is inside this area, based
+		/// on its bounds.
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <returns></returns>
+		public bool IsInside(PointF pos)
+		{
+			return !(pos.X < this.BottomLeft.X || pos.X > this.BottomRight.X || pos.Y < this.BottomLeft.Y || pos.Y > this.TopLeft.Y);
 		}
 
 		/// <summary>

@@ -17,6 +17,7 @@ namespace MabiWorld
 	public class Prop : IEntity
 	{
 		public const int ColorCount = 9;
+		public static readonly Color DefaultColor = Color.FromArgb(0x00808080);
 
 		public int Id { get; set; }
 
@@ -39,19 +40,33 @@ namespace MabiWorld
 
 		public Vector3F Position { get; set; }
 		public byte ShapeCount => (byte)this.Shapes.Count;
+
+		[DefaultValue(0)]
 		public int ShapeType { get; set; }
 
 		[Editor(typeof(NotifyingCollectionEditor), typeof(UITypeEditor))]
 		public List<Shape> Shapes { get; internal set; } = new List<Shape>();
 
-		public bool IsCollision { get; set; }
+		[Description("If true and prop has shapes, they are treated as walls.")]
+		[DefaultValue(true)]
+		public bool IsCollision { get; set; } = true;
+
+		[DefaultValue(false)]
 		public bool FixedAltitude { get; set; }
-		public float Scale { get; set; }
-		public float Rotation { get; set; }
+
+		[DefaultValue(1f)]
+		public float Scale { get; set; } = 1;
+
+		[DefaultValue(0f)]
+		public float Rotation { get; set; } = 0;
+
 		public Vector3F BottomLeft { get; set; }
 		public Vector3F TopRight { get; set; }
-		public Color ColorOverride { get; set; }
-		public Color[] Colors { get; set; } = new Color[ColorCount];
+
+		[DefaultValue(typeof(Color), "FFFFFFFF")]
+		public Color ColorOverride { get; set; } = Color.White;
+
+		public Color[] Colors { get; set; } = new Color[ColorCount] { DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor };
 
 		public string Title { get; set; }
 		public string State { get; set; }
@@ -61,10 +76,10 @@ namespace MabiWorld
 		public List<EntityParameter> Parameters { get; internal set; } = new List<EntityParameter>();
 
 		/// <summary>
-		/// Returns reference to the area the event is in.
+		/// Returns reference to the area the prop is in.
 		/// </summary>
 		[Browsable(false)]
-		public Area Area { get; }
+		public Area Area { get; set; }
 
 		/// <summary>
 		/// Gets or sets an object associated with this prop.
@@ -75,7 +90,13 @@ namespace MabiWorld
 		/// <summary>
 		/// Creates new instance.
 		/// </summary>
-		/// <param name="area"></param>
+		public Prop()
+		{
+		}
+
+		/// <summary>
+		/// Creates new instance.
+		/// </summary>
 		public Prop(Area area)
 		{
 			this.Area = area;
@@ -128,13 +149,21 @@ namespace MabiWorld
 				prop.Parameters.Add(param);
 			}
 
-			if (PropDb.TryGetEntry(prop.Id, out var entry))
-			{
-				prop.ClassName = entry.ClassName;
-				prop.StringId = entry.StringID;
-			}
+			prop.LoadData();
 
 			return prop;
+		}
+
+		/// <summary>
+		/// Loads data from prop db, filling additional info properties.
+		/// </summary>
+		public void LoadData()
+		{
+			if (PropDb.TryGetEntry(this.Id, out var entry))
+			{
+				this.ClassName = entry.ClassName;
+				this.StringId = entry.StringID;
+			}
 		}
 
 		/// <summary>

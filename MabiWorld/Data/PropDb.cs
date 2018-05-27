@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 namespace MabiWorld.Data
@@ -50,6 +51,16 @@ namespace MabiWorld.Data
 		public static bool TryGetEntry(int classId, out PropDbEntry entry)
 		{
 			return _entries.TryGetValue(classId, out entry);
+		}
+
+		/// <summary>
+		/// Returns all props which's names include the given string.
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		public static IEnumerable<PropDbEntry> FindEntriesByName(string str)
+		{
+			return _entries.Values.Where(a => a.ClassName.Contains(str));
 		}
 
 		/// <summary>
