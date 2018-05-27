@@ -161,7 +161,7 @@ namespace MabiWorld.Data
 				throw new ArgumentException("Expected file named features.xml.compiled.");
 
 			using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-				LoadFromCompiled(stream);
+				Load(stream);
 		}
 
 		/// <summary>
@@ -169,7 +169,7 @@ namespace MabiWorld.Data
 		/// </summary>
 		/// <author>Yiting</author>
 		/// <param name="stream"></param>
-		private static void LoadFromCompiled(Stream stream)
+		public static void Load(Stream stream)
 		{
 			var buffer = new byte[0x100];
 			var num = 0;

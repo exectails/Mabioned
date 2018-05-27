@@ -54,7 +54,17 @@ namespace MabiWorld.Data
 			if (Path.GetFileName(filePath) != "propdb.xml")
 				throw new ArgumentException("Expected file called propdb.xml.");
 
-			using (var xmlReader = new XmlTextReader(filePath))
+			using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				Load(fs);
+		}
+
+		/// <summary>
+		/// Loads prop data from given XML file.
+		/// </summary>
+		/// <param name="filePath"></param>
+		public static void Load(Stream stream)
+		{
+			using (var xmlReader = new XmlTextReader(stream))
 			{
 				while (xmlReader.ReadToFollowing("PropClass"))
 				{
