@@ -39,6 +39,7 @@ namespace Mabioned
 		private ulong _selectedEntityId;
 		private IEntity _selectedEntity;
 		private Dictionary<ulong, TreeNode> _entityNodes = new Dictionary<ulong, TreeNode>();
+		private Dictionary<Area, TreeNode> _areaNodes = new Dictionary<Area, TreeNode>();
 		private Dictionary<EventType, MenuItem> _eventTypeMenuItems = new Dictionary<EventType, MenuItem>();
 
 		private string _openFilePath;
@@ -749,6 +750,7 @@ namespace Mabioned
 		/// </summary>
 		private void CreateTree()
 		{
+			_areaNodes.Clear();
 			_entityNodes.Clear();
 
 			this.TreeRegion.BeginUpdate();
@@ -762,13 +764,20 @@ namespace Mabioned
 					regionNode.ImageKey = regionNode.SelectedImageKey = "region";
 
 					foreach (var area in _areas)
-						regionNode.Nodes.Add(this.CreateAreaNode(area));
+					{
+						var node = this.CreateAreaNode(area);
+						regionNode.Nodes.Add(node);
+						_areaNodes[area] = node;
+					}
 
 					this.TreeRegion.Nodes.Add(regionNode);
 				}
 				else
 				{
-					this.TreeRegion.Nodes.Add(this.CreateAreaNode(_areas[0]));
+					var area = _areas[0];
+					var node = this.CreateAreaNode(area);
+					this.TreeRegion.Nodes.Add(node);
+					_areaNodes[area] = node;
 				}
 
 				if (this.TreeRegion.Nodes.Count == 1)
@@ -1711,6 +1720,24 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Updates area's node, updating its text, those of its children,
+		/// and clearing their nodes if they should be empty.
+		/// </summary>
+		/// <param name="area"></param>
+		private void UpdateAreaNode(Area area)
+		{
+			if (!_areaNodes.TryGetValue(area, out var node))
+				return;
+
+			node.Text = GetAreaNodeName(area);
+			node.FirstNode.Text = string.Format("Props ({0})", area.Props.Count);
+			node.LastNode.Text = string.Format("Events ({0})", area.Events.Count);
+
+			if (area.Props.Count == 0) node.FirstNode.Nodes.Clear();
+			if (area.Events.Count == 0) node.LastNode.Nodes.Clear();
+		}
+
+		/// <summary>
 		/// Removes all props from selected area.
 		/// </summary>
 		/// <param name="sender"></param>
@@ -1738,9 +1765,7 @@ namespace Mabioned
 			area.Props.Clear();
 
 			this.TreeRegion.BeginUpdate();
-			this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area);
-			this.TreeRegion.SelectedNode.FirstNode.Nodes.Clear();
-			this.TreeRegion.SelectedNode.FirstNode.Text = "Props (0)";
+			this.UpdateAreaNode(area);
 			this.TreeRegion.EndUpdate();
 
 			this.SetModified(true);
@@ -1774,9 +1799,7 @@ namespace Mabioned
 			area.Events.Clear();
 
 			this.TreeRegion.BeginUpdate();
-			this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area);
-			this.TreeRegion.SelectedNode.LastNode.Nodes.Clear();
-			this.TreeRegion.SelectedNode.LastNode.Text = "Events (0)";
+			this.UpdateAreaNode(area);
 			this.TreeRegion.EndUpdate();
 
 			this.SetModified(true);
@@ -1794,6 +1817,7 @@ namespace Mabioned
 				return;
 
 			this.RegionCanvas.BeginUpdate();
+			this.TreeRegion.BeginUpdate();
 			for (var i = 0; i < _areas.Count; ++i)
 			{
 				var area = _areas[i];
@@ -1806,10 +1830,14 @@ namespace Mabioned
 				}
 
 				area.Props.Clear();
+
+				this.UpdateAreaNode(area);
 			}
+			this.TreeRegion.EndUpdate();
 			this.RegionCanvas.EndUpdate();
 
-			this.CreateTree();
+			this.TreeRegion.SelectedNode = this.TreeRegion.Nodes[0];
+
 			this.SetModified(true);
 		}
 
@@ -1825,6 +1853,7 @@ namespace Mabioned
 				return;
 
 			this.RegionCanvas.BeginUpdate();
+			this.TreeRegion.BeginUpdate();
 			for (var i = 0; i < _areas.Count; ++i)
 			{
 				var area = _areas[i];
@@ -1837,10 +1866,14 @@ namespace Mabioned
 				}
 
 				area.Events.Clear();
+
+				this.UpdateAreaNode(area);
 			}
+			this.TreeRegion.EndUpdate();
 			this.RegionCanvas.EndUpdate();
 
-			this.CreateTree();
+			this.TreeRegion.SelectedNode = this.TreeRegion.Nodes[0];
+
 			this.SetModified(true);
 		}
 
