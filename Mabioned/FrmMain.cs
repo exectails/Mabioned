@@ -2008,9 +2008,12 @@ namespace Mabioned
 		{
 			var visible = (this.MnuShowMiniMap.Checked = !this.MnuShowMiniMap.Checked);
 
-			this.RegionCanvas.BeginUpdate();
-			_miniMapObject.Visible = visible;
-			this.RegionCanvas.EndUpdate();
+			if (_miniMapObject != null)
+			{
+				this.RegionCanvas.BeginUpdate();
+				_miniMapObject.Visible = visible;
+				this.RegionCanvas.EndUpdate();
+			}
 		}
 	}
 }
