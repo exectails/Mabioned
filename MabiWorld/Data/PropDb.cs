@@ -14,6 +14,7 @@ namespace MabiWorld.Data
 		public string ClassName { get; internal set; }
 		public string ClassPath { get; internal set; }
 		public int ColorType { get; internal set; }
+		public bool IsTerrainBlock { get; internal set; }
 		public string ExtraXML { get; internal set; }
 		public string Events { get; internal set; }
 		public string Actions { get; internal set; }
@@ -75,6 +76,7 @@ namespace MabiWorld.Data
 					entry.ClassName = xmlReader.GetAttribute("ClassName");
 					entry.ClassPath = xmlReader.GetAttribute("ClassPath");
 					entry.ColorType = int.Parse(xmlReader.GetAttribute("ColorType"));
+					entry.IsTerrainBlock = (xmlReader.GetAttribute("IsTerrainBlock") == "true");
 					entry.ExtraXML = xmlReader.GetAttribute("ExtraXML");
 					entry.Events = xmlReader.GetAttribute("Events");
 					entry.Actions = xmlReader.GetAttribute("Actions");
