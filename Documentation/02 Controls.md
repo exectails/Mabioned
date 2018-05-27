@@ -43,7 +43,10 @@ Deleting entities
 -----------------------------------------------------------------------------
 
 An entity can be deleted by selecting it and then pressing the
-Del (Delete) key.
+Del (Delete) key. Alternatively you can also delete a number of props or
+events in an area at once by right-clicking the area in the tree and
+selecting the appropriate option, or using the same options in the Edit
+menu for all areas at once.
 
 Zooming
 -----------------------------------------------------------------------------
@@ -68,6 +71,14 @@ For one, you can copy the X and Y coordinates of the spot you clicked on
 in the format "X; Y", which you can directly paste into the property window
 to change an entity's position. You can also copy an Aura warp command to
 the clipboard that will bring you to that location.
+
+Modifying the terrain
+-----------------------------------------------------------------------------
+
+The only comfort functions to modify the terrain at the current time
+are flattening options in the area context menu (right-click at area
+in the tree) and the Edit menu. With these options you can set the
+height of the terrain in one area or the entire region to one value.
 
 Tools
 -----------------------------------------------------------------------------
@@ -116,3 +127,6 @@ Hotkeys
 - 0, Num0: Free Tool
 - Esc: Unselect entity
 - Del: Delete selected entity
+- Ctrl+O: Open file
+- Ctrl+S: Save
+- Ctrl+Shift+S: Save as
