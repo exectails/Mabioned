@@ -757,7 +757,7 @@ namespace Mabioned
 
 				if (!this.AreaOnly)
 				{
-					var regionNode = new TreeNode("Region: " + (_region?.Name ?? "?"));
+					var regionNode = new TreeNode(GetRegionNodeName(_region.Name));
 					regionNode.Tag = _region;
 					regionNode.ImageKey = regionNode.SelectedImageKey = "region";
 
@@ -830,6 +830,16 @@ namespace Mabioned
 		private static string GetAreaNodeName(string areaName, int propCount, int eventCount)
 		{
 			return string.Format("Area: {0}  ({1}, {2})", areaName, propCount, eventCount);
+		}
+
+		/// <summary>
+		/// Returns name for region tree node.
+		/// </summary>
+		/// <param name="regionName"></param>
+		/// <returns></returns>
+		private static string GetRegionNodeName(string regionName)
+		{
+			return string.Format("Region: {0}", regionName);
 		}
 
 		/// <summary>
@@ -1254,6 +1264,10 @@ namespace Mabioned
 					}
 
 					updateEntityNodes = true;
+				}
+				else if (propertyName == "Name" && this.TreeRegion.SelectedNode?.Tag == region)
+				{
+					this.TreeRegion.SelectedNode.Text = GetRegionNodeName(region.Name);
 				}
 			}
 			else if (this.PropertyGrid.SelectedObject is MabiWorld.Area area)
