@@ -203,18 +203,21 @@
 			// 
 			// MnuEditRemoveAllProps
 			// 
+			this.MnuEditRemoveAllProps.Enabled = false;
 			this.MnuEditRemoveAllProps.Index = 0;
 			this.MnuEditRemoveAllProps.Text = "Remove Props...";
 			this.MnuEditRemoveAllProps.Click += new System.EventHandler(this.MnuEditRemoveProps_Click);
 			// 
 			// MnuEditRemoveAllEvents
 			// 
+			this.MnuEditRemoveAllEvents.Enabled = false;
 			this.MnuEditRemoveAllEvents.Index = 1;
 			this.MnuEditRemoveAllEvents.Text = "Remove All Events";
 			this.MnuEditRemoveAllEvents.Click += new System.EventHandler(this.MnuEditRemoveAllEvents_Click);
 			// 
 			// MnuFlattenTerrain
 			// 
+			this.MnuFlattenTerrain.Enabled = false;
 			this.MnuFlattenTerrain.Index = 2;
 			this.MnuFlattenTerrain.Text = "Flatten Entire Terrain...";
 			this.MnuFlattenTerrain.Click += new System.EventHandler(this.MnuFlattenTerrain_Click);

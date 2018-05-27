@@ -392,6 +392,10 @@ namespace Mabioned
 			{
 				MessageBox.Show("Failed to open file." + Environment.NewLine + ex);
 			}
+
+			this.MnuEditRemoveAllProps.Enabled = true;
+			this.MnuEditRemoveAllEvents.Enabled = true;
+			this.MnuFlattenTerrain.Enabled = true;
 		}
 
 		/// <summary>
