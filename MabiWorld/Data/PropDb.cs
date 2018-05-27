@@ -14,6 +14,7 @@ namespace MabiWorld.Data
 		public string ClassName { get; internal set; }
 		public string ClassPath { get; internal set; }
 		public int ColorType { get; internal set; }
+		public string ExtraXML { get; internal set; }
 		public string Events { get; internal set; }
 		public string Actions { get; internal set; }
 		public bool HasState { get; internal set; }
@@ -74,6 +75,7 @@ namespace MabiWorld.Data
 					entry.ClassName = xmlReader.GetAttribute("ClassName");
 					entry.ClassPath = xmlReader.GetAttribute("ClassPath");
 					entry.ColorType = int.Parse(xmlReader.GetAttribute("ColorType"));
+					entry.ExtraXML = xmlReader.GetAttribute("ExtraXML");
 					entry.Events = xmlReader.GetAttribute("Events");
 					entry.Actions = xmlReader.GetAttribute("Actions");
 					entry.HasState = (xmlReader.GetAttribute("HasState") == "true");
@@ -97,9 +99,73 @@ namespace MabiWorld.Data
 						entry.SoundDescIDs = ids;
 					}
 
+					if (entry.ExtraXML != null)
+					{
+						entry.ExtraXML = FixXml(entry.ExtraXML);
+						//System.Xml.Linq.XDocument.Parse(entry.ExtraXML);
+					}
+
 					_entries[entry.ClassID] = entry;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Fixes all known instances of invalid XML code found in the
+		/// prop's ExtraXML attribute.
+		/// </summary>
+		/// <param name="xml"></param>
+		/// <returns></returns>
+		private static string FixXml(string xml)
+		{
+			// ExtraXML containing itself...
+
+			if (xml == "ExtraXML=\"&lt;xml DIST=&quot;800&quot; TIME=&quot;6000&quot; /&gt;\"")
+			{
+				xml = "<xml DIST=\"800\" TIME=\"6000\" />";
+			}
+
+			// Missing closings
+
+			// <xml broken_duration=\"30000\">
+			// <xml attraction=\"catchingtail\"
+			else if (xml.EndsWith("\""))
+			{
+				xml += " />";
+			}
+			// <xml broken_duration=\"30000\">
+			else if (xml.EndsWith("\">"))
+			{
+				xml = xml.Substring(0, xml.Length - 2) + "\" />";
+			}
+
+			// Missing spaces
+
+			// <xml sit_motion_category=\"2\" sit_motion=\"89\"sit_motion2=\"90\" seat_number = \"2\" hideequip=\"none\" hideidle=\"false\" />
+			else if (xml.Contains("sit_motion=\"89\"sit_motion2"))
+			{
+				xml = xml.Replace("sit_motion=\"89\"sit_motion2", "sit_motion=\"89\" sit_motion2");
+			}
+			// <xml sit_motion_category=\"2\" sit_motion=\"98\"hideidle=\"false\"/>
+			else if (xml.Contains("sit_motion=\"98\"hideidle"))
+			{
+				xml = xml.Replace("sit_motion=\"98\"hideidle", "sit_motion=\"98\" hideidle");
+			}
+			// <xml sit_motion_category=\"2\" sit_motion=\"101\"hideidle=\"false\"/>
+			else if (xml.Contains("sit_motion=\"101\"hideidle"))
+			{
+				xml = xml.Replace("sit_motion=\"101\"hideidle", "sit_motion=\"101\" hideidle");
+			}
+
+			// Duplicate attributes
+
+			// <xml sit_motion = \"27\" sit_motion_category=\"2\" sit_motion=\"102\" hideidle=\"false\"/>
+			else if (xml.Contains("sit_motion = \"27\" sit_motion_category=\"2\" sit_motion=\"102\""))
+			{
+				xml = xml.Replace("sit_motion = \"27\" sit_motion_category=\"2\" sit_motion=\"102\"", "sit_motion_category=\"2\" sit_motion=\"102\"");
+			}
+
+			return xml;
 		}
 	}
 }
