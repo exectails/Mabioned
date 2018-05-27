@@ -31,6 +31,12 @@ namespace MabiWorld
 		[ReadOnly(true)]
 		public string ClassName { get; private set; }
 
+		/// <summary>
+		/// Filled from loaded prop db, not part of the actual prop struct.
+		/// </summary>
+		[ReadOnly(true)]
+		public string StringId { get; private set; }
+
 		public Vector3F Position { get; set; }
 		public byte ShapeCount => (byte)this.Shapes.Count;
 		public int ShapeType { get; set; }
@@ -123,7 +129,10 @@ namespace MabiWorld
 			}
 
 			if (PropDb.TryGetEntry(prop.Id, out var entry))
+			{
 				prop.ClassName = entry.ClassName;
+				prop.StringId = entry.StringID;
+			}
 
 			return prop;
 		}

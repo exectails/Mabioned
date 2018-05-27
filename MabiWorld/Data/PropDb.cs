@@ -25,7 +25,7 @@ namespace MabiWorld.Data
 		public bool NonTrivialAnimation { get; internal set; }
 		public bool PickRestrict { get; internal set; }
 		public int[] SoundDescIDs { get; internal set; }
-		public string StringID { get; internal set; }
+		public Tags StringID { get; internal set; }
 	}
 
 	/// <summary>
