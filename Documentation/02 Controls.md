@@ -57,6 +57,8 @@ on the location the cursor is above, to quickly zoom where you want to go.
 To reset the zoom, select "View > Scale to fit", or double-click the
 map with the middle mouse button.
 
+To zoom more quickly, hold the Ctrl (Control) key while scrolling.
+
 Hint: The quickest way to navigate the map is to reset the zoom, hover the
 location you want to focus on, and scroll up to zoom in.
 
