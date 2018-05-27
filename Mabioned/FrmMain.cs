@@ -1179,6 +1179,7 @@ namespace Mabioned
 		private void PropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
 			var propertyName = e.ChangedItem.PropertyDescriptor?.Name;
+			var updateEntityNodes = false;
 
 			if (this.PropertyGrid.SelectedObject is IEntity entity)
 			{
@@ -1240,7 +1241,7 @@ namespace Mabioned
 						}
 					}
 
-					this.CreateTree();
+					updateEntityNodes = true;
 				}
 			}
 			else if (this.PropertyGrid.SelectedObject is MabiWorld.Area area)
@@ -1262,8 +1263,19 @@ namespace Mabioned
 						evnt.EntityId |= newMask;
 					}
 
-					this.CreateTree();
+					updateEntityNodes = true;
 				}
+			}
+
+			if (updateEntityNodes)
+			{
+				this.TreeRegion.BeginUpdate();
+				foreach (var node in _entityNodes.Values)
+				{
+					if (node.Tag is IEntity entiti)
+						node.Text = "0x" + entiti.EntityId.ToString("X16");
+				}
+				this.TreeRegion.EndUpdate();
 			}
 
 			this.SetModified(true);
