@@ -57,7 +57,7 @@ namespace MabiWorld
 		public byte[] Unk10 { get; set; }
 
 		/// <summary>
-		/// Gets or sets an object associated with this event.
+		/// Gets or sets an object associated with this area.
 		/// </summary>
 		[Browsable(false)]
 		public object Tag { get; set; }

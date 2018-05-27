@@ -789,7 +789,7 @@ namespace Mabioned
 		/// <returns></returns>
 		private TreeNode CreateAreaNode(Area area)
 		{
-			var areaNode = new TreeNode(GetAreaNodeName(area.Name, area.Props.Count, area.Events.Count));
+			var areaNode = new TreeNode(GetAreaNodeName(area));
 			areaNode.Tag = area;
 			areaNode.ImageKey = areaNode.SelectedImageKey = "area";
 
@@ -823,13 +823,11 @@ namespace Mabioned
 		/// <summary>
 		/// Returns name for area tree node.
 		/// </summary>
-		/// <param name="areaName"></param>
-		/// <param name="propCount"></param>
-		/// <param name="eventCount"></param>
+		/// <param name="area"></param>
 		/// <returns></returns>
-		private static string GetAreaNodeName(string areaName, int propCount, int eventCount)
+		private static string GetAreaNodeName(Area area)
 		{
-			return string.Format("Area: {0}  ({1}, {2})", areaName, propCount, eventCount);
+			return string.Format("Area: {0}  ({1}, {2})", area.Name, area.Props.Count, area.Events.Count);
 		}
 
 		/// <summary>
@@ -1302,7 +1300,7 @@ namespace Mabioned
 						return;
 					}
 
-					this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area.Name, area.Props.Count, area.Events.Count);
+					this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area);
 				}
 			}
 
@@ -1722,6 +1720,10 @@ namespace Mabioned
 			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
 				return;
 
+			var result = MessageBox.Show("Remove all props in " + area.Name + "?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes)
+				return;
+
 			// Remove props from canvas
 			this.RegionCanvas.BeginUpdate();
 			for (var i = 0; i < area.Props.Count; ++i)
@@ -1736,6 +1738,7 @@ namespace Mabioned
 			area.Props.Clear();
 
 			this.TreeRegion.BeginUpdate();
+			this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area);
 			this.TreeRegion.SelectedNode.FirstNode.Nodes.Clear();
 			this.TreeRegion.SelectedNode.FirstNode.Text = "Props (0)";
 			this.TreeRegion.EndUpdate();
@@ -1750,7 +1753,11 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuAreaRemoveAllEvents_Click(object sender, EventArgs e)
 		{
-			if (!(this.TreeRegion.SelectedNode.Tag is Area area))
+			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
+				return;
+
+			var result = MessageBox.Show("Remove all events in " + area.Name + "?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes)
 				return;
 
 			// Remove props from canvas
@@ -1767,10 +1774,73 @@ namespace Mabioned
 			area.Events.Clear();
 
 			this.TreeRegion.BeginUpdate();
+			this.TreeRegion.SelectedNode.Text = GetAreaNodeName(area);
 			this.TreeRegion.SelectedNode.LastNode.Nodes.Clear();
 			this.TreeRegion.SelectedNode.LastNode.Text = "Events (0)";
 			this.TreeRegion.EndUpdate();
 
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Removes all props in all areas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuEditRemoveAllProps_Click(object sender, EventArgs e)
+		{
+			var result = MessageBox.Show("Remove all props from all areas?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes)
+				return;
+
+			this.RegionCanvas.BeginUpdate();
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+
+				for (var j = 0; j < area.Props.Count; ++j)
+				{
+					var entity = area.Props[j];
+					if (entity.Tag is CanvasObject obj)
+						this.RegionCanvas.Remove(obj);
+				}
+
+				area.Props.Clear();
+			}
+			this.RegionCanvas.EndUpdate();
+
+			this.CreateTree();
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Removes all events in all areas.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuEditRemoveAllEvents_Click(object sender, EventArgs e)
+		{
+			var result = MessageBox.Show("Remove all events from all areas?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes)
+				return;
+
+			this.RegionCanvas.BeginUpdate();
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+
+				for (var j = 0; j < area.Events.Count; ++j)
+				{
+					var entity = area.Events[j];
+					if (entity.Tag is CanvasObject obj)
+						this.RegionCanvas.Remove(obj);
+				}
+
+				area.Events.Clear();
+			}
+			this.RegionCanvas.EndUpdate();
+
+			this.CreateTree();
 			this.SetModified(true);
 		}
 

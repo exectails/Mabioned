@@ -43,6 +43,8 @@
 			this.MnuSpacer6 = new System.Windows.Forms.MenuItem();
 			this.MnuExit = new System.Windows.Forms.MenuItem();
 			this.MnuEdit = new System.Windows.Forms.MenuItem();
+			this.MnuEditRemoveAllProps = new System.Windows.Forms.MenuItem();
+			this.MnuEditRemoveAllEvents = new System.Windows.Forms.MenuItem();
 			this.MnuFlattenTerrain = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer7 = new System.Windows.Forms.MenuItem();
 			this.MnuEditSettings = new System.Windows.Forms.MenuItem();
@@ -192,25 +194,39 @@
 			// 
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MnuEditRemoveAllProps,
+            this.MnuEditRemoveAllEvents,
             this.MnuFlattenTerrain,
             this.MnuSpacer7,
             this.MnuEditSettings});
 			this.MnuEdit.Text = "Edit";
 			// 
+			// MnuEditRemoveAllProps
+			// 
+			this.MnuEditRemoveAllProps.Index = 0;
+			this.MnuEditRemoveAllProps.Text = "Remove All Props";
+			this.MnuEditRemoveAllProps.Click += new System.EventHandler(this.MnuEditRemoveAllProps_Click);
+			// 
+			// MnuEditRemoveAllEvents
+			// 
+			this.MnuEditRemoveAllEvents.Index = 1;
+			this.MnuEditRemoveAllEvents.Text = "Remove All Events";
+			this.MnuEditRemoveAllEvents.Click += new System.EventHandler(this.MnuEditRemoveAllEvents_Click);
+			// 
 			// MnuFlattenTerrain
 			// 
-			this.MnuFlattenTerrain.Index = 0;
+			this.MnuFlattenTerrain.Index = 2;
 			this.MnuFlattenTerrain.Text = "Flatten Entire Terrain...";
 			this.MnuFlattenTerrain.Click += new System.EventHandler(this.MnuFlattenTerrain_Click);
 			// 
 			// MnuSpacer7
 			// 
-			this.MnuSpacer7.Index = 1;
+			this.MnuSpacer7.Index = 3;
 			this.MnuSpacer7.Text = "-";
 			// 
 			// MnuEditSettings
 			// 
-			this.MnuEditSettings.Index = 2;
+			this.MnuEditSettings.Index = 4;
 			this.MnuEditSettings.Text = "Settings";
 			this.MnuEditSettings.Click += new System.EventHandler(this.MnuEditSettings_Click);
 			// 
@@ -692,6 +708,8 @@
 		private System.Windows.Forms.MenuItem MnuSpacer7;
 		private System.Windows.Forms.MenuItem MnuShowMiniMap;
 		private System.Windows.Forms.MenuItem MnuAreaFlattenTerrain;
+		private System.Windows.Forms.MenuItem MnuEditRemoveAllProps;
+		private System.Windows.Forms.MenuItem MnuEditRemoveAllEvents;
 	}
 }
 
