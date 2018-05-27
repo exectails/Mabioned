@@ -48,6 +48,28 @@ events in an area at once by right-clicking the area in the tree and
 selecting the appropriate option, or using the same options in the Edit
 menu for all areas at once.
 
+When mass-deleting props you have several filtering options to remove
+only certain props.
+
+- Match Tag: Searches for props that have the given Tag, or StringID.
+  For example: /firewood/, to find trees.
+- Don't Match Tag: Opposite of "Match Tag", finds props that don't match
+  the given tag.
+- Are Terrain: Searches for props that are either marked as being part
+  of the terrain or not.
+
+Adding props
+-----------------------------------------------------------------------------
+
+Right-click on the map and select "Add Prop..." to open a dialog to
+add a new prop to the region. In the new dialog you can enter an id
+and a position, with the position being pre-filled with the position
+you clicked.
+
+You can use the search feature on the bottom to search the prop
+database by name if set a data folder in the settings. Double-click
+a prop in the list to use its id.
+
 Zooming
 -----------------------------------------------------------------------------
 
