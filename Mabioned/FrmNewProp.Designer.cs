@@ -93,7 +93,7 @@
 			this.GrpSearch.Enabled = false;
 			this.GrpSearch.Location = new System.Drawing.Point(12, 96);
 			this.GrpSearch.Name = "GrpSearch";
-			this.GrpSearch.Size = new System.Drawing.Size(370, 232);
+			this.GrpSearch.Size = new System.Drawing.Size(370, 222);
 			this.GrpSearch.TabIndex = 98;
 			this.GrpSearch.TabStop = false;
 			this.GrpSearch.Text = "Search";
@@ -110,7 +110,7 @@
 			this.LstProps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.LstProps.Location = new System.Drawing.Point(11, 45);
 			this.LstProps.Name = "LstProps";
-			this.LstProps.Size = new System.Drawing.Size(348, 176);
+			this.LstProps.Size = new System.Drawing.Size(348, 166);
 			this.LstProps.TabIndex = 2;
 			this.LstProps.UseCompatibleStateImageBehavior = false;
 			this.LstProps.View = System.Windows.Forms.View.Details;
@@ -139,7 +139,7 @@
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(225, 337);
+			this.BtnOK.Location = new System.Drawing.Point(225, 329);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 6;
@@ -150,7 +150,7 @@
 			// BtnCancel
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(306, 337);
+			this.BtnCancel.Location = new System.Drawing.Point(306, 329);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtnCancel.TabIndex = 7;
@@ -183,7 +183,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(393, 372);
+			this.ClientSize = new System.Drawing.Size(393, 364);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
 			this.Controls.Add(this.GrpSearch);

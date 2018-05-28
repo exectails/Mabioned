@@ -930,30 +930,30 @@ namespace Mabioned
 				var areaPlaneWidth = (area.BottomRight.X - area.BottomLeft.X) / area.PlaneX;
 				var areaPlaneHeight = (area.TopLeft.Y - area.BottomLeft.Y) / area.PlaneY;
 
-				for (var apy = 0; apy < area.PlaneY; ++apy)
+				// Area planes and planes go up from bottom left to top right.
+
+				for (var apx = 0; apx < area.PlaneX; ++apx)
 				{
-					for (var apx = 0; apx < area.PlaneX; ++apx)
+					for (var apy = 0; apy < area.PlaneY; ++apy)
 					{
-						var areaPlane = areaPlanes[apy * area.PlaneX + apx];
+						var areaPlane = areaPlanes[apx * area.PlaneY + apy];
 						var planes = areaPlane.Planes;
 
 						var planeWidth = areaPlaneWidth / areaPlane.Size;
 						var planeHeight = areaPlaneHeight / areaPlane.Size;
-						for (var py = 0; py < areaPlane.Size; ++py)
+
+						for (var px = 0; px < areaPlane.Size; ++px)
 						{
-							for (var px = 0; px < areaPlane.Size; ++px)
+							for (var py = 0; py < areaPlane.Size; ++py)
 							{
-								var plane = planes[py * areaPlane.Size + px];
+								var plane = planes[px * areaPlane.Size + py];
 
-								// Do they go from bottom left to top right
-								// in vertical lines?
-
-								var x = (area.BottomLeft.X + apy * areaPlaneWidth + py * planeHeight);
-								var y = (area.BottomLeft.Y + apx * areaPlaneHeight + px * planeWidth);
+								var x = (area.BottomLeft.X + apx * areaPlaneWidth + px * planeHeight);
+								var y = (area.BottomLeft.Y + apy * areaPlaneHeight + py * planeWidth);
 								var w = (planeWidth);
 								var h = (planeHeight);
 
-								if (regionPos.X > x && regionPos.X <= x + w && regionPos.Y > y && regionPos.Y <= y + h)
+								if (regionPos.X >= x && regionPos.X <= x + w && regionPos.Y >= y && regionPos.Y <= y + h)
 									return plane.Height;
 							}
 						}
@@ -983,6 +983,7 @@ namespace Mabioned
 			else if (_selectedEntityId != 0)
 			{
 				this.SetSelectedEntity(null);
+				this.TreeRegion.SelectedNode = selectedNode;
 			}
 
 			this.PropertyGrid.SelectedObject = tag;
@@ -1780,7 +1781,7 @@ namespace Mabioned
 				}
 			}
 
-			//Console.WriteLine(this.ProbeHeight(this.ToRegionPosition(e.Location)));
+			//Console.WriteLine(this.ProbeHeight(this.RegionCanvas.GetWorldPosition(e.Location)));
 		}
 
 		/// <summary>

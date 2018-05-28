@@ -64,7 +64,7 @@ namespace MabiWorld
 		public Vector3F TopRight { get; set; }
 
 		[DefaultValue(typeof(Color), "FFFFFFFF")]
-		public Color ColorOverride { get; set; } = Color.White;
+		public Color ColorOverride { get; set; } = Color.FromArgb(-1);
 
 		public Color[] Colors { get; set; } = new Color[ColorCount] { DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor };
 
