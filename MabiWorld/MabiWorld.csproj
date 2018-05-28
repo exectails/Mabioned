@@ -53,6 +53,7 @@
     <Compile Include="Data\Features.cs" />
     <Compile Include="Data\Local.cs" />
     <Compile Include="Data\MiniMapInfo.cs" />
+    <Compile Include="Data\PropPalette.cs" />
     <Compile Include="Data\Tags.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityParameter.cs" />

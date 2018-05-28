@@ -152,6 +152,10 @@ namespace Mabioned
 				if (File.Exists(propDbPath))
 					PropDb.Load(propDbPath);
 
+				var propPalettePath = Path.Combine(path, "world", "proppalette.plt");
+				if (File.Exists(propPalettePath))
+					PropPalette.Load(propPalettePath);
+
 				var miniMapInfoPath = Path.Combine(path, "db", "minimapinfo.xml");
 				if (File.Exists(miniMapInfoPath))
 					MiniMapInfo.Load(miniMapInfoPath);
