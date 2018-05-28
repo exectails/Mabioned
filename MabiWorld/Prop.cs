@@ -244,6 +244,36 @@ namespace MabiWorld
 			return prop;
 		}
 
+		/// <summary>
+		/// Sets prop's position and updates its shapes.
+		/// </summary>
+		/// <param name="pos"></param>
+		public void MoveTo(PointF pos)
+		{
+			this.MoveTo(pos.X, pos.Y, this.Position.Z);
+		}
+
+		/// <summary>
+		/// Sets prop's position and updates its shapes.
+		/// </summary>
+		/// <param name="pos"></param>
+		public void MoveTo(float x, float y, float z)
+		{
+			var delta = new SizeF(x - this.Position.X, y - this.Position.Y);
+
+			this.Position = new Vector3F(x, y, z);
+			this.BottomLeft += delta;
+			this.TopRight += delta;
+
+			foreach (var shape in this.Shapes)
+			{
+				shape.Position += delta;
+				shape.BottomLeft += delta;
+				shape.TopRight += delta;
+			}
+		}
+
+		/// <summary>
 		/// Returns string representation of prop.
 		/// </summary>
 		/// <returns></returns>

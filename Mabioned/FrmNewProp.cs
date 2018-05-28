@@ -134,12 +134,19 @@ namespace Mabioned
 		/// <param name="y"></param>
 		private Prop GenerateBaseProp(int id, float x, float y, float z)
 		{
-			var prop = new Prop();
+			Prop prop = null;
+
+			if (PropPalette.TryGetEntry(id, out var pltProp))
+			{
+				prop = pltProp.Copy();
+			}
+			else
+			{
+				prop = new Prop();
+			}
 
 			prop.Id = id;
-			prop.Position = new Vector3F(x, y, z);
-			prop.BottomLeft = prop.Position;
-			prop.TopRight = prop.Position;
+			prop.MoveTo(x, y, z);
 
 			prop.LoadData();
 

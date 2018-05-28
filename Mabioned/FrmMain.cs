@@ -2105,16 +2105,33 @@ namespace Mabioned
 
 			// Get and check entity id
 			var prop = form.Prop;
+
+			try
+			{
+				this.AddProp(prop);
+			}
+			catch (NoEntityIdException)
+			{
+				MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Adds prop to the correct area, the canvas, and the tree.
+		/// </summary>
+		/// <param name="prop"></param>
+		private void AddProp(Prop prop)
+		{
 			var area = this.GetAreaAt(prop.Position);
 
 			prop.Area = area;
 			prop.EntityId = area.GetNewPropId();
 
 			if (prop.EntityId == 0)
-			{
-				MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
+				throw new NoEntityIdException("Failed to acquire a new prop entity id.");
 
 			// Add prop to area, canvas, and tree, selecting it at the end.
 			area.Props.Add(prop);
@@ -2136,8 +2153,6 @@ namespace Mabioned
 				this.UpdateAreaNode(area);
 				this.SetSelectedEntity(prop.EntityId);
 			}
-
-			this.SetModified(true);
 		}
 
 		/// <summary>
