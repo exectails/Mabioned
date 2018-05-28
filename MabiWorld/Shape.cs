@@ -152,22 +152,27 @@ namespace MabiWorld
 		/// Sets the shape's rect values based on the four given points.
 		/// </summary>
 		/// <param name="points"></param>
-		public void SetFromPoints(PointF[] points)
+		public void SetRotationFromPoints(PointF[] points)
 		{
 			if (points.Length != 4)
 				throw new ArgumentException("Expected 4 points.");
 
 			var x = (points[0].X + points[2].X) * 0.5;
 			var y = (points[0].Y + points[2].Y) * 0.5;
+			this.Position = new PointF((float)x, (float)y);
+
 			var angle = Math.Atan2(points[1].Y - points[0].Y, points[1].X - points[0].X);
 
-			this.Position = new PointF((float)x, (float)y);
+			// For some reason the shape shrinks when the length is
+			// calculated repeatedly, ignore it for now, we only want to
+			// rotate anyway.
+
 			this.DirX1 = (float)Math.Cos(angle);
 			this.DirX2 = (float)Math.Sin(angle);
 			this.DirY1 = (float)Math.Sin(angle);
 			this.DirY2 = (float)-Math.Cos(angle);
-			this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
-			this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+			//this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
+			//this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
 
 			var minX = points.Min(a => a.X);
 			var maxX = points.Max(a => a.X);

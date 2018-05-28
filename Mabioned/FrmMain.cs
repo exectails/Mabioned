@@ -1310,7 +1310,7 @@ namespace Mabioned
 						for (var i = 0; i < points.Length; ++i)
 							points[i] = points[i].RotatePoint(entity.Position, diff);
 
-						shape.SetFromPoints(points);
+						shape.SetRotationFromPoints(points);
 					}
 
 					if (entity.Tag is CanvasObject obj)
@@ -1832,7 +1832,7 @@ namespace Mabioned
 				for (var i = 0; i < points.Length; ++i)
 					points[i] = points[i].RotatePoint(entity.Position, delta);
 
-				shape.SetFromPoints(points);
+				shape.SetRotationFromPoints(points);
 			}
 
 			this.SetModified(true);
