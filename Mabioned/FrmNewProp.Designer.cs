@@ -42,6 +42,7 @@
 			this.TxtPosX = new System.Windows.Forms.TextBox();
 			this.TxtPosY = new System.Windows.Forms.TextBox();
 			this.TxtPosZ = new System.Windows.Forms.TextBox();
+			this.LblDataFolderInfo = new System.Windows.Forms.Label();
 			this.GrpProperties.SuspendLayout();
 			this.GrpSearch.SuspendLayout();
 			this.SuspendLayout();
@@ -179,11 +180,21 @@
 			this.TxtPosZ.Size = new System.Drawing.Size(85, 20);
 			this.TxtPosZ.TabIndex = 9;
 			// 
+			// LblDataFolderInfo
+			// 
+			this.LblDataFolderInfo.ForeColor = System.Drawing.Color.Gray;
+			this.LblDataFolderInfo.Location = new System.Drawing.Point(12, 327);
+			this.LblDataFolderInfo.Name = "LblDataFolderInfo";
+			this.LblDataFolderInfo.Size = new System.Drawing.Size(167, 30);
+			this.LblDataFolderInfo.TabIndex = 102;
+			this.LblDataFolderInfo.Text = "Enter data folder in settings to enable the search.";
+			// 
 			// FrmNewProp
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(393, 364);
+			this.Controls.Add(this.LblDataFolderInfo);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
 			this.Controls.Add(this.GrpSearch);
@@ -221,5 +232,6 @@
 		private System.Windows.Forms.TextBox TxtPosX;
 		private System.Windows.Forms.TextBox TxtPosY;
 		private System.Windows.Forms.TextBox TxtPosZ;
+		private System.Windows.Forms.Label LblDataFolderInfo;
 	}
 }

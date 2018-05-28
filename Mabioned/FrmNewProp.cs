@@ -41,6 +41,7 @@ namespace Mabioned
 			if (PropDb.HasEntries)
 			{
 				this.GrpSearch.Enabled = true;
+				this.LblDataFolderInfo.Visible = false;
 				this.TxtSearch.Select();
 			}
 		}
