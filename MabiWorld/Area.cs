@@ -263,6 +263,29 @@ namespace MabiWorld
 		}
 
 		/// <summary>
+		/// Returns an unused event id for this area. If no available ids
+		/// were found, 0 is returned.
+		/// </summary>
+		/// <returns></returns>
+		public ulong GetNewEventId()
+		{
+			var baseId = 0x00B0_0000_0000_0000UL;
+
+			baseId |= ((ulong)this.RegionId) << 32;
+			baseId |= ((ulong)this.Id) << 16;
+
+			for (ulong i = 1; i <= ushort.MaxValue; ++i)
+			{
+				var id = (baseId | i);
+				var prop = this.Events.FirstOrDefault(a => a.EntityId == id);
+				if (prop == null)
+					return id;
+			}
+
+			return 0;
+		}
+
+		/// <summary>
 		/// Returns true if the given position is inside this area, based
 		/// on its bounds.
 		/// </summary>

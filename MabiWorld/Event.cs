@@ -41,13 +41,21 @@ namespace MabiWorld
 		/// Returns reference to the area the event is in.
 		/// </summary>
 		[Browsable(false)]
-		public Area Area { get; }
+		public Area Area { get; set; }
 
 		/// <summary>
 		/// Gets or sets an object associated with this event.
 		/// </summary>
 		[Browsable(false)]
 		public object Tag { get; set; }
+
+		/// <summary>
+		/// Creates new instance.
+		/// </summary>
+		/// <param name="area"></param>
+		public Event()
+		{
+		}
 
 		/// <summary>
 		/// Creates new instance.

@@ -2191,6 +2191,38 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Creates new event.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuAddEvent_Click(object sender, EventArgs e)
+		{
+			var worldPos = this.RegionCanvas.GetWorldPosition(_mapRightClickLocation);
+			var z = this.ProbeHeight(worldPos);
+			var vector3 = new Vector3F(worldPos, z);
+
+			// Get info about new prop
+			var form = new FrmNewEvent(vector3);
+			if (form.ShowDialog() != DialogResult.OK)
+				return;
+
+			// Get and check entity id
+			var evnt = form.Event;
+
+			try
+			{
+				this.AddEvent(evnt);
+			}
+			catch (NoEntityIdException)
+			{
+				MessageBox.Show("Failed to acquire a new event entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			this.SetModified(true);
+		}
+
+		/// <summary>
 		/// Adds prop to the correct area, the canvas, and the tree.
 		/// </summary>
 		/// <param name="prop"></param>
@@ -2223,6 +2255,42 @@ namespace Mabioned
 
 				this.UpdateAreaNode(area);
 				this.SetSelectedEntity(prop.EntityId);
+			}
+		}
+
+		/// <summary>
+		/// Adds event to the correct area, the canvas, and the tree.
+		/// </summary>
+		/// <param name="evnt"></param>
+		private void AddEvent(Event evnt)
+		{
+			var area = this.GetAreaAt(evnt.Position);
+
+			evnt.Area = area;
+			evnt.EntityId = area.GetNewEventId();
+
+			if (evnt.EntityId == 0)
+				throw new NoEntityIdException("Failed to acquire a new event entity id.");
+
+			// Add event to area, canvas, and tree, selecting it at the end.
+			area.Events.Add(evnt);
+
+			this.RegionCanvas.BeginUpdate();
+
+			var eventObj = this.GetEventCanvasObject(evnt);
+			evnt.Tag = eventObj;
+
+			this.RegionCanvas.Add(eventObj);
+			this.RegionCanvas.EndUpdate();
+
+			if (_areaNodes.TryGetValue(area, out var node))
+			{
+				var eventNode = this.GetEventNode(evnt);
+				node.LastNode.Nodes.Add(eventNode);
+				_entityNodes[evnt.EntityId] = eventNode;
+
+				this.UpdateAreaNode(area);
+				this.SetSelectedEntity(evnt.EntityId);
 			}
 		}
 
