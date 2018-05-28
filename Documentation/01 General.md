@@ -103,3 +103,19 @@ rotations, and bounding boxes are updated as well, as you would expect.
 
 If you modify a region's or area's ids the change is reflected in all
 areas and it's entities, updating region, area, and entity ids.
+
+Reloading Regions
+-----------------------------------------------------------------------------
+
+Since the client is loading the regions on demand when you enter them
+it's possible to modify and reload a region during run-time. To do this
+you need to put the region you want to edit into your data folder and
+mod your client to load the region from there. If you now edit it,
+leave the region, and enter it again, the client will load your changes.
+In a server emulator like Aura you might also have access to a refresh
+command that makes this process easier.
+
+Beware that reloading small changes works great, but bigger changes
+sometimes crash the client when you re-enter the region. Simply start
+the client again in that case, you should be able to enter the region
+without problems after the restart.
