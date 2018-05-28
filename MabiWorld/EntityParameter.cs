@@ -60,5 +60,22 @@ namespace MabiWorld
 			bw.WriteWString(this.Name);
 			bw.WriteWString(this.Xml);
 		}
+
+		/// <summary>
+		/// Creates and returns copy of parameter.
+		/// </summary>
+		/// <returns></returns>
+		public EntityParameter Copy()
+		{
+			var param = new EntityParameter();
+
+			param.IsDefault = this.IsDefault;
+			param.Type = this.Type;
+			param.SignalType = this.SignalType;
+			param.Name = this.Name;
+			param.Xml = this.Xml;
+
+			return param;
+		}
 	}
 }

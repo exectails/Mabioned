@@ -203,6 +203,47 @@ namespace MabiWorld
 		}
 
 		/// <summary>
+		/// Creates and returns copy of prop.
+		/// </summary>
+		/// <returns></returns>
+		public Prop Copy()
+		{
+			var prop = new Prop();
+
+			prop.Id = this.Id;
+			prop.EntityId = this.EntityId;
+			prop.Name = this.Name;
+			prop.Position = this.Position;
+			prop.ShapeType = this.ShapeType;
+
+			prop.Shapes = new List<Shape>(this.Shapes.Count);
+			for (var i = 0; i < this.Shapes.Count; ++i)
+				prop.Shapes.Add(this.Shapes[i].Copy());
+
+			prop.IsCollision = this.IsCollision;
+			prop.FixedAltitude = this.FixedAltitude;
+			prop.Scale = this.Scale;
+			prop.Rotation = this.Rotation;
+			prop.BottomLeft = this.BottomLeft;
+			prop.TopRight = this.TopRight;
+			prop.ColorOverride = this.ColorOverride;
+
+			for (var i = 0; i < ColorCount; ++i)
+			{
+				if (this.Colors[i].ToArgb() != 0)
+					prop.Colors[i] = this.Colors[i];
+			}
+
+			prop.Title = this.Title;
+			prop.State = this.State;
+
+			prop.Parameters = new List<EntityParameter>(this.Parameters.Count);
+			for (var i = 0; i < this.Parameters.Count; ++i)
+				prop.Parameters.Add(this.Parameters[i].Copy());
+
+			return prop;
+		}
+
 		/// Returns string representation of prop.
 		/// </summary>
 		/// <returns></returns>

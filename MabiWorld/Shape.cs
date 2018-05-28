@@ -84,6 +84,28 @@ namespace MabiWorld
 		}
 
 		/// <summary>
+		/// Creates and returns copy of shape.
+		/// </summary>
+		/// <returns></returns>
+		public Shape Copy()
+		{
+			var shape = new Shape();
+
+			shape.DirX1 = this.DirX1;
+			shape.DirX2 = this.DirX2;
+			shape.DirY1 = this.DirY1;
+			shape.DirY2 = this.DirY2;
+			shape.LenX = this.LenX;
+			shape.LenY = this.LenY;
+			shape.Type = this.Type;
+			shape.Position = this.Position;
+			shape.BottomLeft = this.BottomLeft;
+			shape.TopRight = this.TopRight;
+
+			return shape;
+		}
+
+		/// <summary>
 		/// Returns the shape's 4 edge points, making up a polygon.
 		/// </summary>
 		/// <returns></returns>
