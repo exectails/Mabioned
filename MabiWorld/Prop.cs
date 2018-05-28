@@ -60,6 +60,10 @@ namespace MabiWorld
 		[DefaultValue(0f)]
 		public float Rotation { get; set; } = 0;
 
+		// The client uses the bounding box to determine whether to display
+		// the prop. The shapes work independentally and block a player even
+		// if the prop is "invisible".
+
 		public Vector3F BottomLeft { get; set; }
 		public Vector3F TopRight { get; set; }
 
