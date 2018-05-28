@@ -38,6 +38,7 @@ namespace Mabioned
 
 		private ulong _selectedEntityId;
 		private IEntity _selectedEntity;
+		private IEntity _copyEntity;
 		private Dictionary<ulong, TreeNode> _entityNodes = new Dictionary<ulong, TreeNode>();
 		private Dictionary<Area, TreeNode> _areaNodes = new Dictionary<Area, TreeNode>();
 		private Dictionary<EventType, MenuItem> _eventTypeMenuItems = new Dictionary<EventType, MenuItem>();
@@ -1655,6 +1656,76 @@ namespace Mabioned
 						this.RegionCanvas.Invalidate();
 					}
 					break;
+
+				// Copy entity
+				case Keys.C:
+					if (ModifierKeys == Keys.Control)
+						this.CopySelectedEntity();
+					break;
+
+				// Paste entity
+				case Keys.V:
+					if (ModifierKeys == Keys.Control)
+						this.PasteSelectedEntity();
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Marks the selected entity to be copied.
+		/// </summary>
+		private void CopySelectedEntity()
+		{
+			if (_copyEntity is Event)
+			{
+				MessageBox.Show("Events can't be copied yet.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
+			if (_selectedEntity == null)
+			{
+				MessageBox.Show("No entity selected.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
+			_copyEntity = _selectedEntity;
+		}
+
+		/// <summary>
+		/// Marks the selected entity to be copied.
+		/// </summary>
+		private void PasteSelectedEntity()
+		{
+			if (_copyEntity == null)
+				return;
+
+			var mousePosition = this.RegionCanvas.PointToClient(MousePosition);
+
+			// Check if canvas has the focus
+			if (!this.RegionCanvas.Focused || !this.RegionCanvas.ClientRectangle.Contains(mousePosition))
+				return;
+
+			// Check position, don't paste out bounds
+			var pos = this.RegionCanvas.GetWorldPosition(mousePosition);
+			if (pos.X < 0 || pos.Y < 0 || pos.X > _topRight.X || pos.Y > _topRight.Y)
+				return;
+
+			if (_copyEntity is Prop prop)
+			{
+				var copy = prop.Copy();
+				copy.MoveTo(pos);
+
+				try
+				{
+					this.AddProp(copy);
+				}
+				catch (NoEntityIdException)
+				{
+					MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
+				this.SetModified(true);
 			}
 		}
 
