@@ -16,8 +16,6 @@ namespace MabiWorld
 	/// </summary>
 	public class Area
 	{
-		private ulong _highestPropEntityId = 0;
-
 		public short Version { get; set; }
 		public short Unk8 { get; set; }
 		[Browsable(false)]
