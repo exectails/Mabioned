@@ -1420,7 +1420,25 @@ namespace Mabioned
 		private void OnCollectionChanged(object sender, CollectionChangedEventArgs e)
 		{
 			if (this.PropertyGrid.SelectedObject is IEntity entity && this.PropertyGrid.SelectedGridItem.PropertyDescriptor.Name == "Shapes")
+			{
+				// Set default value for new shapes.
+				if (e.Type == CollectionChangeType.Add)
+				{
+					var shape = entity.Shapes.Last();
+
+					shape.DirX1 = -1;
+					shape.DirX2 = 0;
+					shape.DirY1 = 0;
+					shape.DirY2 = 1;
+					shape.LenX = 100;
+					shape.LenY = 100;
+					shape.Position = entity.Position;
+					shape.BottomLeft = (shape.Position - new SizeF(50, 50));
+					shape.TopRight = (shape.Position + new SizeF(50, 50));
+				}
+
 				this.UpdateCanvasShapes(entity);
+			}
 
 			this.SetModified(true);
 			this.RegionCanvas.Invalidate();

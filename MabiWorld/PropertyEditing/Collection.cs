@@ -72,22 +72,7 @@ namespace MabiWorld.PropertyEditing
 		/// <param name="e"></param>
 		private void OnAdd(object sender, EventArgs e)
 		{
-			if (this.Context.Instance is IEntity entity)
-			{
-				var shape = entity.Shapes.Last();
-
-				shape.DirX1 = 1;
-				shape.DirX2 = 0;
-				shape.DirY1 = 0;
-				shape.DirY2 = 1;
-				shape.LenX = 100;
-				shape.LenY = 100;
-				shape.Position = entity.Position;
-				shape.BottomLeft = (shape.Position - new SizeF(50, 50));
-				shape.TopRight = (shape.Position + new SizeF(50, 50));
-			}
-
-			CollectionChanged?.Invoke(this, new CollectionChangedEventArgs(this.Context));
+			CollectionChanged?.Invoke(this, new CollectionChangedEventArgs(this.Context, CollectionChangeType.Add));
 		}
 
 		/// <summary>
@@ -97,7 +82,7 @@ namespace MabiWorld.PropertyEditing
 		/// <param name="e"></param>
 		private void OnRemove(object sender, EventArgs e)
 		{
-			CollectionChanged?.Invoke(this, new CollectionChangedEventArgs(this.Context));
+			CollectionChanged?.Invoke(this, new CollectionChangedEventArgs(this.Context, CollectionChangeType.Remove));
 		}
 	}
 
@@ -111,13 +96,33 @@ namespace MabiWorld.PropertyEditing
 		/// </summary>
 		public ITypeDescriptorContext Context { get; }
 
+		public CollectionChangeType Type { get; }
+
 		/// <summary>
 		/// Creates new instance.
 		/// </summary>
 		/// <param name="context"></param>
-		public CollectionChangedEventArgs(ITypeDescriptorContext context)
+		/// <param name="type"></param>
+		public CollectionChangedEventArgs(ITypeDescriptorContext context, CollectionChangeType type)
 		{
 			this.Context = context;
+			this.Type = type;
 		}
+	}
+
+	/// <summary>
+	/// Specifies how a collection has changed.
+	/// </summary>
+	public enum CollectionChangeType
+	{
+		/// <summary>
+		/// An item was added.
+		/// </summary>
+		Add,
+
+		/// <summary>
+		/// An item was removed.
+		/// </summary>
+		Remove,
 	}
 }
