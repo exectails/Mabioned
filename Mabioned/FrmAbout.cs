@@ -22,9 +22,10 @@ namespace Mabioned
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LnkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void Lnk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start(this.LnkGithub.Text);
+			var label = (sender as LinkLabel);
+			Process.Start(label.Text);
 		}
 
 		/// <summary>

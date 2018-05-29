@@ -208,11 +208,6 @@
         bv8CHI4/7+IF3LMAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="LblDescription.Text" xml:space="preserve">
-    <value>Mabioned is an editor for Mabinogi's .rgn and .area file formats. It allows you to view and modify the files, but it's not a WYSIWYG map editor. Its modification features are very limited at this point time.
-
-Refer to the documentation for more information.</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAAAAAAAEAIABVzAAAVgAAADAwAAABACAAqCUAAKvMAAAgIAAAAQAgAKgQAABT8gAAGBgAAAEA
