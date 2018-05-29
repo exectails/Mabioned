@@ -29,13 +29,13 @@
 		private void InitializeComponent()
 		{
 			this.GrpProperties = new System.Windows.Forms.GroupBox();
+			this.TxtWidth = new System.Windows.Forms.TextBox();
+			this.LblSize = new System.Windows.Forms.Label();
+			this.TxtHeight = new System.Windows.Forms.TextBox();
 			this.TxtPosX = new System.Windows.Forms.TextBox();
 			this.TxtPosY = new System.Windows.Forms.TextBox();
 			this.LblPosition = new System.Windows.Forms.Label();
 			this.TxtPosZ = new System.Windows.Forms.TextBox();
-			this.TxtWidth = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.TxtHeight = new System.Windows.Forms.TextBox();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.GrpProperties.SuspendLayout();
@@ -44,7 +44,7 @@
 			// GrpProperties
 			// 
 			this.GrpProperties.Controls.Add(this.TxtWidth);
-			this.GrpProperties.Controls.Add(this.label1);
+			this.GrpProperties.Controls.Add(this.LblSize);
 			this.GrpProperties.Controls.Add(this.TxtHeight);
 			this.GrpProperties.Controls.Add(this.TxtPosX);
 			this.GrpProperties.Controls.Add(this.TxtPosY);
@@ -56,6 +56,31 @@
 			this.GrpProperties.TabIndex = 100;
 			this.GrpProperties.TabStop = false;
 			this.GrpProperties.Text = "Properties";
+			// 
+			// TxtWidth
+			// 
+			this.TxtWidth.Location = new System.Drawing.Point(92, 45);
+			this.TxtWidth.Name = "TxtWidth";
+			this.TxtWidth.Size = new System.Drawing.Size(131, 20);
+			this.TxtWidth.TabIndex = 11;
+			this.TxtWidth.Text = "500";
+			// 
+			// LblSize
+			// 
+			this.LblSize.AutoSize = true;
+			this.LblSize.Location = new System.Drawing.Point(11, 48);
+			this.LblSize.Name = "LblSize";
+			this.LblSize.Size = new System.Drawing.Size(27, 13);
+			this.LblSize.TabIndex = 10;
+			this.LblSize.Text = "Size";
+			// 
+			// TxtHeight
+			// 
+			this.TxtHeight.Location = new System.Drawing.Point(228, 45);
+			this.TxtHeight.Name = "TxtHeight";
+			this.TxtHeight.Size = new System.Drawing.Size(131, 20);
+			this.TxtHeight.TabIndex = 13;
+			this.TxtHeight.Text = "500";
 			// 
 			// TxtPosX
 			// 
@@ -86,31 +111,6 @@
 			this.TxtPosZ.Name = "TxtPosZ";
 			this.TxtPosZ.Size = new System.Drawing.Size(85, 20);
 			this.TxtPosZ.TabIndex = 9;
-			// 
-			// TxtWidth
-			// 
-			this.TxtWidth.Location = new System.Drawing.Point(92, 45);
-			this.TxtWidth.Name = "TxtWidth";
-			this.TxtWidth.Size = new System.Drawing.Size(131, 20);
-			this.TxtWidth.TabIndex = 11;
-			this.TxtWidth.Text = "500";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(11, 48);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(27, 13);
-			this.label1.TabIndex = 10;
-			this.label1.Text = "Size";
-			// 
-			// TxtHeight
-			// 
-			this.TxtHeight.Location = new System.Drawing.Point(228, 45);
-			this.TxtHeight.Name = "TxtHeight";
-			this.TxtHeight.Size = new System.Drawing.Size(131, 20);
-			this.TxtHeight.TabIndex = 13;
-			this.TxtHeight.Text = "500";
 			// 
 			// BtnCancel
 			// 
@@ -148,6 +148,7 @@
 			this.Name = "FrmNewEvent";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "New Event";
 			this.GrpProperties.ResumeLayout(false);
 			this.GrpProperties.PerformLayout();
@@ -159,7 +160,7 @@
 
 		private System.Windows.Forms.GroupBox GrpProperties;
 		private System.Windows.Forms.TextBox TxtWidth;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label LblSize;
 		private System.Windows.Forms.TextBox TxtHeight;
 		private System.Windows.Forms.TextBox TxtPosX;
 		private System.Windows.Forms.TextBox TxtPosY;
