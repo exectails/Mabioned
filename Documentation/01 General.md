@@ -74,6 +74,36 @@ the terrain information. To put it another way, the height map and
 texture information are saved here. This part of the region files
 isn't too well researched yet.
 
+Application Window
+-----------------------------------------------------------------------------
+
+```
+-----------------------------------------------------------
+|                           1                             |
+|---------------------------------------------------------|
+|                  |                                      |
+|                  |                                      |
+|        2         |                                      |
+|                  |                                      |
+|                  |                  4                   |
+|                  |                                      |
+|------------------|                                      |
+|                  |                                      |
+|        3         |                                      |
+|                  |                                      |
+|---------------------------------------------------------|
+|                           5                             |
+-----------------------------------------------------------
+```
+
+- 1: Main Menu and Toolbar.
+- 2: Tree, displays Region, Areas, Props, and Events in a tree structure.
+- 3: Property Window, displays properties of the currently selected
+  object in the Tree and allows editing them.
+- 4: Map, displays the currently open Region or Area.
+- 5: Status Bar, provides information like coordinates the mouse points
+  at or the current scale the map is displayed with.
+
 Unknown properties
 -----------------------------------------------------------------------------
 
@@ -88,11 +118,11 @@ Auto-updating properties
 
 In its current form Mabioned provides easy access to all of a region's
 data and properties, and technically *everything* about a region can
-be modified already, but comfort features are still being added.
+be modified, but comfort features are still being added.
 For example, you could modify the terrain and its textures, but you'd
 have to modify all values by hand.
 
-Here's what the application already does automatically for you.
+Here's some things the application currently does automatically for you.
 
 ### Position and Rotation
 
