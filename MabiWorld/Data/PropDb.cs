@@ -103,7 +103,7 @@ namespace MabiWorld.Data
 					entry.UsedServer = (xmlReader.GetAttribute("UsedServer") == "true");
 					entry.NonTrivialAnimation = (xmlReader.GetAttribute("NonTrivialAnimation") == "true");
 					entry.PickRestrict = (xmlReader.GetAttribute("PickRestrict") == "true");
-					entry.StringID = xmlReader.GetAttribute("StringID");
+					entry.StringID = xmlReader.GetAttribute("StringID") ?? "";
 
 					var soundDescIDs = xmlReader.GetAttribute("SoundDescIDs");
 					if (soundDescIDs != null)
