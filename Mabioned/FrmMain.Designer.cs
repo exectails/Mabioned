@@ -50,6 +50,11 @@
 			this.MnuEditSettings = new System.Windows.Forms.MenuItem();
 			this.MnuView = new System.Windows.Forms.MenuItem();
 			this.MnuShowProps = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsAll = new System.Windows.Forms.MenuItem();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsNormal = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsDisabled = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsEvent = new System.Windows.Forms.MenuItem();
 			this.MnuShowEvents = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsAll = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsUndefined = new System.Windows.Forms.MenuItem();
@@ -57,7 +62,7 @@
 			this.MnuShowAreas = new System.Windows.Forms.MenuItem();
 			this.MnuShowMiniMap = new System.Windows.Forms.MenuItem();
 			this.MnuShowHeightmap = new System.Windows.Forms.MenuItem();
-			this.MnuSpacer1 = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer9 = new System.Windows.Forms.MenuItem();
 			this.MnuScaleToFit = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer2 = new System.Windows.Forms.MenuItem();
 			this.MnuExpand = new System.Windows.Forms.MenuItem();
@@ -94,6 +99,7 @@
 			this.MnuAreaRemoveAllProps = new System.Windows.Forms.MenuItem();
 			this.MnuAreaRemoveAllEvents = new System.Windows.Forms.MenuItem();
 			this.MnuAreaFlattenTerrain = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsTerrain = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -109,24 +115,24 @@
 			// MainMenu
 			// 
 			this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuFile,
-			this.MnuEdit,
-			this.MnuView,
-			this.MnuHelp});
+            this.MnuFile,
+            this.MnuEdit,
+            this.MnuView,
+            this.MnuHelp});
 			// 
 			// MnuFile
 			// 
 			this.MnuFile.Index = 0;
 			this.MnuFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuOpen,
-			this.MnuSpacer5,
-			this.MnuNew,
-			this.MnuSave,
-			this.MnuSaveAs,
-			this.MnuSpacer4,
-			this.MnuRecent,
-			this.MnuSpacer6,
-			this.MnuExit});
+            this.MnuOpen,
+            this.MnuSpacer5,
+            this.MnuNew,
+            this.MnuSave,
+            this.MnuSaveAs,
+            this.MnuSpacer4,
+            this.MnuRecent,
+            this.MnuSpacer6,
+            this.MnuExit});
 			this.MnuFile.Text = "File";
 			// 
 			// MnuOpen
@@ -173,7 +179,7 @@
 			// 
 			this.MnuRecent.Index = 6;
 			this.MnuRecent.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuRecentNone});
+            this.MnuRecentNone});
 			this.MnuRecent.Text = "Recent Files";
 			// 
 			// MnuRecentNone
@@ -197,11 +203,11 @@
 			// 
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuEditRemoveAllProps,
-			this.MnuEditRemoveAllEvents,
-			this.MnuFlattenTerrain,
-			this.MnuSpacer7,
-			this.MnuEditSettings});
+            this.MnuEditRemoveAllProps,
+            this.MnuEditRemoveAllEvents,
+            this.MnuFlattenTerrain,
+            this.MnuSpacer7,
+            this.MnuEditSettings});
 			this.MnuEdit.Text = "Edit";
 			// 
 			// MnuEditRemoveAllProps
@@ -240,32 +246,73 @@
 			// 
 			this.MnuView.Index = 2;
 			this.MnuView.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuShowProps,
-			this.MnuShowEvents,
-			this.MnuShowAreas,
-			this.MnuShowMiniMap,
-			this.MnuShowHeightmap,
-			this.MnuSpacer1,
-			this.MnuScaleToFit,
-			this.MnuSpacer2,
-			this.MnuExpand,
-			this.MnuCollapse});
+            this.MnuShowProps,
+            this.MnuShowEvents,
+            this.MnuShowAreas,
+            this.MnuShowMiniMap,
+            this.MnuShowHeightmap,
+            this.MnuSpacer9,
+            this.MnuScaleToFit,
+            this.MnuSpacer2,
+            this.MnuExpand,
+            this.MnuCollapse});
 			this.MnuView.Text = "View";
 			// 
 			// MnuShowProps
 			// 
-			this.MnuShowProps.Checked = true;
 			this.MnuShowProps.Index = 0;
+			this.MnuShowProps.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.MnuShowPropsAll,
+            this.menuItem4,
+            this.MnuShowPropsNormal,
+            this.MnuShowPropsDisabled,
+            this.MnuShowPropsEvent,
+            this.MnuShowPropsTerrain});
 			this.MnuShowProps.Text = "Show Props";
-			this.MnuShowProps.Click += new System.EventHandler(this.MnuShowProps_Click);
+			this.MnuShowProps.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
+			// 
+			// MnuShowPropsAll
+			// 
+			this.MnuShowPropsAll.Checked = true;
+			this.MnuShowPropsAll.Index = 0;
+			this.MnuShowPropsAll.Tag = "ignore";
+			this.MnuShowPropsAll.Text = "All";
+			this.MnuShowPropsAll.Click += new System.EventHandler(this.MnuShowPropsAll_Click);
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Index = 1;
+			this.menuItem4.Tag = "ignore";
+			this.menuItem4.Text = "-";
+			// 
+			// MnuShowPropsNormal
+			// 
+			this.MnuShowPropsNormal.Checked = true;
+			this.MnuShowPropsNormal.Index = 2;
+			this.MnuShowPropsNormal.Text = "Normal Props";
+			this.MnuShowPropsNormal.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
+			// 
+			// MnuShowPropsDisabled
+			// 
+			this.MnuShowPropsDisabled.Checked = true;
+			this.MnuShowPropsDisabled.Index = 3;
+			this.MnuShowPropsDisabled.Text = "Disabled Props";
+			this.MnuShowPropsDisabled.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
+			// 
+			// MnuShowPropsEvent
+			// 
+			this.MnuShowPropsEvent.Checked = true;
+			this.MnuShowPropsEvent.Index = 4;
+			this.MnuShowPropsEvent.Text = "Event Props";
+			this.MnuShowPropsEvent.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
 			// 
 			// MnuShowEvents
 			// 
 			this.MnuShowEvents.Index = 1;
 			this.MnuShowEvents.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuShowEventsAll,
-			this.MnuShowEventsUndefined,
-			this.MnuSpacer3});
+            this.MnuShowEventsAll,
+            this.MnuShowEventsUndefined,
+            this.MnuSpacer3});
 			this.MnuShowEvents.Text = "Show Events";
 			// 
 			// MnuShowEventsAll
@@ -305,10 +352,10 @@
 			this.MnuShowHeightmap.Index = 4;
 			this.MnuShowHeightmap.Text = "Show Heightmap";
 			// 
-			// MnuSpacer1
+			// MnuSpacer9
 			// 
-			this.MnuSpacer1.Index = 5;
-			this.MnuSpacer1.Text = "-";
+			this.MnuSpacer9.Index = 5;
+			this.MnuSpacer9.Text = "-";
 			// 
 			// MnuScaleToFit
 			// 
@@ -337,7 +384,7 @@
 			// 
 			this.MnuHelp.Index = 3;
 			this.MnuHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuAbout});
+            this.MnuAbout});
 			this.MnuHelp.Text = "?";
 			// 
 			// MnuAbout
@@ -350,14 +397,14 @@
 			// 
 			this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.BtnOpen,
-			this.BtnNew,
-			this.BtnSave,
-			this.ToolStripSpacer1,
-			this.BtnScrollTool,
-			this.BtnMoveTool,
-			this.BtnRotateTool,
-			this.BtnFreeTool});
+            this.BtnOpen,
+            this.BtnNew,
+            this.BtnSave,
+            this.ToolStripSpacer1,
+            this.BtnScrollTool,
+            this.BtnMoveTool,
+            this.BtnRotateTool,
+            this.BtnFreeTool});
 			this.ToolStrip.Location = new System.Drawing.Point(0, 0);
 			this.ToolStrip.Name = "ToolStrip";
 			this.ToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -446,8 +493,8 @@
 			// StatusStrip
 			// 
 			this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.LblCurrentPosition,
-			this.LblScale});
+            this.LblCurrentPosition,
+            this.LblScale});
 			this.StatusStrip.Location = new System.Drawing.Point(0, 636);
 			this.StatusStrip.Name = "StatusStrip";
 			this.StatusStrip.Size = new System.Drawing.Size(1034, 24);
@@ -578,11 +625,11 @@
 			// CtxMap
 			// 
 			this.CtxMap.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuMapAddProp,
-			this.MnuAddEvent,
-			this.MnuSpacer8,
-			this.MnuCopyCoordinates,
-			this.MnuCopyAuraWarp});
+            this.MnuMapAddProp,
+            this.MnuAddEvent,
+            this.MnuSpacer8,
+            this.MnuCopyCoordinates,
+            this.MnuCopyAuraWarp});
 			// 
 			// MnuMapAddProp
 			// 
@@ -616,9 +663,9 @@
 			// CtxTreeArea
 			// 
 			this.CtxTreeArea.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-			this.MnuAreaRemoveAllProps,
-			this.MnuAreaRemoveAllEvents,
-			this.MnuAreaFlattenTerrain});
+            this.MnuAreaRemoveAllProps,
+            this.MnuAreaRemoveAllEvents,
+            this.MnuAreaFlattenTerrain});
 			// 
 			// MnuAreaRemoveAllProps
 			// 
@@ -637,6 +684,13 @@
 			this.MnuAreaFlattenTerrain.Index = 2;
 			this.MnuAreaFlattenTerrain.Text = "Flatten Terrain...";
 			this.MnuAreaFlattenTerrain.Click += new System.EventHandler(this.MnuAreaFlattenTerrain_Click);
+			// 
+			// MnuShowPropsTerrain
+			// 
+			this.MnuShowPropsTerrain.Checked = true;
+			this.MnuShowPropsTerrain.Index = 5;
+			this.MnuShowPropsTerrain.Text = "Terrain Props";
+			this.MnuShowPropsTerrain.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
 			// 
 			// FrmMain
 			// 
@@ -708,7 +762,6 @@
 		private System.Windows.Forms.ContextMenu CtxMap;
 		private System.Windows.Forms.MenuItem MnuCopyCoordinates;
 		private System.Windows.Forms.MenuItem MnuCopyAuraWarp;
-		private System.Windows.Forms.MenuItem MnuSpacer1;
 		private System.Windows.Forms.MenuItem MnuScaleToFit;
 		private System.Windows.Forms.ToolStripSeparator ToolStripSpacer1;
 		private System.Windows.Forms.ToolStripButton BtnScrollTool;
@@ -739,6 +792,13 @@
 		private System.Windows.Forms.MenuItem MnuMapAddProp;
 		private System.Windows.Forms.MenuItem MnuSpacer8;
 		private System.Windows.Forms.MenuItem MnuAddEvent;
+		private System.Windows.Forms.MenuItem MnuSpacer9;
+		private System.Windows.Forms.MenuItem MnuShowPropsAll;
+		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem MnuShowPropsNormal;
+		private System.Windows.Forms.MenuItem MnuShowPropsDisabled;
+		private System.Windows.Forms.MenuItem MnuShowPropsEvent;
+		private System.Windows.Forms.MenuItem MnuShowPropsTerrain;
 	}
 }
 

@@ -34,7 +34,10 @@ namespace Mabioned
 
 		public string DataFolder { get; set; } = "";
 
-		public bool ShowProps { get; set; } = true;
+		public bool ShowPropsNormal { get; set; } = true;
+		public bool ShowPropsDisabled { get; set; } = true;
+		public bool ShowPropsEvent { get; set; } = true;
+		public bool ShowPropsTerrain { get; set; } = true;
 		public bool ShowAreas { get; set; } = false;
 		public bool ShowMiniMap { get; set; } = false;
 		public SerializableDictionary<int, bool> ShowEvents { get; set; } = new SerializableDictionary<int, bool>();

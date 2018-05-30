@@ -207,7 +207,10 @@ namespace Mabioned
 		/// </summary>
 		private void LoadViewOptions()
 		{
-			this.MnuShowProps.Checked = Settings.Default.ShowProps;
+			this.MnuShowPropsNormal.Checked = Settings.Default.ShowPropsNormal;
+			this.MnuShowPropsDisabled.Checked = Settings.Default.ShowPropsDisabled;
+			this.MnuShowPropsEvent.Checked = Settings.Default.ShowPropsEvent;
+			this.MnuShowPropsTerrain.Checked = Settings.Default.ShowPropsTerrain;
 			this.MnuShowAreas.Checked = Settings.Default.ShowAreas;
 			this.MnuShowMiniMap.Checked = Settings.Default.ShowMiniMap;
 
@@ -231,6 +234,7 @@ namespace Mabioned
 			_propStyle = new DrawStyle() { OutlineColor = Settings.Default.PropsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 			_eventStyle = new DrawStyle() { OutlineColor = Settings.Default.EventsColor, SelectedOutlineColor = Settings.Default.SelectionColor };
 
+			this.UpdateShowPropsAll();
 			this.UpdateShowEventsAll();
 		}
 
@@ -239,7 +243,10 @@ namespace Mabioned
 		/// </summary>
 		private void SaveSettings()
 		{
-			Settings.Default.ShowProps = this.MnuShowProps.Checked;
+			Settings.Default.ShowPropsNormal = this.MnuShowPropsNormal.Checked;
+			Settings.Default.ShowPropsDisabled = this.MnuShowPropsDisabled.Checked;
+			Settings.Default.ShowPropsEvent = this.MnuShowPropsEvent.Checked;
+			Settings.Default.ShowPropsTerrain = this.MnuShowPropsTerrain.Checked;
 			Settings.Default.ShowAreas = this.MnuShowAreas.Checked;
 			Settings.Default.ShowMiniMap = this.MnuShowMiniMap.Checked;
 
@@ -545,7 +552,7 @@ namespace Mabioned
 				obj.Add(new Circle(prop.Position.X, prop.Position.Y, 50));
 			}
 
-			obj.Visible = this.ShowProps;
+			obj.Visible = this.DisplayProp(prop);
 			obj.DrawOrder = 200;
 			obj.Priority = 100;
 			obj.Tag = prop;
@@ -1078,15 +1085,51 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Toggles the visibility of all props.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuShowPropsAll_Click(object sender, EventArgs e)
+		{
+			this.MnuShowPropsAll.Checked = !this.MnuShowPropsAll.Checked;
+
+			foreach (MenuItem menuItem in this.MnuShowProps.MenuItems)
+				menuItem.Checked = this.MnuShowPropsAll.Checked;
+
+			this.UpdatePropVisibility();
+		}
+
+		/// <summary>
 		/// Called when the "Show Props" menu option is clicked,
 		/// toggles prop visibility.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuShowProps_Click(object sender, EventArgs e)
+		private void MnuShowPropsToggle_Click(object sender, EventArgs e)
 		{
 			var menuItem = (sender as MenuItem);
 			var visible = (menuItem.Checked = !menuItem.Checked);
+
+			this.UpdateShowPropsAll();
+			this.UpdatePropVisibility();
+		}
+
+		/// <summary>
+		/// Toggles "Show Props > All" option based on the other selected
+		/// options.
+		/// </summary>
+		private void UpdateShowPropsAll()
+		{
+			this.MnuShowPropsAll.Checked = this.MnuShowProps.MenuItems.Cast<MenuItem>().Where(a => a.Tag == null).All(a => a.Checked);
+		}
+
+		/// <summary>
+		/// Updates visibility of props on canvas.
+		/// </summary>
+		private void UpdatePropVisibility()
+		{
+			if (!this.IsFileOpen)
+				return;
 
 			for (var i = 0; i < _areas.Count; ++i)
 			{
@@ -1096,7 +1139,7 @@ namespace Mabioned
 				for (var j = 0; j < props.Count; ++j)
 				{
 					var prop = props[j];
-					((CanvasObject)prop.Tag).Visible = visible;
+					((CanvasObject)prop.Tag).Visible = this.DisplayProp(prop);
 				}
 			}
 
@@ -1216,6 +1259,9 @@ namespace Mabioned
 		/// </summary>
 		private void UpdateCanvasEventVisibility()
 		{
+			if (!this.IsFileOpen)
+				return;
+
 			for (var i = 0; i < _areas.Count; ++i)
 			{
 				var area = _areas[i];
@@ -1229,6 +1275,44 @@ namespace Mabioned
 			}
 
 			this.RegionCanvas.Invalidate();
+		}
+
+		/// <summary>
+		/// Returns true if the given prop should be displayed.
+		/// </summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		private bool DisplayProp(Prop prop)
+		{
+			// Directly return true if the option "All" is checked or when
+			// no data could be found for a prop.
+			if (this.MnuShowPropsAll.Checked || !PropDb.TryGetEntry(prop.Id, out var data))
+				return true;
+
+			var isEventProp = (data.StringID.Value.Contains("/event/") && data.UsedServer);
+			var isDisabledProp = (!string.IsNullOrWhiteSpace(data.Feature) && !Features.IsEnabled(data.Feature));
+			var isTerrainProp = (data.IsTerrainBlock);
+			var isNormalProp = (!isEventProp && !isDisabledProp && !isTerrainProp);
+
+			// Check for event props.
+			if (!this.MnuShowPropsEvent.Checked && isEventProp)
+				return false;
+
+			// Check for props that are disabled based on the current
+			// feature settings.
+			if (!this.MnuShowPropsDisabled.Checked && isDisabledProp)
+				return false;
+
+			// Check terrain props
+			if (!this.MnuShowPropsTerrain.Checked && isTerrainProp)
+				return false;
+
+			// Check props that didn't fit another category
+			if (!this.MnuShowPropsNormal.Checked && isNormalProp)
+				return false;
+
+			// Return true by default of none of the checks matched.
+			return true;
 		}
 
 		/// <summary>
