@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace MabiWorld.Data
@@ -28,6 +29,11 @@ namespace MabiWorld.Data
 		public bool PickRestrict { get; internal set; }
 		public int[] SoundDescIDs { get; internal set; }
 		public Tags StringID { get; internal set; }
+
+		/// <summary>
+		/// Custom field, part of some prop's ExtraXML.
+		/// </summary>
+		public string Feature { get; internal set; }
 	}
 
 	/// <summary>
@@ -35,6 +41,8 @@ namespace MabiWorld.Data
 	/// </summary>
 	public static class PropDb
 	{
+		private readonly static Regex ExtraXmlFeatureRegex = new Regex(@"feature\s*=""(?<feature>[^""]+)""", RegexOptions.Compiled);
+
 		private static Dictionary<int, PropDbEntry> _entries = new Dictionary<int, PropDbEntry>();
 
 		/// <summary>
@@ -120,12 +128,29 @@ namespace MabiWorld.Data
 					if (entry.ExtraXML != null)
 					{
 						entry.ExtraXML = FixXml(entry.ExtraXML);
+						entry.Feature = GetFeatureFromExtraXml(entry.ExtraXML);
+
 						//System.Xml.Linq.XDocument.Parse(entry.ExtraXML);
 					}
 
 					_entries[entry.ClassID] = entry;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Reads feature from ExtraXML and returns it, or null if no
+		/// feature was found.
+		/// </summary>
+		/// <param name="extraXml"></param>
+		/// <returns></returns>
+		private static string GetFeatureFromExtraXml(string extraXml)
+		{
+			var match = ExtraXmlFeatureRegex.Match(extraXml);
+			if (!match.Success)
+				return null;
+
+			return match.Groups["feature"].Value;
 		}
 
 		/// <summary>
