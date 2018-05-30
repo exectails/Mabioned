@@ -31,7 +31,7 @@ namespace MabiWorld.Data
 		public string Enable { get; internal set; } = "";
 		public uint Hash { get; internal set; }
 
-		public int DefaultCode { get; internal set; } = int.MaxValue;
+		public float DefaultCode { get; internal set; } = int.MaxValue;
 	}
 
 	/// <summary>
@@ -45,6 +45,9 @@ namespace MabiWorld.Data
 		private static Dictionary<uint, FeaturesFeature> _features = new Dictionary<uint, FeaturesFeature>();
 		private static int _localeGenCode;
 		private static Regex _localeGenRegex;
+		private static bool _settingSelected;
+
+		public static string Locale { get; private set; }
 
 		/// <summary>
 		/// Hashes str.
@@ -83,8 +86,11 @@ namespace MabiWorld.Data
 		/// <param name="subseason"></param>
 		public static void SelectSetting(string locale, int generation, int season, int subseason)
 		{
+			Locale = locale;
+
 			_localeGenRegex = new Regex(@"G(?<generation>[0-9]+)S(?<season>[0-9]+)@" + locale, RegexOptions.Compiled);
 			_localeGenCode = ((generation * 100) + season);
+			_settingSelected = true;
 		}
 
 		/// <summary>
@@ -95,40 +101,90 @@ namespace MabiWorld.Data
 		/// <returns></returns>
 		public static bool IsEnabled(string featureName)
 		{
-			if (_localeGenRegex == null)
+			if (!_settingSelected)
 				return false;
 
-			var hash = GetStringHash(featureName);
-			if (!_features.TryGetValue(hash, out var feature))
-				return false;
-
-			// Start with the features default enable value
-			var enabled = (_localeGenCode >= feature.DefaultCode);
-
-			// If it's not enabled by default, check Enable.
-			if (!enabled)
+			// Check combinations, such as "-903|-housing".
+			if (featureName.Contains("|"))
 			{
-				var match = _localeGenRegex.Match(feature.Enable);
-				if (match.Success)
+				var split = featureName.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+				for (var i = 0; i < split.Length; ++i)
 				{
-					var genCode = GetGenCode(match);
-					enabled = (_localeGenCode >= genCode);
+					// This is an OR, if we find one enabled feature we can
+					// return true.
+					if (IsEnabled(split[i]))
+						return true;
+				}
+
+				return false;
+			}
+
+			// If a feature name is prefixed with a minus, the caller wants
+			// to know whether the feature has *not* been enabled yet,
+			// negate the result.
+			var negate = featureName.StartsWith("-");
+			if (featureName.StartsWith("-"))
+				featureName = featureName.Substring(1);
+
+			var enabled = false;
+
+			// Check legacy features, such as "dungeonrenewal" and "bossrush".
+			if (featureName == "bossrush")
+			{
+				if (string.Equals(Locale, "usa", StringComparison.InvariantCultureIgnoreCase))
+					enabled = (_localeGenCode >= GetGenCode(6, 5, 0));
+				else
+					enabled = (_localeGenCode >= GetGenCode(5, 4, 0));
+			}
+			else if (featureName == "housing" || featureName == "partyboard")
+			{
+				enabled = (_localeGenCode >= GetGenCode(3, 5, 0));
+			}
+			else if (featureName == "dungeonrenewal")
+			{
+				// TODO: Find gen code.
+				enabled = (_localeGenCode >= GetGenCode(0, 0, 0));
+			}
+			// Check gen codes, such as "1101.1" and "9999".
+			else if (float.TryParse(featureName, out var code))
+			{
+				enabled = (_localeGenCode >= code);
+			}
+			// Check hashes, such as "gfChristmasDeco".
+			else
+			{
+				var hash = GetStringHash(featureName);
+				if (!_features.TryGetValue(hash, out var feature))
+					return false;
+
+				// Start with the features default enable value
+				enabled = (_localeGenCode >= feature.DefaultCode);
+
+				// If it's not enabled by default, check Enable.
+				if (!enabled)
+				{
+					var match = _localeGenRegex.Match(feature.Enable);
+					if (match.Success)
+					{
+						var genCode = GetGenCode(match);
+						enabled = (_localeGenCode >= genCode);
+					}
+				}
+
+				// If it was enabled check Disable to see if it should be
+				// reverted.
+				if (enabled)
+				{
+					var match = _localeGenRegex.Match(feature.Disable);
+					if (match.Success)
+					{
+						var genCode = GetGenCode(match);
+						enabled = !(_localeGenCode >= genCode);
+					}
 				}
 			}
 
-			// If it was enabled check Disable to see if it should be
-			// reverted.
-			if (enabled)
-			{
-				var match = _localeGenRegex.Match(feature.Disable);
-				if (match.Success)
-				{
-					var genCode = GetGenCode(match);
-					enabled = !(_localeGenCode >= genCode);
-				}
-			}
-
-			return enabled;
+			return (!negate ? enabled : !enabled);
 		}
 
 		/// <summary>
@@ -140,12 +196,26 @@ namespace MabiWorld.Data
 		/// </example>
 		/// <param name="match"></param>
 		/// <returns></returns>
-		private static int GetGenCode(Match match)
+		private static float GetGenCode(Match match)
 		{
 			var g = int.Parse(match.Groups["generation"].Value);
 			var s = int.Parse(match.Groups["season"].Value);
 
-			return ((g * 100) + s);
+			return GetGenCode(g, s, 0);
+		}
+
+		/// <summary>
+		/// Generates generation code from in format "GGSS".
+		/// </summary>
+		/// <example>
+		/// G1S0 -> 100
+		/// G20S4 -> 2004
+		/// </example>
+		/// <param name="match"></param>
+		/// <returns></returns>
+		private static float GetGenCode(int generation, int season, int subseason)
+		{
+			return ((generation * 100) + season + (subseason / 10));
 		}
 
 		/// <summary>
