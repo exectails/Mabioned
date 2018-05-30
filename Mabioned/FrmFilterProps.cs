@@ -118,5 +118,15 @@ namespace Mabioned
 			if (!this.ChkTerrainYes.Checked && !this.ChkTerrainNo.Checked)
 				this.ChkTerrainYes.Checked = true;
 		}
+
+		/// <summary>
+		/// Checks terrain checkbox when Yes/No is clicked.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ChkTerrainYesNo_CheckedChanged(object sender, EventArgs e)
+		{
+			this.ChkTerrain.Checked = true;
+		}
 	}
 }

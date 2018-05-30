@@ -30,18 +30,20 @@
 		{
 			this.ChkAllPropsThat = new System.Windows.Forms.RadioButton();
 			this.GrpFilters = new System.Windows.Forms.GroupBox();
-			this.ChkAllProps = new System.Windows.Forms.RadioButton();
-			this.ChkMatchTag = new System.Windows.Forms.CheckBox();
-			this.TxtMatchTag = new System.Windows.Forms.TextBox();
-			this.TxtNotMatchTag = new System.Windows.Forms.TextBox();
-			this.ChkNotMatchTag = new System.Windows.Forms.CheckBox();
+			this.PnlTerrain = new System.Windows.Forms.Panel();
+			this.ChkTerrainNo = new System.Windows.Forms.RadioButton();
 			this.ChkTerrainYes = new System.Windows.Forms.RadioButton();
 			this.ChkTerrain = new System.Windows.Forms.CheckBox();
-			this.ChkTerrainNo = new System.Windows.Forms.RadioButton();
+			this.TxtNotMatchTag = new System.Windows.Forms.TextBox();
+			this.ChkNotMatchTag = new System.Windows.Forms.CheckBox();
+			this.TxtMatchTag = new System.Windows.Forms.TextBox();
+			this.ChkMatchTag = new System.Windows.Forms.CheckBox();
+			this.ChkAllProps = new System.Windows.Forms.RadioButton();
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.LblDataFolderInfo = new System.Windows.Forms.Label();
 			this.GrpFilters.SuspendLayout();
+			this.PnlTerrain.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// ChkAllPropsThat
@@ -59,11 +61,11 @@
 			// 
 			// GrpFilters
 			// 
-			this.GrpFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.GrpFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.GrpFilters.Controls.Add(this.ChkTerrainNo);
+			this.GrpFilters.Controls.Add(this.PnlTerrain);
 			this.GrpFilters.Controls.Add(this.ChkTerrain);
-			this.GrpFilters.Controls.Add(this.ChkTerrainYes);
 			this.GrpFilters.Controls.Add(this.TxtNotMatchTag);
 			this.GrpFilters.Controls.Add(this.ChkNotMatchTag);
 			this.GrpFilters.Controls.Add(this.TxtMatchTag);
@@ -71,39 +73,53 @@
 			this.GrpFilters.Enabled = false;
 			this.GrpFilters.Location = new System.Drawing.Point(12, 58);
 			this.GrpFilters.Name = "GrpFilters";
-			this.GrpFilters.Size = new System.Drawing.Size(437, 104);
+			this.GrpFilters.Size = new System.Drawing.Size(437, 106);
 			this.GrpFilters.TabIndex = 4;
 			this.GrpFilters.TabStop = false;
 			// 
-			// ChkAllProps
+			// PnlTerrain
 			// 
-			this.ChkAllProps.AutoSize = true;
-			this.ChkAllProps.Location = new System.Drawing.Point(12, 12);
-			this.ChkAllProps.Name = "ChkAllProps";
-			this.ChkAllProps.Size = new System.Drawing.Size(66, 17);
-			this.ChkAllProps.TabIndex = 1;
-			this.ChkAllProps.TabStop = true;
-			this.ChkAllProps.Text = "All Props";
-			this.ChkAllProps.UseVisualStyleBackColor = true;
+			this.PnlTerrain.Controls.Add(this.ChkTerrainNo);
+			this.PnlTerrain.Controls.Add(this.ChkTerrainYes);
+			this.PnlTerrain.Location = new System.Drawing.Point(133, 71);
+			this.PnlTerrain.Name = "PnlTerrain";
+			this.PnlTerrain.Size = new System.Drawing.Size(200, 18);
+			this.PnlTerrain.TabIndex = 16;
 			// 
-			// ChkMatchTag
+			// ChkTerrainNo
 			// 
-			this.ChkMatchTag.AutoSize = true;
-			this.ChkMatchTag.Location = new System.Drawing.Point(16, 21);
-			this.ChkMatchTag.Name = "ChkMatchTag";
-			this.ChkMatchTag.Size = new System.Drawing.Size(77, 17);
-			this.ChkMatchTag.TabIndex = 3;
-			this.ChkMatchTag.Text = "match Tag";
-			this.ChkMatchTag.UseVisualStyleBackColor = true;
+			this.ChkTerrainNo.AutoSize = true;
+			this.ChkTerrainNo.Location = new System.Drawing.Point(49, 2);
+			this.ChkTerrainNo.Name = "ChkTerrainNo";
+			this.ChkTerrainNo.Size = new System.Drawing.Size(39, 17);
+			this.ChkTerrainNo.TabIndex = 11;
+			this.ChkTerrainNo.TabStop = true;
+			this.ChkTerrainNo.Text = "No";
+			this.ChkTerrainNo.UseVisualStyleBackColor = true;
+			this.ChkTerrainNo.CheckedChanged += new System.EventHandler(this.ChkTerrainYesNo_CheckedChanged);
 			// 
-			// TxtMatchTag
+			// ChkTerrainYes
 			// 
-			this.TxtMatchTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TxtMatchTag.Location = new System.Drawing.Point(133, 19);
-			this.TxtMatchTag.Name = "TxtMatchTag";
-			this.TxtMatchTag.Size = new System.Drawing.Size(289, 20);
-			this.TxtMatchTag.TabIndex = 4;
+			this.ChkTerrainYes.AutoSize = true;
+			this.ChkTerrainYes.Location = new System.Drawing.Point(0, 1);
+			this.ChkTerrainYes.Name = "ChkTerrainYes";
+			this.ChkTerrainYes.Size = new System.Drawing.Size(43, 17);
+			this.ChkTerrainYes.TabIndex = 10;
+			this.ChkTerrainYes.TabStop = true;
+			this.ChkTerrainYes.Text = "Yes";
+			this.ChkTerrainYes.UseVisualStyleBackColor = true;
+			this.ChkTerrainYes.CheckedChanged += new System.EventHandler(this.ChkTerrainYesNo_CheckedChanged);
+			// 
+			// ChkTerrain
+			// 
+			this.ChkTerrain.AutoSize = true;
+			this.ChkTerrain.Location = new System.Drawing.Point(16, 73);
+			this.ChkTerrain.Name = "ChkTerrain";
+			this.ChkTerrain.Size = new System.Drawing.Size(73, 17);
+			this.ChkTerrain.TabIndex = 7;
+			this.ChkTerrain.Text = "are terrain";
+			this.ChkTerrain.UseVisualStyleBackColor = true;
+			this.ChkTerrain.CheckedChanged += new System.EventHandler(this.ChkTerrain_CheckedChanged);
 			// 
 			// TxtNotMatchTag
 			// 
@@ -124,38 +140,35 @@
 			this.ChkNotMatchTag.Text = "don\'t match Tag";
 			this.ChkNotMatchTag.UseVisualStyleBackColor = true;
 			// 
-			// ChkTerrainYes
+			// TxtMatchTag
 			// 
-			this.ChkTerrainYes.AutoSize = true;
-			this.ChkTerrainYes.Location = new System.Drawing.Point(133, 72);
-			this.ChkTerrainYes.Name = "ChkTerrainYes";
-			this.ChkTerrainYes.Size = new System.Drawing.Size(43, 17);
-			this.ChkTerrainYes.TabIndex = 8;
-			this.ChkTerrainYes.TabStop = true;
-			this.ChkTerrainYes.Text = "Yes";
-			this.ChkTerrainYes.UseVisualStyleBackColor = true;
+			this.TxtMatchTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TxtMatchTag.Location = new System.Drawing.Point(133, 19);
+			this.TxtMatchTag.Name = "TxtMatchTag";
+			this.TxtMatchTag.Size = new System.Drawing.Size(289, 20);
+			this.TxtMatchTag.TabIndex = 4;
 			// 
-			// ChkTerrain
+			// ChkMatchTag
 			// 
-			this.ChkTerrain.AutoSize = true;
-			this.ChkTerrain.Location = new System.Drawing.Point(16, 73);
-			this.ChkTerrain.Name = "ChkTerrain";
-			this.ChkTerrain.Size = new System.Drawing.Size(73, 17);
-			this.ChkTerrain.TabIndex = 7;
-			this.ChkTerrain.Text = "are terrain";
-			this.ChkTerrain.UseVisualStyleBackColor = true;
-			this.ChkTerrain.CheckedChanged += new System.EventHandler(this.ChkTerrain_CheckedChanged);
+			this.ChkMatchTag.AutoSize = true;
+			this.ChkMatchTag.Location = new System.Drawing.Point(16, 21);
+			this.ChkMatchTag.Name = "ChkMatchTag";
+			this.ChkMatchTag.Size = new System.Drawing.Size(77, 17);
+			this.ChkMatchTag.TabIndex = 3;
+			this.ChkMatchTag.Text = "match Tag";
+			this.ChkMatchTag.UseVisualStyleBackColor = true;
 			// 
-			// ChkTerrainNo
+			// ChkAllProps
 			// 
-			this.ChkTerrainNo.AutoSize = true;
-			this.ChkTerrainNo.Location = new System.Drawing.Point(182, 73);
-			this.ChkTerrainNo.Name = "ChkTerrainNo";
-			this.ChkTerrainNo.Size = new System.Drawing.Size(39, 17);
-			this.ChkTerrainNo.TabIndex = 9;
-			this.ChkTerrainNo.TabStop = true;
-			this.ChkTerrainNo.Text = "No";
-			this.ChkTerrainNo.UseVisualStyleBackColor = true;
+			this.ChkAllProps.AutoSize = true;
+			this.ChkAllProps.Location = new System.Drawing.Point(12, 12);
+			this.ChkAllProps.Name = "ChkAllProps";
+			this.ChkAllProps.Size = new System.Drawing.Size(66, 17);
+			this.ChkAllProps.TabIndex = 1;
+			this.ChkAllProps.TabStop = true;
+			this.ChkAllProps.Text = "All Props";
+			this.ChkAllProps.UseVisualStyleBackColor = true;
 			// 
 			// BtnOK
 			// 
@@ -181,6 +194,7 @@
 			// 
 			// LblDataFolderInfo
 			// 
+			this.LblDataFolderInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.LblDataFolderInfo.AutoSize = true;
 			this.LblDataFolderInfo.ForeColor = System.Drawing.Color.Gray;
 			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 180);
@@ -211,6 +225,8 @@
 			this.Load += new System.EventHandler(this.FrmFilterProps_Load);
 			this.GrpFilters.ResumeLayout(false);
 			this.GrpFilters.PerformLayout();
+			this.PnlTerrain.ResumeLayout(false);
+			this.PnlTerrain.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -219,9 +235,7 @@
 		#endregion
 		private System.Windows.Forms.RadioButton ChkAllPropsThat;
 		private System.Windows.Forms.GroupBox GrpFilters;
-		private System.Windows.Forms.RadioButton ChkTerrainNo;
 		private System.Windows.Forms.CheckBox ChkTerrain;
-		private System.Windows.Forms.RadioButton ChkTerrainYes;
 		private System.Windows.Forms.TextBox TxtNotMatchTag;
 		private System.Windows.Forms.CheckBox ChkNotMatchTag;
 		private System.Windows.Forms.TextBox TxtMatchTag;
@@ -230,5 +244,8 @@
 		private System.Windows.Forms.Button BtnOK;
 		private System.Windows.Forms.Button BtnCancel;
 		private System.Windows.Forms.Label LblDataFolderInfo;
+		private System.Windows.Forms.Panel PnlTerrain;
+		private System.Windows.Forms.RadioButton ChkTerrainNo;
+		private System.Windows.Forms.RadioButton ChkTerrainYes;
 	}
 }
