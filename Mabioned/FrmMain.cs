@@ -440,21 +440,23 @@ namespace Mabioned
 				{
 					var x = 0;
 					var y = 0;
-					var width = _topRight.X;
-					var height = _topRight.Y;
+					//var width = _topRight.X;
+					//var height = _topRight.Y;
+					var width = entry.MapWidth;
+					var height = entry.MapHeight;
 					var imgWidth = miniMapImage.Width;
 					var imgHeight = miniMapImage.Height;
 
 					if (entry.MapOffsetX != 0)
 					{
 						x += entry.MapOffsetX;
-						width -= entry.MapOffsetX;
+						//width -= entry.MapOffsetX;
 					}
 
 					if (entry.MapOffsetY != 0)
 					{
 						y += entry.MapOffsetY;
-						height -= entry.MapOffsetY;
+						//height -= entry.MapOffsetY;
 					}
 
 					// Keep aspect ratio? Didn't work well on the test case
