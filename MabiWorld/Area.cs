@@ -233,7 +233,8 @@ namespace MabiWorld
 
 				for (var i = 0; i < myBuffer.Length; ++i)
 				{
-					if (buffer[i] != myBuffer[i])
+					// Ignore Length, as that's 0 for some area files.
+					if (buffer[i] != myBuffer[i] && (i <= 3 || i > 7))
 						throw new Exception();
 				}
 			}
