@@ -406,7 +406,7 @@ namespace Mabioned
 			}
 
 			this.MnuEditRemoveAllProps.Enabled = true;
-			this.MnuEditRemoveAllEvents.Enabled = true;
+			this.MnuEditRemoveEvents.Enabled = true;
 			this.MnuFlattenTerrain.Enabled = true;
 		}
 
@@ -2015,32 +2015,27 @@ namespace Mabioned
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuAreaRemoveAllEvents_Click(object sender, EventArgs e)
+		private void MnuAreaRemoveEvents_Click(object sender, EventArgs e)
 		{
 			if (!(this.TreeRegion.SelectedNode?.Tag is Area area))
 				return;
 
-			var result = MessageBox.Show("Remove all events in " + area.Name + "?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result != DialogResult.Yes)
+			// Get filter
+			var filter = new FrmFilterEvents();
+			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
-			// Remove props from canvas
+			// Find and remove props from area, tree, and canvas.
 			this.RegionCanvas.BeginUpdate();
-			for (var i = 0; i < area.Events.Count; ++i)
-			{
-				var entity = area.Events[i];
-				if (entity.Tag is CanvasObject obj)
-					this.RegionCanvas.Remove(obj);
-			}
+			this.TreeRegion.BeginUpdate();
+
+			this.RemoveEvents(area.Events, filter);
+			this.UpdateAreaNode(area);
+
+			this.TreeRegion.EndUpdate();
 			this.RegionCanvas.EndUpdate();
 
-			// Clear area events
-			area.Events.Clear();
-
-			this.TreeRegion.BeginUpdate();
 			this.UpdateAreaNode(area);
-			this.TreeRegion.EndUpdate();
-
 			this.SetModified(true);
 		}
 
@@ -2115,27 +2110,21 @@ namespace Mabioned
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MnuEditRemoveAllEvents_Click(object sender, EventArgs e)
+		private void MnuEditRemoveEvents_Click(object sender, EventArgs e)
 		{
-			var result = MessageBox.Show("Remove all events from all areas?", Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result != DialogResult.Yes)
+			// Get filter
+			var filter = new FrmFilterEvents();
+			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
+			// Find and remove events from area, tree, and canvas.
 			this.RegionCanvas.BeginUpdate();
 			this.TreeRegion.BeginUpdate();
 			for (var i = 0; i < _areas.Count; ++i)
 			{
 				var area = _areas[i];
 
-				for (var j = 0; j < area.Events.Count; ++j)
-				{
-					var entity = area.Events[j];
-					if (entity.Tag is CanvasObject obj)
-						this.RegionCanvas.Remove(obj);
-				}
-
-				area.Events.Clear();
-
+				this.RemoveEvents(area.Events, filter);
 				this.UpdateAreaNode(area);
 			}
 			this.TreeRegion.EndUpdate();
@@ -2144,6 +2133,42 @@ namespace Mabioned
 			this.TreeRegion.SelectedNode = this.TreeRegion.Nodes[0];
 
 			this.SetModified(true);
+		}
+
+		/// <summary>
+		/// Removes entities from canvas, tree, and the given list based
+		/// on the filter.
+		/// </summary>
+		/// <param name="events"></param>
+		/// <param name="filter"></param>
+		private void RemoveEvents(IList<Event> events, FrmFilterEvents filter)
+		{
+			var toRemove = new List<Event>();
+
+			// Find props to remove
+			for (var j = 0; j < events.Count; ++j)
+			{
+				var evnt = events[j];
+				if (filter.Matches(evnt))
+					toRemove.Add(evnt);
+			}
+
+			// Remove props from canvas, tree, and the given list.
+			for (var j = 0; j < toRemove.Count; ++j)
+			{
+				var prop = toRemove[j];
+
+				// Remove from canvas
+				if (prop.Tag is CanvasObject obj)
+					this.RegionCanvas.Remove(obj);
+
+				// Remove from tree
+				if (_entityNodes.TryGetValue(prop.EntityId, out var node))
+					node.Remove();
+
+				// Remove from area
+				events.Remove(prop);
+			}
 		}
 
 		/// <summary>

@@ -64,6 +64,12 @@
     <Compile Include="FrmAbout.Designer.cs">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmFilterEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFilterEvents.Designer.cs">
+      <DependentUpon>FrmFilterEvents.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmFilterProps.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     <Compile Include="ToolStripRendererNL.cs" />
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFilterEvents.resx">
+      <DependentUpon>FrmFilterEvents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmFilterProps.resx">
       <DependentUpon>FrmFilterProps.cs</DependentUpon>

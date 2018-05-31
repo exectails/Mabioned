@@ -173,7 +173,7 @@
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(293, 175);
+			this.BtnOK.Location = new System.Drawing.Point(293, 170);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 10;
@@ -184,7 +184,7 @@
 			// BtnCancel
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(374, 175);
+			this.BtnCancel.Location = new System.Drawing.Point(374, 170);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtnCancel.TabIndex = 11;
@@ -197,7 +197,7 @@
 			this.LblDataFolderInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.LblDataFolderInfo.AutoSize = true;
 			this.LblDataFolderInfo.ForeColor = System.Drawing.Color.Gray;
-			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 180);
+			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 175);
 			this.LblDataFolderInfo.Name = "LblDataFolderInfo";
 			this.LblDataFolderInfo.Size = new System.Drawing.Size(221, 13);
 			this.LblDataFolderInfo.TabIndex = 12;
@@ -207,7 +207,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(461, 210);
+			this.ClientSize = new System.Drawing.Size(461, 205);
 			this.Controls.Add(this.LblDataFolderInfo);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);

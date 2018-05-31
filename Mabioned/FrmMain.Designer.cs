@@ -44,7 +44,7 @@
 			this.MnuExit = new System.Windows.Forms.MenuItem();
 			this.MnuEdit = new System.Windows.Forms.MenuItem();
 			this.MnuEditRemoveAllProps = new System.Windows.Forms.MenuItem();
-			this.MnuEditRemoveAllEvents = new System.Windows.Forms.MenuItem();
+			this.MnuEditRemoveEvents = new System.Windows.Forms.MenuItem();
 			this.MnuFlattenTerrain = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer7 = new System.Windows.Forms.MenuItem();
 			this.MnuEditSettings = new System.Windows.Forms.MenuItem();
@@ -55,6 +55,7 @@
 			this.MnuShowPropsNormal = new System.Windows.Forms.MenuItem();
 			this.MnuShowPropsDisabled = new System.Windows.Forms.MenuItem();
 			this.MnuShowPropsEvent = new System.Windows.Forms.MenuItem();
+			this.MnuShowPropsTerrain = new System.Windows.Forms.MenuItem();
 			this.MnuShowEvents = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsAll = new System.Windows.Forms.MenuItem();
 			this.MnuShowEventsUndefined = new System.Windows.Forms.MenuItem();
@@ -97,9 +98,8 @@
 			this.SfdRegion = new System.Windows.Forms.SaveFileDialog();
 			this.CtxTreeArea = new System.Windows.Forms.ContextMenu();
 			this.MnuAreaRemoveAllProps = new System.Windows.Forms.MenuItem();
-			this.MnuAreaRemoveAllEvents = new System.Windows.Forms.MenuItem();
+			this.MnuAreaRemoveEvents = new System.Windows.Forms.MenuItem();
 			this.MnuAreaFlattenTerrain = new System.Windows.Forms.MenuItem();
-			this.MnuShowPropsTerrain = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -204,7 +204,7 @@
 			this.MnuEdit.Index = 1;
 			this.MnuEdit.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.MnuEditRemoveAllProps,
-            this.MnuEditRemoveAllEvents,
+            this.MnuEditRemoveEvents,
             this.MnuFlattenTerrain,
             this.MnuSpacer7,
             this.MnuEditSettings});
@@ -217,12 +217,12 @@
 			this.MnuEditRemoveAllProps.Text = "Remove Props...";
 			this.MnuEditRemoveAllProps.Click += new System.EventHandler(this.MnuEditRemoveProps_Click);
 			// 
-			// MnuEditRemoveAllEvents
+			// MnuEditRemoveEvents
 			// 
-			this.MnuEditRemoveAllEvents.Enabled = false;
-			this.MnuEditRemoveAllEvents.Index = 1;
-			this.MnuEditRemoveAllEvents.Text = "Remove All Events";
-			this.MnuEditRemoveAllEvents.Click += new System.EventHandler(this.MnuEditRemoveAllEvents_Click);
+			this.MnuEditRemoveEvents.Enabled = false;
+			this.MnuEditRemoveEvents.Index = 1;
+			this.MnuEditRemoveEvents.Text = "Remove Events...";
+			this.MnuEditRemoveEvents.Click += new System.EventHandler(this.MnuEditRemoveEvents_Click);
 			// 
 			// MnuFlattenTerrain
 			// 
@@ -305,6 +305,13 @@
 			this.MnuShowPropsEvent.Index = 4;
 			this.MnuShowPropsEvent.Text = "Event Props";
 			this.MnuShowPropsEvent.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
+			// 
+			// MnuShowPropsTerrain
+			// 
+			this.MnuShowPropsTerrain.Checked = true;
+			this.MnuShowPropsTerrain.Index = 5;
+			this.MnuShowPropsTerrain.Text = "Terrain Props";
+			this.MnuShowPropsTerrain.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
 			// 
 			// MnuShowEvents
 			// 
@@ -664,7 +671,7 @@
 			// 
 			this.CtxTreeArea.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.MnuAreaRemoveAllProps,
-            this.MnuAreaRemoveAllEvents,
+            this.MnuAreaRemoveEvents,
             this.MnuAreaFlattenTerrain});
 			// 
 			// MnuAreaRemoveAllProps
@@ -673,24 +680,17 @@
 			this.MnuAreaRemoveAllProps.Text = "Remove Props...";
 			this.MnuAreaRemoveAllProps.Click += new System.EventHandler(this.MnuAreaRemoveProps_Click);
 			// 
-			// MnuAreaRemoveAllEvents
+			// MnuAreaRemoveEvents
 			// 
-			this.MnuAreaRemoveAllEvents.Index = 1;
-			this.MnuAreaRemoveAllEvents.Text = "Remove All Events";
-			this.MnuAreaRemoveAllEvents.Click += new System.EventHandler(this.MnuAreaRemoveAllEvents_Click);
+			this.MnuAreaRemoveEvents.Index = 1;
+			this.MnuAreaRemoveEvents.Text = "Remove Events...";
+			this.MnuAreaRemoveEvents.Click += new System.EventHandler(this.MnuAreaRemoveEvents_Click);
 			// 
 			// MnuAreaFlattenTerrain
 			// 
 			this.MnuAreaFlattenTerrain.Index = 2;
 			this.MnuAreaFlattenTerrain.Text = "Flatten Terrain...";
 			this.MnuAreaFlattenTerrain.Click += new System.EventHandler(this.MnuAreaFlattenTerrain_Click);
-			// 
-			// MnuShowPropsTerrain
-			// 
-			this.MnuShowPropsTerrain.Checked = true;
-			this.MnuShowPropsTerrain.Index = 5;
-			this.MnuShowPropsTerrain.Text = "Terrain Props";
-			this.MnuShowPropsTerrain.Click += new System.EventHandler(this.MnuShowPropsToggle_Click);
 			// 
 			// FrmMain
 			// 
@@ -782,13 +782,13 @@
 		private System.Windows.Forms.ToolStripButton BtnFreeTool;
 		private System.Windows.Forms.ContextMenu CtxTreeArea;
 		private System.Windows.Forms.MenuItem MnuAreaRemoveAllProps;
-		private System.Windows.Forms.MenuItem MnuAreaRemoveAllEvents;
+		private System.Windows.Forms.MenuItem MnuAreaRemoveEvents;
 		private System.Windows.Forms.MenuItem MnuFlattenTerrain;
 		private System.Windows.Forms.MenuItem MnuSpacer7;
 		private System.Windows.Forms.MenuItem MnuShowMiniMap;
 		private System.Windows.Forms.MenuItem MnuAreaFlattenTerrain;
 		private System.Windows.Forms.MenuItem MnuEditRemoveAllProps;
-		private System.Windows.Forms.MenuItem MnuEditRemoveAllEvents;
+		private System.Windows.Forms.MenuItem MnuEditRemoveEvents;
 		private System.Windows.Forms.MenuItem MnuMapAddProp;
 		private System.Windows.Forms.MenuItem MnuSpacer8;
 		private System.Windows.Forms.MenuItem MnuAddEvent;
