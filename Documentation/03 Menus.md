@@ -26,10 +26,16 @@ Found in the upper left of the application's window at all times.
 
 ### View
 
-- Show Props: Toggles whether Props are displayed on the map.
+- Show Props: Toggles which kind of Props are displayed on the map.
+  - Normal: Props that aren't part of any other category.
+  - Disabled: Props that are currently disabled based on the feature settings
+    in the features.xml.compiled found in the data folder, such as the
+    MabiLand props in Tir.
+  - Event: Props that are activated during certain times or events,
+    such as Christmas or Halloween decoration.
 - Show Events: Sub-menu items toggle which kinds of Events are displayed
-  on the map. All known types of events are listed by automatically,
-  with yet unknown events being grouped under "Undefined".
+  on the map. All known types of events appear in this list,
+  with yet unknown types of events being grouped under "Undefined".
 - Show Areas: Toggles whether Areas are displyed on the map.
 - Show Mini Map: Toggles whether the game's minimap image for the loaded
   region is displayed as background on the map. This requires the data
