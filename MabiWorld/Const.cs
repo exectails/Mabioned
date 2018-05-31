@@ -29,38 +29,56 @@
 
 	public enum EventType : int
 	{
+		/// <summary>
+		/// General purpose, usually used for music and notices.
+		/// </summary>
 		General = 0,
+
+		/// <summary>
+		/// Portal destinations, such as for moon gates and wings.
+		/// </summary>
 		Portal = 1,
+
+		/// <summary>
+		/// Used to change music and show notices.
+		/// </summary>
 		AreaChange = 10,
+
 		//Unk11 = 11,
+
+		/// <summary>
+		/// Enclose dungeon lobbies, save dungeon return locations.
+		/// </summary>
 		DungeonLobby = 12,
+
+		/// <summary>
+		/// Warp destination.
+		/// </summary>
 		SpawnPoint = 13,
+
+		/// <summary>
+		/// Unpassable block.
+		/// </summary>
 		Collision = 14,
+
 		//Unk100 = 100,
-		//Unk202 = 202,
-		//Unk212 = 212,
-		//Unk1200 = 1200,
-		//Unk1300 = 1300,
-		//Unk1400 = 1400,
-		//Unk1401 = 1401,
+
+		/// <summary>
+		/// NPC spawn area.
+		/// </summary>
 		SpawnArea = 2000,
-		//Unk2001 = 2001,
-		Altar = 2110,
-		//Unk2120 = 2120,
-		//Unk2150 = 2150,
-		//Unk2160 = 2160,
-		//Unk2200 = 2200,
-		//Unk2220 = 2220,
-		//Unk2230 = 2230,
-		//Unk2240 = 2240,
-		//Unk2300 = 2300,
-		//Unk2400 = 2400,
-		//Unk2401 = 2401,
-		//Unk2620 = 2620,
-		//Unk2820 = 2820,
-		//Unk2901 = 2901,
+
+		/// <summary>
+		/// Defines streets, presumably used to determine where props like
+		/// shops and campfires can be placed.
+		/// </summary>
 		Street = 3000,
-		FishingSpot = 3100,
+
+		/// <summary>
+		/// Specify fishing grounds.
+		/// </summary>
+		FishingGrounds = 3100,
+
 		//Unk3101 = 3101,
 		//Unk3102 = 3102,
 		//Unk3103 = 3103,
@@ -124,9 +142,10 @@
 		CreatureSpawner = 2500,
 
 		/// <summary>
-		/// Displays dungeon information when stopping on altar.
+		/// Displays dungeon information when stopping on altar and used
+		/// to determine who is warped into a dungeon.
 		/// </summary>
-		AltarNotice = 2110,
+		Altar = 2110,
 
 		/// <summary>
 		/// Saves town location for return warps.
