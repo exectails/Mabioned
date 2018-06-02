@@ -1784,12 +1784,6 @@ namespace Mabioned
 		/// </summary>
 		private void CopySelectedEntity()
 		{
-			if (_copyEntity is Event)
-			{
-				MessageBox.Show("Events can't be copied yet.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-				return;
-			}
-
 			if (_selectedEntity == null)
 			{
 				MessageBox.Show("No entity selected.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1807,6 +1801,7 @@ namespace Mabioned
 			if (_copyEntity == null)
 				return;
 
+			var entity = _copyEntity;
 			var mousePosition = this.RegionCanvas.PointToClient(MousePosition);
 
 			// Check if canvas has the focus
@@ -1818,22 +1813,45 @@ namespace Mabioned
 			if (pos.X < 0 || pos.Y < 0 || pos.X > _topRight.X || pos.Y > _topRight.Y)
 				return;
 
-			if (_copyEntity is Prop prop)
+			switch (entity)
 			{
-				var copy = prop.Copy();
-				copy.MoveTo(pos);
+				case Prop prop:
+					{
+						var copy = prop.Copy();
+						copy.MoveTo(pos);
 
-				try
-				{
-					this.AddProp(copy);
-				}
-				catch (NoEntityIdException)
-				{
-					MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
-				}
+						try
+						{
+							this.AddProp(copy);
+						}
+						catch (NoEntityIdException)
+						{
+							MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return;
+						}
 
-				this.SetModified(true);
+						this.SetModified(true);
+					}
+					break;
+
+				case Event evnt:
+					{
+						var copy = evnt.Copy();
+						copy.MoveTo(pos);
+
+						try
+						{
+							this.AddEvent(copy);
+						}
+						catch (NoEntityIdException)
+						{
+							MessageBox.Show("Failed to acquire a new event entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+							return;
+						}
+
+						this.SetModified(true);
+					}
+					break;
 			}
 		}
 

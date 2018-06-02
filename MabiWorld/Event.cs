@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Design;
 using System.Globalization;
 using System.IO;
@@ -124,6 +125,60 @@ namespace MabiWorld
 			bw.Write(this.ParameterCount);
 			for (var i = 0; i < this.Parameters.Count; ++i)
 				this.Parameters[i].WriteTo(bw);
+		}
+
+		/// <summary>
+		/// Creates and returns copy of this event.
+		/// </summary>
+		public Event Copy()
+		{
+			var evnt = new Event();
+
+			evnt.EntityId = this.EntityId;
+			evnt.Name = this.Name;
+			evnt.Position = this.Position;
+			evnt.ShapeType = this.ShapeType;
+
+			evnt.Shapes = new List<Shape>(this.Shapes.Count);
+			for (var i = 0; i < this.Shapes.Count; ++i)
+				evnt.Shapes.Add(this.Shapes[i].Copy());
+
+			evnt.Type = this.Type;
+
+			evnt.Parameters = new List<EntityParameter>(this.Parameters.Count);
+			for (var i = 0; i < this.Parameters.Count; ++i)
+				evnt.Parameters.Add(this.Parameters[i].Copy());
+
+			return evnt;
+		}
+
+		/// <summary>
+		/// Sets prop's position and updates its shapes.
+		/// </summary>
+		/// <param name="pos"></param>
+		public void MoveTo(PointF pos)
+		{
+			this.MoveTo(pos.X, pos.Y, this.Position.Z);
+		}
+
+		/// <summary>
+		/// Sets prop's position and updates its shapes.
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		public void MoveTo(float x, float y, float z)
+		{
+			var delta = new SizeF(x - this.Position.X, y - this.Position.Y);
+
+			this.Position = new Vector3F(x, y, z);
+
+			foreach (var shape in this.Shapes)
+			{
+				shape.Position += delta;
+				shape.BottomLeft += delta;
+				shape.TopRight += delta;
+			}
 		}
 
 		/// <summary>
