@@ -208,6 +208,58 @@
         bv8CHI4/7+IF3LMAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="ImgPatreon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAL0AAAAgCAIAAADITe76AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAATLSURBVHhe7ZjPix1FEMe9ePCPEf+OePAUAoon2UMM
+        Gg+6oBgM8SJB2ausgoj4AwkKQQIe4sWDFz2EEBGDQRCJp3VFza7z5r1Zv93fmpp6PT3zZhp5h7WK76Gn
+        f9RUV3265+0+VJ0/63LNlXPjKpFz4yqRc+MqkXPjKpFz4yqRc+MqkXPjKtEkbh557Az02uNPJP3V5YvL
+        r240939pjh6s7n5ff/pe9fxT6RzXadQkbh5+9Az06jo3yxvXmuXyZN2aw4PFm5fsNNepVAk3i/23BJMB
+        a/74vXrhaV3uOn0q4QYfJgFk2OrPPtDlQ1rduSWzW2vu/7rYu8LRk+Mj6TW2/PqmLkdbek9OVt9+U+3u
+        6BDa6JExjN67W3/4DofQkN7jI52PCexbfnk9PPYCgyE2nW+la+v9vWQoaHeHo9b4Fgqr2Ak/7MGL2JMY
+        IrdbVrPeIDxq6uDKjtJzyFXbw51qcqZrPjeXL8aQNtjq3o/WQ1b58hwecHSMm92dfnJ1YRg9PJBeY/Xn
+        H2O048ZUWt81l5vF6y/K8Ho9OuW4gTEYyPINb+iZyw1M4VCIrWlg6lk3vj1uFm9f5bvHrXnwt/WQVRp0
+        W29eOawlOmXUiOlDjpjogEKcbKuOHOnVJbXBBbO7I9yY+XLiex6mZBPzMVOqZS6wTi03uhEJ/s4tPvK9
+        9KDlp1hmGwbXyuFhDwOI3tiGQ4Uy9ET/dKLcoMEJ03eaaDY39btyr45bU/1jPWSVBk1uYnXxyA1ruq0s
+        XhRSGU6VWWhHIRYGCcXr0GAG0RmGIlXsYeWmZ5ORgDypcVuwTqPcYH5ox88oGvAmq6LE5xRu4o2Shc9O
+        oEPmZ+5OE82/b66+Et69yZrf8r8GrBh0Ypp6bi+xQAMrkT3cCG/vSnaU6UPGWSG8Whhl7Y+PpCQmm4kl
+        9YB4UbHYUp72N0qnoe9ULJXSjLYiqGuHuOkbVzFjyYGRIOMFQ4cMNewdvwK3xk317Lnmrz/Di0dtefML
+        6yGrbHmwH359mIXE/kNueM3oiS/ghh6wMDwiKpYtBt+pxw34ICjy2yjWD48MgBcDNYUbzFdQJIBN3GAC
+        Iw9J2B43COX6J3jZiDX1orp0QZcPqR80e1ghZoE5TdRPEJZgLSdn0yc1aL9TmExi9Aj2udmYTb4osRSv
+        lpv+RjCTQ2tmiB/ihqSyDQqV1Px3yuCo3CAYXm/cwpa4qZ57cvVzCHHI6mvv69oRZbgxJ5hbynIjx2X6
+        7+LYE0rS/i5Gjxz3aGhLSSZzQ+z6xs9Wp2FupHI9420UJoxyAzEPmCaj7QdIPSiadNJxsx7/+E6zKuIG
+        eumZ1U8/yGuNNU2D26ibNiopZ8+4MaKQGJaEtbm/tEPBWJuBv8PJhHITAogHlJXuc5Pa+rcvc7jbT5X9
+        jRI6o0lsrfj5SHwyBnjm40ZudKcdSTGqxCRp69zoI2yL3EAXztUf7ev/APFtWt3+bvHGy2tzRpUpjzkr
+        Y9xAyX/22j+mdJQppiGbmhrLDY9jWDuTG72rtAYUy0aHogFuGHy3nSiBKd5/eNzMTbudMK2FFVvQY4OG
+        JTvhBg1O2y43rv+xnBtXiZwbV4mcG1eJJnHjciVyblwlcm5cJXJuXCVyblwlcm5cJXJuXPN1/uy/l2dF
+        s02cwusAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="ImgGitHub.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAK3SURBVFhHxZa7TxRhFMXxkWABAQzg2kDsbHmYaEI0
+        ofB/ICFofAQ7CjQxFvwBNJQUBiobJBI7Y+mjsUMKCjEatTFqI0ZIxDieM55vudz5dpmdmcST/BL23nPP
+        HSb7zU5bXp3q6+8F18EDsAF+gETwb9bYo6dXY+WFsCGwAvZAWHgY9HJmSDGtC8Nd4D74A2JL8sBZZnQp
+        Np8wwP/6HYiFFoFZ+e4GjOPguwarhJnjWhMXDCMyxgKqgNkjWndQaPSA9zIGNsEjUOSiOMNZZtg6d/Ro
+        7b5QXDamwKR67YDH67Pq4dg9E/ZY0kNvu2YnVbcss1cXCqPOEBiWJRU+82ScBUdVqos19Q584/F5GMSy
+        R2VJTWuuGTgnS2Exw2UG1oKhBn6bhuVKaiohZrjMAHfWaJg2RcsncFI5hcUM8FGZnmka+MiMNa8po7SY
+        5bIDK2z6Y0J4e1p7fDYRs5Tp92yyueOK5INmKxMz3Q6yw4Yvki3NVSZkvnU7UhpdwLbmKhMz3Y6Uhg3Q
+        r9nSYpbLDmyzue6KgSnNlxazXHZgnc0lVwy8BseVUVjMUFZsxxINE65oWVBOYTHDZVomaOgEP03Rswpq
+        ysstzJzWbCyTcGdnMC+axjy4BJ6b2i/wENwE/OU8lg4aocZbfQHcAvxx40yYj7Go0XR4AOyqwRfJWcB3
+        gFeqWRh+RKN1sQYey3MY3DWg0X9CYc4YyHlwBvgfkjGNZITeRedtxJxG9oUib+FLY3qqejfgG849cBlk
+        bn8Qen3ALorBHfHThQbfDewjc0atXIKfF2uXeZjd/AsNwyDY0gB5Ae6Aq+AuOCFrRug1uwBmDsraXDDy
+        JeKJBj3dsmXEnvMGmNXayw0G+K2+Ab4AG9bKBXwFPLqZU5NbGO4APJZvwDeQvm7HxJ489N4GHWo1VpIk
+        /5Gk7S8Lp6cBadxETwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAAAAAAAEAIABVzAAAVgAAADAwAAABACAAqCUAAKvMAAAgIAAAAQAgAKgQAABT8gAAGBgAAAEA

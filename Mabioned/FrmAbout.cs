@@ -37,5 +37,17 @@ namespace Mabioned
 		{
 			this.Close();
 		}
+
+		/// <summary>
+		/// Opens the link in the control's Tag.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void Link_Click(object sender, EventArgs e)
+		{
+			var tag = ((sender as Control)?.Tag as string);
+			if (tag != null)
+				Process.Start(tag);
+		}
 	}
 }

@@ -34,19 +34,22 @@
 			this.LblName = new System.Windows.Forms.Label();
 			this.ImgIcon = new System.Windows.Forms.PictureBox();
 			this.BtnOK = new System.Windows.Forms.Button();
-			this.LblCopyright = new System.Windows.Forms.Label();
-			this.LnkGithub = new System.Windows.Forms.LinkLabel();
-			this.GrpDescription = new System.Windows.Forms.GroupBox();
-			this.LblDescription = new System.Windows.Forms.Label();
-			this.LnkPatreon = new System.Windows.Forms.LinkLabel();
+			this.ImgPatreon = new System.Windows.Forms.PictureBox();
+			this.ImgGitHub = new System.Windows.Forms.PictureBox();
+			this.GrpLicense = new System.Windows.Forms.GroupBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.LblVersion = new System.Windows.Forms.Label();
 			this.PnlHeader.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).BeginInit();
-			this.GrpDescription.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ImgPatreon)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ImgGitHub)).BeginInit();
+			this.GrpLicense.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnlHeader
 			// 
 			this.PnlHeader.BackColor = System.Drawing.Color.White;
+			this.PnlHeader.Controls.Add(this.LblVersion);
 			this.PnlHeader.Controls.Add(this.LblSubTitle);
 			this.PnlHeader.Controls.Add(this.LblName);
 			this.PnlHeader.Controls.Add(this.ImgIcon);
@@ -60,11 +63,12 @@
 			// LblSubTitle
 			// 
 			this.LblSubTitle.AutoSize = true;
+			this.LblSubTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.LblSubTitle.Location = new System.Drawing.Point(65, 43);
 			this.LblSubTitle.Name = "LblSubTitle";
-			this.LblSubTitle.Size = new System.Drawing.Size(111, 13);
+			this.LblSubTitle.Size = new System.Drawing.Size(117, 13);
 			this.LblSubTitle.TabIndex = 2;
-			this.LblSubTitle.Text = "Mabinogi Region Tool";
+			this.LblSubTitle.Text = "Mabinogi Region Editor";
 			// 
 			// LblName
 			// 
@@ -89,7 +93,7 @@
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(307, 192);
+			this.BtnOK.Location = new System.Drawing.Point(307, 294);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 1;
@@ -97,72 +101,79 @@
 			this.BtnOK.UseVisualStyleBackColor = true;
 			this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
 			// 
-			// LblCopyright
+			// ImgPatreon
 			// 
-			this.LblCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.LblCopyright.AutoSize = true;
-			this.LblCopyright.Location = new System.Drawing.Point(12, 171);
-			this.LblCopyright.Name = "LblCopyright";
-			this.LblCopyright.Size = new System.Drawing.Size(116, 13);
-			this.LblCopyright.TabIndex = 2;
-			this.LblCopyright.Text = "Copyright © 2018 exec";
+			this.ImgPatreon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.ImgPatreon.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.ImgPatreon.Image = ((System.Drawing.Image)(resources.GetObject("ImgPatreon.Image")));
+			this.ImgPatreon.Location = new System.Drawing.Point(12, 285);
+			this.ImgPatreon.Name = "ImgPatreon";
+			this.ImgPatreon.Size = new System.Drawing.Size(189, 32);
+			this.ImgPatreon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.ImgPatreon.TabIndex = 22;
+			this.ImgPatreon.TabStop = false;
+			this.ImgPatreon.Tag = "https://www.patreon.com/exectails";
+			this.ImgPatreon.Click += new System.EventHandler(this.Link_Click);
 			// 
-			// LnkGithub
+			// ImgGitHub
 			// 
-			this.LnkGithub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.LnkGithub.AutoSize = true;
-			this.LnkGithub.Location = new System.Drawing.Point(12, 184);
-			this.LnkGithub.Name = "LnkGithub";
-			this.LnkGithub.Size = new System.Drawing.Size(141, 13);
-			this.LnkGithub.TabIndex = 3;
-			this.LnkGithub.TabStop = true;
-			this.LnkGithub.Text = "https://github.com/exectails";
-			this.LnkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Lnk_LinkClicked);
+			this.ImgGitHub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.ImgGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.ImgGitHub.Image = ((System.Drawing.Image)(resources.GetObject("ImgGitHub.Image")));
+			this.ImgGitHub.Location = new System.Drawing.Point(207, 285);
+			this.ImgGitHub.Name = "ImgGitHub";
+			this.ImgGitHub.Size = new System.Drawing.Size(32, 32);
+			this.ImgGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+			this.ImgGitHub.TabIndex = 21;
+			this.ImgGitHub.TabStop = false;
+			this.ImgGitHub.Tag = "https://github.com/exectails";
+			this.ImgGitHub.Click += new System.EventHandler(this.Link_Click);
 			// 
-			// GrpDescription
+			// GrpLicense
 			// 
-			this.GrpDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
-			this.GrpDescription.Controls.Add(this.LblDescription);
-			this.GrpDescription.Location = new System.Drawing.Point(12, 87);
-			this.GrpDescription.Name = "GrpDescription";
-			this.GrpDescription.Size = new System.Drawing.Size(370, 72);
-			this.GrpDescription.TabIndex = 4;
-			this.GrpDescription.TabStop = false;
+			this.GrpLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.GrpLicense.Controls.Add(this.textBox1);
+			this.GrpLicense.Location = new System.Drawing.Point(12, 87);
+			this.GrpLicense.Name = "GrpLicense";
+			this.GrpLicense.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
+			this.GrpLicense.Size = new System.Drawing.Size(370, 192);
+			this.GrpLicense.TabIndex = 23;
+			this.GrpLicense.TabStop = false;
+			this.GrpLicense.Text = "License";
 			// 
-			// LblDescription
+			// textBox1
 			// 
-			this.LblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
-			this.LblDescription.Location = new System.Drawing.Point(10, 16);
-			this.LblDescription.Name = "LblDescription";
-			this.LblDescription.Size = new System.Drawing.Size(354, 44);
-			this.LblDescription.TabIndex = 0;
-			this.LblDescription.Text = "Mabioned is an editor for Mabinogi\'s .rgn and .area file formats. It allows you t" +
-	"o view and modify them. Refer to the documentation for more information.";
+			this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.textBox1.Location = new System.Drawing.Point(12, 21);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(346, 163);
+			this.textBox1.TabIndex = 0;
+			this.textBox1.Text = resources.GetString("textBox1.Text");
 			// 
-			// LnkPatreon
+			// LblVersion
 			// 
-			this.LnkPatreon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.LnkPatreon.AutoSize = true;
-			this.LnkPatreon.Location = new System.Drawing.Point(12, 197);
-			this.LnkPatreon.Name = "LnkPatreon";
-			this.LnkPatreon.Size = new System.Drawing.Size(175, 13);
-			this.LnkPatreon.TabIndex = 5;
-			this.LnkPatreon.TabStop = true;
-			this.LnkPatreon.Text = "https://www.patreon.com/exectails";
-			this.LnkPatreon.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Lnk_LinkClicked);
+			this.LblVersion.AutoSize = true;
+			this.LblVersion.ForeColor = System.Drawing.Color.Gray;
+			this.LblVersion.Location = new System.Drawing.Point(153, 28);
+			this.LblVersion.Name = "LblVersion";
+			this.LblVersion.Size = new System.Drawing.Size(37, 13);
+			this.LblVersion.TabIndex = 3;
+			this.LblVersion.Text = "v0.0.6";
 			// 
 			// FrmAbout
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(394, 227);
-			this.Controls.Add(this.LnkPatreon);
-			this.Controls.Add(this.GrpDescription);
-			this.Controls.Add(this.LnkGithub);
-			this.Controls.Add(this.LblCopyright);
+			this.ClientSize = new System.Drawing.Size(394, 329);
+			this.Controls.Add(this.GrpLicense);
+			this.Controls.Add(this.ImgPatreon);
+			this.Controls.Add(this.ImgGitHub);
 			this.Controls.Add(this.BtnOK);
 			this.Controls.Add(this.PnlHeader);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -177,7 +188,10 @@
 			this.PnlHeader.ResumeLayout(false);
 			this.PnlHeader.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).EndInit();
-			this.GrpDescription.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.ImgPatreon)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ImgGitHub)).EndInit();
+			this.GrpLicense.ResumeLayout(false);
+			this.GrpLicense.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -190,10 +204,10 @@
 		private System.Windows.Forms.Label LblName;
 		private System.Windows.Forms.PictureBox ImgIcon;
 		private System.Windows.Forms.Button BtnOK;
-		private System.Windows.Forms.Label LblCopyright;
-		private System.Windows.Forms.LinkLabel LnkGithub;
-		private System.Windows.Forms.GroupBox GrpDescription;
-		private System.Windows.Forms.Label LblDescription;
-		private System.Windows.Forms.LinkLabel LnkPatreon;
+		private System.Windows.Forms.PictureBox ImgPatreon;
+		private System.Windows.Forms.PictureBox ImgGitHub;
+		private System.Windows.Forms.Label LblVersion;
+		private System.Windows.Forms.GroupBox GrpLicense;
+		private System.Windows.Forms.TextBox textBox1;
 	}
 }
