@@ -1,0 +1,72 @@
+//------------------------------------------------
+//--- 010 Editor v8.0 Binary Template
+//
+//      File: plt.bt
+//   Authors: exec
+//   Version: 1
+//   Purpose: Contains default information for props in Mabinogi,
+//            such as their shapes and colors.
+//  Category: 
+// File Mask: *.plt
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+#include "inc/common.bt"
+
+typedef struct
+{
+    float dirX1;
+    float dirX2;
+    float dirY1;
+    float dirY2;
+    float lenX;
+    float lenY;
+    int type;
+    Vector2F position;
+    Vector2F bottomLeft;
+    Vector2F topRight;
+}
+Shape;
+
+typedef struct
+{
+    Bool isDefault;
+    int parameterType;
+    int signalType;
+    WString name;
+    WString xml;
+
+}
+EntityParameter <optimize=false>;
+
+typedef struct
+{
+    int propId;
+    EntityId entityId;
+    WString name;
+    Vector3F_XYZ position;
+    byte shapeCount;
+    int shapeType;
+    if (shapeCount > 0)
+        Shape shapes[shapeCount];
+    Bool isCollision;
+    Bool fixedAltitude;
+    float scale;
+    float rotation; // radians
+    Vector3F_XZY bottomLeft;
+    Vector3F_XZY topRight;
+    Color collorOverride;
+    Color colors[9];
+    WString title;
+    WString state;
+    byte parameterCount;
+    if (parameterCount > 0)
+        EntityParameter parameters[parameterCount];
+}
+Prop <optimize=false>;
+
+int version;
+int propCount;
+
+Prop props[propCount];
