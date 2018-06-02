@@ -228,7 +228,7 @@ namespace MabiWorld
 				// Sometimes a few bytes follow Unk26, but it seems random.
 				// The data in those bytes also appears to be random,
 				// usually it's 4 zero bytes, but there's also a case
-				// where a fully copy of the previous unknown floats can
+				// where a full copy of the previous unknown floats can
 				// be found here, "ula_emainmacha_oidtobar_hall".
 
 				if (region.Version > 100 && br.BaseStream.Position < br.BaseStream.Length)

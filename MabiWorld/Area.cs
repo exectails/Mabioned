@@ -139,7 +139,7 @@ namespace MabiWorld
 
 				// Usually 65|68 bytes follow the planes, purpose unknown
 				// and why they appear hasn't been researched yet, neither
-				// why the lengths differ..
+				// why the lengths differ.
 
 				var length = (int)(br.BaseStream.Length - br.BaseStream.Position);
 				area.Unk10 = br.ReadBytes(length);
