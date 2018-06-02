@@ -1,0 +1,152 @@
+//------------------------------------------------
+//--- 010 Editor v8.0 Binary Template
+//
+//      File: .inc.bt
+//   Authors: exec
+//   Version: 1
+//   Purpose: Common structs used in templates.
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+// Vector3F
+//------------------------------------------------
+typedef struct
+{
+    float x;
+    float y;
+    float z;
+}
+Vector3F_XYZ <optimize=false, read=readVector3F_XYZ>;
+
+typedef struct
+{
+    float x;
+    float z;
+    float y;
+}
+Vector3F_XZY <optimize=false, read=readVector3F_XZY>;
+
+string readVector3F_XYZ(Vector3F_XYZ &v)
+{
+    local string result;
+    SPrintf(result, "X: %.2f, Y: %.2f, Z: %.2f", v.x, v.y, v.z);
+    return result;
+}
+
+string readVector3F_XZY(Vector3F_XZY &v)
+{
+    local string result;
+    SPrintf(result, "X: %.2f, Y: %.2f, Z: %.2f", v.x, v.y, v.z);
+    return result;
+}
+
+// Vector2
+//------------------------------------------------
+typedef struct
+{
+    int x;
+    int y;
+}
+Vector2 <optimize=false, read=readVector2>;
+
+string readVector2(Vector2 &v)
+{
+    local string result;
+    SPrintf(result, "X: %d, Y: %d", v.x, v.y);
+    return result;
+}
+
+// Vector2F
+//------------------------------------------------
+typedef struct
+{
+    float x;
+    float y;
+}
+Vector2F <optimize=false, read=readVector2F>;
+
+string readVector2F(Vector2F &v)
+{
+    local string result;
+    SPrintf(result, "X: %.2f, Y: %.2f", v.x, v.y);
+    return result;
+}
+
+// Color
+//------------------------------------------------
+typedef struct
+{
+    ubyte b;
+    ubyte g;
+    ubyte r;
+    ubyte a;
+}
+Color <optimize=false, read=readColor>;
+
+string readColor(Color &v)
+{
+    local string result;
+    SPrintf(result, "#%02X%02X%02X%02X", v.a, v.r, v.g, v.b);
+    return result;
+}
+
+// WString
+//------------------------------------------------
+typedef struct
+{
+    wstring str;
+}
+WString <optimize=false, read=readWString>;
+
+string readWString(WString &v)
+{
+    return v.str;
+}
+
+// LpWString
+//------------------------------------------------
+typedef struct
+{
+    int length;
+    wchar_t str[length];
+}
+LpWString <optimize=false, read=readLpWString>;
+
+string readLpWString(LpWString &v)
+{
+    return v.str;
+}
+
+// Bool
+//------------------------------------------------
+typedef struct
+{
+    ubyte val;
+}
+Bool <optimize=false, read=readBool>;
+
+string readBool(Bool &v)
+{
+    if (v.val != 0)
+        return "true";
+    else
+        return "false";
+}
+
+// EntityId
+//------------------------------------------------
+typedef struct
+{
+    int64 val;
+}
+EntityId <optimize=false, read=readEntityId>;
+
+string readEntityId(EntityId &v)
+{
+    string s;
+    SPrintf(s, "%08X%08X", v.val >> 32, v.val);
+    return s;
+}
