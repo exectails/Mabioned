@@ -5,6 +5,8 @@ Main Menu
 -----------------------------------------------------------------------------
 
 Found in the upper left of the application's window at all times.
+Note that some options are also found on the toolbar below the Main Menu
+for quicker access.
 
 ### File
 

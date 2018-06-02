@@ -15,24 +15,25 @@ Terminology
 ### Region
 
 Mabinogi's world is made up of regions, which are in turn made up of
-areas. The region files in themselves contain only general information
-about a region, such as lighting and the areas to use.
+Areas. The region files in themselve contain only general information
+about a region, such as lighting, and a list of area files that are
+part of it.
 
 ### Area
 
-Areas contain the more substantial information about a region,
+Areas contain the more substantial information about a Region,
 such as props, events, and the terrain. They can be edited on their
-own, but need to be placed in a region.
+own, but need to be placed in a Region.
 
 ### Entity
 
-Entities are things that are placed in a region. They include props,
-such as trees, events that make something happen when a player
+Entities are things that are placed in an Area. They include Props
+(such as trees), Events that make something happen when a player
 enters them for example, and even players themselves.
 
 ### Prop
 
-Every object in the world is a prop. Examples are trees, houses, statues,
+Every object in the world is a Prop. Examples are trees, houses, statues,
 chairs, and so on. Many props can be interacted with, allowing players
 to punch or touch them. Officially their behavior is controlled by
 parameters in the area files, but server emulators such as Aura
@@ -40,23 +41,22 @@ might not actually use this information.
 
 ### Event
 
-An event is a section in a region where something happens under
-certain circumstances. Examples of event signals are entering or
-leaving them.
+An event is an area in a region where something happens under
+certain circumstances, for example when entering or leaving it.
 
-Events typically consist of only one rectangular section and are used
+They typically consist of only one rectangular Shape and are used
 to control the background music, show notices telling players where they
 are, provide warp locations for the official servers, and more.
 
 ### Shape
 
 Shapes give props and events their form, controlling their collision
-or in which section of a region an event should be triggered. Any prop
+or in which section of a Region an Event should be triggered. Any prop
 and event can be made up of several shapes, which are always rectangular.
 
 Some props don't have shapes, which means you can walk through them.
 Due to the application currently basing all rendering on those
-shapes such props are represented by circles.
+shapes such entities are represented by circles.
 
 ### Parameter
 
@@ -72,7 +72,7 @@ when entering a town.
 Area planes, planes, and squares are the part of the area that contains
 the terrain information. To put it another way, the height map and
 texture information are saved here. This part of the region files
-isn't too well researched yet.
+hasn't been fully researched yet.
 
 Application Window
 -----------------------------------------------------------------------------
@@ -140,7 +140,7 @@ Reloading Regions
 Since the client is loading the regions on demand when you enter them
 it's possible to modify and reload a region during run-time. To do this
 you need to put the region you want to edit into your data folder and
-mod your client to load the region from there. If you now edit it,
+modify your client to load the region from there. If you edit it now,
 leave the region, and enter it again, the client will load your changes.
 In a server emulator like Aura you might also have access to a refresh
 command that makes this process easier.
@@ -149,3 +149,12 @@ Beware that reloading small changes works great, but bigger changes
 sometimes crash the client when you re-enter the region. Simply start
 the client again in that case, you should be able to enter the region
 without problems after the restart.
+
+Data Folder
+-----------------------------------------------------------------------------
+
+Mabioned optionally uses information from Mabinogi's client to display
+prop names, provide advanced search and filtering, render minimap background
+images, and more. To use these features you need to specify the location
+of an extracted data folder, which you can set under
+"Edit > Settings > Folders".
