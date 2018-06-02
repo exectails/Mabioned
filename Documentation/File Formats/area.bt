@@ -15,6 +15,9 @@
 
 local int _version;
 
+// The modern shape has a center position, around
+// which a rectangle is with width lenX and height
+// lenY is build. The dir values define the angle.
 typedef struct
 {
     float dirX1;
@@ -30,6 +33,9 @@ typedef struct
 }
 Shape;
 
+// The shapes used in Mabinogi's beta client consist
+// of points that make up a potentially polygonal,
+// though usually rectangular, shape.
 typedef struct
 {
     byte pointCount; // ?
@@ -37,7 +43,7 @@ typedef struct
     Vector2F point2;
     Vector2F point3;
     Vector2F point4;
-    Vector2F point5; // same as point, connecting back to first?
+    Vector2F point5; // same as point1, connecting back to first?
     int type;
     Vector2F center;
     Vector2F bottomLeft;
@@ -220,8 +226,11 @@ if (version == 203)
 
 int version2;
 int propCount2;
-Prop props[propCount2];
-Event events[eventCount];
+
+if (propCount2 > 0)
+    Prop props[propCount2];
+if (eventCount > 0)
+    Event events[eventCount];
 
 // The terrain was different in version 200 as well,
 // more research will be needed to decode that.
