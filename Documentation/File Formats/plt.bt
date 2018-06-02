@@ -43,7 +43,10 @@ EntityParameter <optimize=false>;
 typedef struct
 {
     int propId;
-    EntityId entityId;
+    short index;
+    short area; // 1024
+    short region; // 0
+    short unk1; // 160
     WString name;
     Vector3F_XYZ position;
     byte shapeCount;

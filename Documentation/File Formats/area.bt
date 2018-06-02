@@ -72,6 +72,29 @@ typedef struct
     WString name;
     WString xml;
 
+    // Known parameter types:
+    //  Warp = 100,
+    //  BgmChangeLoop = 201,
+    //  BgmStop = 202,
+    //  BgmChangeNoLoop = 211,
+    //  Notice = 300,
+    //  Confirmation = 1100,
+    //  CommerceSafeZone = 1401,
+    //  ServerScript = 2000,
+    //  DropGroupItem = 2200,
+    //  CreatureSpawner = 2500,
+    //  Altar = 2110,
+    //  SaveTown = 2610,
+    //  SaveDungeon = 2620,
+    //  RestrictedArea = 2901,
+
+    // Known signal types:
+    //  OnEnter = 101,
+    //  OnLeave = 102,
+    //  OnStepOn = 103,
+    //  Respawn = 150,
+    //  OnHit = 201,
+    //  OnTouch = 202,
 }
 EntityParameter <optimize=false>;
 
@@ -133,6 +156,19 @@ typedef struct
     byte parameterCount;
     if (parameterCount > 0)
         EntityParameter parameters[parameterCount];
+    
+    // Known event types:
+    //  General = 0,
+    //  Portal = 1,
+    //  AreaChange = 10,
+    //  Unk11 = 11,
+    //  DungeonLobby = 12,
+    //  SpawnPoint = 13,
+    //  Collision = 14,
+    //  Unk100 = 100,
+    //  SpawnArea = 2000,
+    //  Street = 3000,
+    //  FishingGrounds = 3100,
 }
 Event <optimize=false>;
 
