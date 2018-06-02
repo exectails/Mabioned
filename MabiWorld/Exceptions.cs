@@ -31,4 +31,17 @@ namespace MabiWorld
 				throw new EnumValueNotDefinedException(enumType, value);
 		}
 	}
+
+	/// <summary>
+	/// Used when a file has a version that is not supported by the library.
+	/// </summary>
+	public class UnsupportedVersionException : Exception
+	{
+		/// <summary>
+		/// Create new instance.
+		/// </summary>
+		public UnsupportedVersionException()
+		{
+		}
+	}
 }

@@ -400,9 +400,13 @@ namespace Mabioned
 				this.SetModified(false);
 				this.RegionCanvas_ScaleChanged(this, new ScaleChangedEventArgs(0, this.RegionCanvas.ScaleCurrent));
 			}
+			catch (UnsupportedVersionException)
+			{
+				MessageBox.Show(this, "This file's version is not supported yet.", Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Failed to open file." + Environment.NewLine + ex);
+				MessageBox.Show("Failed to open file." + Environment.NewLine + ex, Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
 			this.MnuEditRemoveAllProps.Enabled = true;

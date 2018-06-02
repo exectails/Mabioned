@@ -87,6 +87,10 @@ namespace MabiWorld
 				var area = new Area();
 
 				area.Version = br.ReadInt16();
+
+				if (area.Version == 200)
+					throw new UnsupportedVersionException();
+
 				area.Unk8 = br.ReadInt16();
 				area.Length = br.ReadInt32();
 				area.Id = br.ReadUInt16();

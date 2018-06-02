@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using MabiWorld.Extensions;
 using MabiWorld.PropertyEditing;
@@ -116,18 +117,30 @@ namespace MabiWorld
 			using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				region = ReadFrom(fs);
 
+			UnsupportedVersionException versionException = null;
+
 			Parallel.For(0, region.AreaFileNames.Count, i =>
 			{
-				var areaFileName = region.AreaFileNames[i];
-				var areaFilePath = System.IO.Path.Combine(dirPath, areaFileName + ".area");
-
-				using (var fs2 = new FileStream(areaFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				try
 				{
-					var area = Area.ReadFrom(fs2);
-					lock (region.Areas)
-						region.Areas.Add(area);
+					var areaFileName = region.AreaFileNames[i];
+					var areaFilePath = System.IO.Path.Combine(dirPath, areaFileName + ".area");
+
+					using (var fs2 = new FileStream(areaFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						var area = Area.ReadFrom(fs2);
+						lock (region.Areas)
+							region.Areas.Add(area);
+					}
+				}
+				catch (UnsupportedVersionException ex)
+				{
+					versionException = ex;
 				}
 			});
+
+			if (versionException != null)
+				throw versionException;
 
 			region.Areas = region.Areas.OrderBy(a => a.Name).ToList();
 
@@ -151,9 +164,9 @@ namespace MabiWorld
 				region.GroupId = br.ReadInt32();
 				region.Name = br.ReadWString();
 
-				var supportedVersion = (region.Version == 100 || region.Version == 102 || region.Version == 103);
+				var supportedVersion = (/*region.Version == 100 ||*/ region.Version == 102 || region.Version == 103);
 				if (!supportedVersion || region.Name == "DungeonProp_Temp")
-					throw new FormatException($"Unsupported region version.");
+					throw new UnsupportedVersionException();
 
 				region.CellSize = br.ReadInt32();
 				region.Sight = br.ReadByte();
