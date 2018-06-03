@@ -47,7 +47,21 @@ namespace MabiWorld.Data
 		private static Regex _localeGenRegex;
 		private static bool _settingSelected;
 
+		/// <summary>
+		/// Returns the currently selected region.
+		/// </summary>
 		public static string Locale { get; private set; }
+
+		/// <summary>
+		/// Removes all entries.
+		/// </summary>
+		public static void Clear()
+		{
+			_settings.Clear();
+			_features.Clear();
+			_settingSelected = false;
+			Locale = null;
+		}
 
 		/// <summary>
 		/// Hashes str.

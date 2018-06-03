@@ -51,6 +51,14 @@ namespace MabiWorld.Data
 		public static bool HasEntries => (_entries.Count > 0);
 
 		/// <summary>
+		/// Removes all entries.
+		/// </summary>
+		public static void Clear()
+		{
+			_entries.Clear();
+		}
+
+		/// <summary>
 		/// Returns entry with given class id via out if it exists, or null
 		/// if it doesn't.
 		/// </summary>
