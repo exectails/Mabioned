@@ -11,13 +11,13 @@ very well to get an overview and move entities, but there are limits.
 Modifying the terrain for example is possible, but needs to be done
 by modifying the respective objects' properties by hand.
 
-For more information about the program and the game's files this editor
+For more information about the program and the game's files that this editor
 modifies refer to the files in the Documentation folder. If you encounter
 any bugs or errors, please create an issue so they can be fixed.
 
 If you'd like to help with the development or have suggestions on how
-to improve the program I'd be happy to review your contributions.
-Simply create an issue for each one.
+to improve the program I'd be happy to review your contributions,
+simply create an issue for each one.
 
 Planned Features
 -----------------------------------------------------------------------------
