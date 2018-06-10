@@ -216,35 +216,6 @@ namespace MabiWorld
 		}
 
 		/// <summary>
-		/// Compares result of WriteTo with the given file, throws
-		/// exception if they're no equal.
-		/// </summary>
-		/// <param name="filePath"></param>
-		public void ExportTest(string filePath)
-		{
-			//using (var fs2 = new FileStream(filePath + ".test", FileMode.OpenOrCreate, FileAccess.Write))
-			//	this.WriteTo(fs2);
-
-			using (var ms = new MemoryStream())
-			{
-				this.WriteTo(ms);
-
-				var buffer = File.ReadAllBytes(filePath);
-				var myBuffer = ms.ToArray();
-
-				if (buffer.Length != myBuffer.Length)
-					throw new Exception();
-
-				for (var i = 0; i < myBuffer.Length; ++i)
-				{
-					// Ignore Length, as that's 0 for some area files.
-					if (buffer[i] != myBuffer[i] && (i <= 3 || i > 7))
-						throw new Exception();
-				}
-			}
-		}
-
-		/// <summary>
 		/// Returns an unused prop id for this area. If no available ids
 		/// were found, 0 is returned.
 		/// </summary>

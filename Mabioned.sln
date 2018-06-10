@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mabioned", "Mabioned\Mabion
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabiWorld", "MabiWorld\MabiWorld.csproj", "{97E50961-1C58-4AD8-BFE3-4DF32D3DA801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTest", "WorldTest\WorldTest.csproj", "{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabiWorld.Tests", "MabiWorld.Tests\MabiWorld.Tests.csproj", "{B4CE4AE9-2190-4BC3-B87F-F78588E0CF24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
