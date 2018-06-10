@@ -12,8 +12,10 @@ Modifying the terrain for example is possible, but needs to be done
 by modifying the respective objects' properties by hand.
 
 For more information about the program and the game's files that this editor
-modifies refer to the files in the Documentation folder. If you encounter
-any bugs or errors, please create an issue so they can be fixed.
+modifies refer to the files in the Documentation folder. Binary templates
+for the file formats can be found in [this repository](https://github.com/exectails/MabinogiFileFormats).
+If you encounter any bugs or errors, please create an issue so they
+can be fixed.
 
 If you'd like to help with the development or have suggestions on how
 to improve the program I'd be happy to review your contributions,
@@ -23,7 +25,7 @@ Planned Features
 -----------------------------------------------------------------------------
 
 - Undo and Redo options
-- Generation of variation XML files
+- Generating variation XML files
 - Importing and exporting heightmaps
 - Creating new regions
 - 3D preview and possibly editing
