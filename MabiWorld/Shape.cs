@@ -163,16 +163,26 @@ namespace MabiWorld
 
 			var angle = Math.Atan2(points[1].Y - points[0].Y, points[1].X - points[0].X);
 
-			// For some reason the shape shrinks when the length is
-			// calculated repeatedly, ignore it for now, we only want to
-			// rotate anyway.
-
 			this.DirX1 = (float)Math.Cos(angle);
 			this.DirX2 = (float)Math.Sin(angle);
 			this.DirY1 = (float)Math.Sin(angle);
 			this.DirY2 = (float)-Math.Cos(angle);
-			//this.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
-			//this.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+
+			// For some reason the shape shrinks when the length is
+			// calculated repeatedly. There's also a problem with the initial
+			// rotation of some shapes though, for which we need to set the
+			// length. We'll use the original length, because we only care
+			// about rotation, but swap them as necessary to get the correct
+			// rotation.
+
+			var oldLenX = this.LenX;
+			var oldLenY = this.LenY;
+			var newLenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
+			var newLenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+			var swap = ((oldLenX < oldLenY && newLenX > newLenY) || (oldLenX > oldLenY && newLenX < newLenY));
+
+			this.LenX = (swap ? oldLenY : oldLenX);
+			this.LenY = (swap ? oldLenX : oldLenY);
 
 			var minX = points.Min(a => a.X);
 			var maxX = points.Max(a => a.X);
