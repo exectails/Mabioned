@@ -30,6 +30,7 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
 			this.PnlHeader = new System.Windows.Forms.Panel();
+			this.LblVersion = new System.Windows.Forms.Label();
 			this.LblSubTitle = new System.Windows.Forms.Label();
 			this.LblName = new System.Windows.Forms.Label();
 			this.ImgIcon = new System.Windows.Forms.PictureBox();
@@ -38,7 +39,6 @@
 			this.ImgGitHub = new System.Windows.Forms.PictureBox();
 			this.GrpLicense = new System.Windows.Forms.GroupBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.LblVersion = new System.Windows.Forms.Label();
 			this.PnlHeader.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ImgPatreon)).BeginInit();
@@ -59,6 +59,16 @@
 			this.PnlHeader.Name = "PnlHeader";
 			this.PnlHeader.Size = new System.Drawing.Size(394, 81);
 			this.PnlHeader.TabIndex = 0;
+			// 
+			// LblVersion
+			// 
+			this.LblVersion.AutoSize = true;
+			this.LblVersion.ForeColor = System.Drawing.Color.Gray;
+			this.LblVersion.Location = new System.Drawing.Point(153, 28);
+			this.LblVersion.Name = "LblVersion";
+			this.LblVersion.Size = new System.Drawing.Size(43, 13);
+			this.LblVersion.TabIndex = 3;
+			this.LblVersion.Text = "v0.0.6a";
 			// 
 			// LblSubTitle
 			// 
@@ -155,16 +165,6 @@
 			this.textBox1.Size = new System.Drawing.Size(346, 163);
 			this.textBox1.TabIndex = 0;
 			this.textBox1.Text = resources.GetString("textBox1.Text");
-			// 
-			// LblVersion
-			// 
-			this.LblVersion.AutoSize = true;
-			this.LblVersion.ForeColor = System.Drawing.Color.Gray;
-			this.LblVersion.Location = new System.Drawing.Point(153, 28);
-			this.LblVersion.Name = "LblVersion";
-			this.LblVersion.Size = new System.Drawing.Size(37, 13);
-			this.LblVersion.TabIndex = 3;
-			this.LblVersion.Text = "v0.0.6";
 			// 
 			// FrmAbout
 			// 
