@@ -25,7 +25,7 @@ Planned Features
 -----------------------------------------------------------------------------
 
 - Undo and Redo options
-- Generating variation XML files
+- Generating variation XML files for dynamic regions
 - Importing and exporting heightmaps
 - Creating new regions
 - 3D preview and possibly editing
@@ -39,3 +39,4 @@ Links
 -----------------------------------------------------------------------------
 
 - GitHub: https://github.com/exectails/Mabioned
+- Forum: https://nocodenolife.org/forum/topic/550-mabioned-2d-region-editor/
