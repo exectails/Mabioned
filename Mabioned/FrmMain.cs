@@ -1163,6 +1163,9 @@ namespace Mabioned
 			var menuItem = (sender as MenuItem);
 			var visible = (menuItem.Checked = !menuItem.Checked);
 
+			if (!this.IsFileOpen)
+				return;
+
 			for (var i = 0; i < _areas.Count; ++i)
 			{
 				var area = _areas[i];
