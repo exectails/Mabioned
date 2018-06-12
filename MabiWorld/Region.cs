@@ -249,12 +249,14 @@ namespace MabiWorld
 					var length = (int)(br.BaseStream.Length - br.BaseStream.Position);
 					region.Unk27 = br.ReadBytes(length);
 
+#if DEBUG
 					switch (region.Name)
 					{
 						case "Ula_Emainmacha_OidTobar_Hall": AssertTailLength(48, length); break;
 						case "JP_Nekojima_islet": AssertTailLength(12, length); break;
 						default: AssertTailLength(4, length); break;
 					}
+#endif
 				}
 
 				if (region.Version == 100)
