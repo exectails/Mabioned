@@ -98,7 +98,8 @@ namespace MabiWorld.Data
 		/// <param name="filePath"></param>
 		public static void Load(Stream stream)
 		{
-			using (var xmlReader = new XmlTextReader(stream))
+			using (var sr = new StreamReader(stream, true))
+			using (var xmlReader = new XmlTextReader(sr))
 			{
 				while (xmlReader.ReadToFollowing("PropClass"))
 				{
