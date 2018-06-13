@@ -13,16 +13,6 @@ namespace WorldTest
 	{
 		private const string WorldPath = @"E:\Mabinogi\MabiPacker-1.2.1\data na278\world";
 
-		static void Main(string[] args)
-		{
-			ReadWrite();
-			//TestPerformance();
-			//TestSomething();
-
-			Console.WriteLine("end.");
-			Console.ReadLine();
-		}
-
 		[Fact]
 		private static void FileNames()
 		{
@@ -78,6 +68,8 @@ namespace WorldTest
 						using (var fs2 = new FileStream(areaFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
 						{
 							var area = Area.ReadFrom(fs2);
+
+							Assert.Equal(areaFileName, area.Name, true);
 
 							using (var ms = new MemoryStream())
 							{
