@@ -743,6 +743,11 @@ namespace Mabioned
 
 				try
 				{
+					// Set area file names based on currently loaded
+					// areas' names.
+					_region.AreaFileNames.Clear();
+					_region.AreaFileNames.AddRange(_areas.Select(a => a.Name));
+
 					using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
 						_region.WriteTo(fs);
 
