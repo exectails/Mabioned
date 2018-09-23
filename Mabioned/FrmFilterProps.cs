@@ -82,6 +82,12 @@ namespace Mabioned
 			if (!PropDb.TryGetEntry(prop.Id, out var data))
 				return notFoundInDb;
 
+			if (this.ChkMatchID.Checked)
+			{
+				if (data.ClassID.ToString() != this.TxtMatchID.Text)
+					return false;
+			}
+
 			if (this.ChkMatchTag.Checked)
 			{
 				if (!data.StringID.Matches(this.TxtMatchTag.Text))
@@ -127,6 +133,11 @@ namespace Mabioned
 		private void ChkTerrainYesNo_CheckedChanged(object sender, EventArgs e)
 		{
 			this.ChkTerrain.Checked = true;
+		}
+
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
