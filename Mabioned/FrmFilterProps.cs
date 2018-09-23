@@ -19,6 +19,17 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Prefill using prop ID
+		/// </summary>
+		/// <param name="prop"></param>
+		public FrmFilterProps(Prop prop) : this()
+		{
+			this.ChkAllPropsThat.Checked = true;
+			this.ChkMatchID.Checked = true;
+			this.TxtMatchID.Text = prop.Id.ToString();
+		}
+
+		/// <summary>
 		/// Initializes controls.
 		/// </summary>
 		/// <param name="sender"></param>
@@ -133,11 +144,6 @@ namespace Mabioned
 		private void ChkTerrainYesNo_CheckedChanged(object sender, EventArgs e)
 		{
 			this.ChkTerrain.Checked = true;
-		}
-
-		private void checkBox1_CheckedChanged(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

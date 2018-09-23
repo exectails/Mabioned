@@ -216,7 +216,6 @@
             this.ChkMatchID.TabIndex = 17;
             this.ChkMatchID.Text = "match ID";
             this.ChkMatchID.UseVisualStyleBackColor = true;
-            this.ChkMatchID.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // TxtMatchID
             // 

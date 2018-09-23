@@ -2472,5 +2472,21 @@ namespace Mabioned
 
 			return null;
 		}
+		/// <summary>
+		/// Remove props similar to the selected prop
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MnuMapRemoveSimilarProps_Click(object sender, EventArgs e)
+		{
+			// Get info about selected prop
+			if (this._selectedEntity == null) return;
+			if (!(this._selectedEntity is Prop prop)) return;
+
+			// Open form to remove all props, prefilled by ID
+			var form = new FrmFilterProps(prop);
+			if (form.ShowDialog() != DialogResult.OK)
+				return;
+		}
 	}
 }
