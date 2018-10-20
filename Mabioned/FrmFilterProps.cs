@@ -15,18 +15,18 @@ namespace Mabioned
 		/// </summary>
 		public FrmFilterProps()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>
-		/// Prefill using prop ID
+		/// Creates new instance, prefilling it with the prop's id.
 		/// </summary>
 		/// <param name="prop"></param>
-		public FrmFilterProps(Prop prop) : this()
+		public FrmFilterProps(int propId) : this()
 		{
 			this.ChkAllPropsThat.Checked = true;
 			this.ChkMatchID.Checked = true;
-			this.TxtMatchID.Text = prop.Id.ToString();
+			this.TxtMatchID.Text = propId.ToString();
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace Mabioned
 
 			if (this.ChkMatchID.Checked)
 			{
-				if (data.ClassID.ToString() != this.TxtMatchID.Text)
+				if (data.ClassID.ToString() != this.TxtMatchID.Text.Trim())
 					return false;
 			}
 

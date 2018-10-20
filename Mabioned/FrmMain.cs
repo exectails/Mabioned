@@ -90,7 +90,7 @@ namespace Mabioned
 		/// </summary>
 		public FrmMain()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 
 			NotifyingCollectionEditor.CollectionChanged += this.OnCollectionChanged;
 			NotifyingCollectionEditor.CollectionPropertyChanged += this.OnCollectionPropertyChanged;
@@ -2479,14 +2479,31 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void MnuMapRemoveSimilarProps_Click(object sender, EventArgs e)
 		{
-			// Get info about selected prop
-			if (this._selectedEntity == null) return;
-			if (!(this._selectedEntity is Prop prop)) return;
-
-			// Open form to remove all props, prefilled by ID
-			var form = new FrmFilterProps(prop);
-			if (form.ShowDialog() != DialogResult.OK)
+			if (_selectedEntity == null || !(_selectedEntity is Prop prop))
 				return;
+
+			// Open form to filter props, prefilled with the id of the
+			// selected prop.
+			var filter = new FrmFilterProps(prop.Id);
+			if (filter.ShowDialog() != DialogResult.OK)
+				return;
+
+			// Find and remove props from area, tree, and canvas.
+			this.RegionCanvas.BeginUpdate();
+			this.TreeRegion.BeginUpdate();
+			for (var i = 0; i < _areas.Count; ++i)
+			{
+				var area = _areas[i];
+
+				this.RemoveProps(area.Props, filter);
+				this.UpdateAreaNode(area);
+			}
+			this.TreeRegion.EndUpdate();
+			this.RegionCanvas.EndUpdate();
+
+			this.TreeRegion.SelectedNode = this.TreeRegion.Nodes[0];
+
+			this.SetModified(true);
 		}
 	}
 }
