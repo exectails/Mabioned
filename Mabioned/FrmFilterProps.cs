@@ -19,6 +19,17 @@ namespace Mabioned
 		}
 
 		/// <summary>
+		/// Prefill using prop ID
+		/// </summary>
+		/// <param name="prop"></param>
+		public FrmFilterProps(Prop prop) : this()
+		{
+			this.ChkAllPropsThat.Checked = true;
+			this.ChkMatchID.Checked = true;
+			this.TxtMatchID.Text = prop.Id.ToString();
+		}
+
+		/// <summary>
 		/// Initializes controls.
 		/// </summary>
 		/// <param name="sender"></param>
@@ -81,6 +92,12 @@ namespace Mabioned
 
 			if (!PropDb.TryGetEntry(prop.Id, out var data))
 				return notFoundInDb;
+
+			if (this.ChkMatchID.Checked)
+			{
+				if (data.ClassID.ToString() != this.TxtMatchID.Text)
+					return false;
+			}
 
 			if (this.ChkMatchTag.Checked)
 			{
