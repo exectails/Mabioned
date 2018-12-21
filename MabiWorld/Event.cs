@@ -53,7 +53,6 @@ namespace MabiWorld
 		/// <summary>
 		/// Creates new instance.
 		/// </summary>
-		/// <param name="area"></param>
 		public Event()
 		{
 		}

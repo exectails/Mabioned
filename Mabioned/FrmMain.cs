@@ -5,7 +5,9 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using MabiWorld;
 using MabiWorld.Data;
 using MabiWorld.PropertyEditing;
@@ -1796,7 +1798,28 @@ namespace Mabioned
 				return;
 			}
 
-			_copyEntity = _selectedEntity;
+			if (_selectedEntity is Prop prop)
+			{
+				prop = prop.Copy();
+
+				using (var ms = new MemoryStream())
+				using (var bw = new BinaryWriter(ms))
+				{
+					prop.WriteTo(bw);
+					Clipboard.SetData("MabionedProp", ms.ToArray());
+				}
+			}
+			else if (_selectedEntity is Event evnt)
+			{
+				evnt = evnt.Copy();
+
+				using (var ms = new MemoryStream())
+				using (var bw = new BinaryWriter(ms))
+				{
+					evnt.WriteTo(bw);
+					Clipboard.SetData("MabionedEvent", ms.ToArray());
+				}
+			}
 		}
 
 		/// <summary>
@@ -1804,10 +1827,26 @@ namespace Mabioned
 		/// </summary>
 		private void PasteSelectedEntity()
 		{
-			if (_copyEntity == null)
+			IEntity entity = null;
+
+			if (Clipboard.ContainsData("MabionedProp"))
+			{
+				var data = (byte[])Clipboard.GetData("MabionedProp");
+				using (var ms = new MemoryStream(data))
+				using (var br = new BinaryReader(ms))
+					entity = Prop.ReadFrom(null, br);
+			}
+			else if (Clipboard.ContainsData("MabionedEvent"))
+			{
+				var data = (byte[])Clipboard.GetData("MabionedEvent");
+				using (var ms = new MemoryStream(data))
+				using (var br = new BinaryReader(ms))
+					entity = Event.ReadFrom(null, br);
+			}
+
+			if (entity == null)
 				return;
 
-			var entity = _copyEntity;
 			var mousePosition = this.RegionCanvas.PointToClient(MousePosition);
 
 			// Check if canvas has the focus
