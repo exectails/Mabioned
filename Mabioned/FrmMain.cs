@@ -174,6 +174,25 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			if (this.IsFileOpen && this.IsFileModified)
+			{
+				var result = MessageBox.Show(this, "There are unsaved modifications, do you want to save before closing?", Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+				if (result == DialogResult.Cancel)
+				{
+					e.Cancel = true;
+					return;
+				}
+
+				if (result == DialogResult.Yes)
+				{
+					if (!this.SaveFile(_openFilePath))
+					{
+						e.Cancel = true;
+						return;
+					}
+				}
+			}
+
 			this.SaveSettings();
 		}
 
