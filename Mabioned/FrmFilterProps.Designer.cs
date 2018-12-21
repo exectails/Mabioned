@@ -44,6 +44,8 @@
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.LblDataFolderInfo = new System.Windows.Forms.Label();
+			this.TxtMatchClassName = new System.Windows.Forms.TextBox();
+			this.ChkMatchClassName = new System.Windows.Forms.CheckBox();
 			this.GrpFilters.SuspendLayout();
 			this.PnlTerrain.SuspendLayout();
 			this.SuspendLayout();
@@ -65,6 +67,8 @@
 			this.GrpFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.GrpFilters.Controls.Add(this.TxtMatchClassName);
+			this.GrpFilters.Controls.Add(this.ChkMatchClassName);
 			this.GrpFilters.Controls.Add(this.TxtMatchID);
 			this.GrpFilters.Controls.Add(this.ChkMatchID);
 			this.GrpFilters.Controls.Add(this.PnlTerrain);
@@ -76,7 +80,7 @@
 			this.GrpFilters.Enabled = false;
 			this.GrpFilters.Location = new System.Drawing.Point(12, 58);
 			this.GrpFilters.Name = "GrpFilters";
-			this.GrpFilters.Size = new System.Drawing.Size(437, 134);
+			this.GrpFilters.Size = new System.Drawing.Size(437, 160);
 			this.GrpFilters.TabIndex = 4;
 			this.GrpFilters.TabStop = false;
 			// 
@@ -193,7 +197,7 @@
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(293, 198);
+			this.BtnOK.Location = new System.Drawing.Point(293, 224);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 10;
@@ -204,7 +208,7 @@
 			// BtnCancel
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(374, 198);
+			this.BtnCancel.Location = new System.Drawing.Point(374, 224);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtnCancel.TabIndex = 11;
@@ -217,17 +221,34 @@
 			this.LblDataFolderInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.LblDataFolderInfo.AutoSize = true;
 			this.LblDataFolderInfo.ForeColor = System.Drawing.Color.Gray;
-			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 203);
+			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 229);
 			this.LblDataFolderInfo.Name = "LblDataFolderInfo";
 			this.LblDataFolderInfo.Size = new System.Drawing.Size(221, 13);
 			this.LblDataFolderInfo.TabIndex = 12;
 			this.LblDataFolderInfo.Text = "Enter data folder in settings to enable filtering.";
 			// 
+			// TxtMatchClassName
+			// 
+			this.TxtMatchClassName.Location = new System.Drawing.Point(133, 123);
+			this.TxtMatchClassName.Name = "TxtMatchClassName";
+			this.TxtMatchClassName.Size = new System.Drawing.Size(289, 20);
+			this.TxtMatchClassName.TabIndex = 20;
+			// 
+			// ChkMatchClassName
+			// 
+			this.ChkMatchClassName.AutoSize = true;
+			this.ChkMatchClassName.Location = new System.Drawing.Point(16, 125);
+			this.ChkMatchClassName.Name = "ChkMatchClassName";
+			this.ChkMatchClassName.Size = new System.Drawing.Size(111, 17);
+			this.ChkMatchClassName.TabIndex = 19;
+			this.ChkMatchClassName.Text = "match ClassName";
+			this.ChkMatchClassName.UseVisualStyleBackColor = true;
+			// 
 			// FrmFilterProps
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(461, 233);
+			this.ClientSize = new System.Drawing.Size(461, 259);
 			this.Controls.Add(this.LblDataFolderInfo);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
@@ -269,5 +290,7 @@
 		private System.Windows.Forms.RadioButton ChkTerrainYes;
 		private System.Windows.Forms.CheckBox ChkMatchID;
 		private System.Windows.Forms.TextBox TxtMatchID;
+		private System.Windows.Forms.TextBox TxtMatchClassName;
+		private System.Windows.Forms.CheckBox ChkMatchClassName;
 	}
 }

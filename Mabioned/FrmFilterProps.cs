@@ -19,14 +19,24 @@ namespace Mabioned
 		}
 
 		/// <summary>
-		/// Creates new instance, prefilling it with the prop's id.
+		/// Creates new instance, prefilling it with information to find
+		/// similar props (as in same id or class name).
 		/// </summary>
 		/// <param name="prop"></param>
-		public FrmFilterProps(int propId) : this()
+		public FrmFilterProps(Prop prop) : this()
 		{
 			this.ChkAllPropsThat.Checked = true;
-			this.ChkMatchID.Checked = true;
-			this.TxtMatchID.Text = propId.ToString();
+
+			if (string.IsNullOrWhiteSpace(prop.ClassName))
+			{
+				this.ChkMatchID.Checked = true;
+				this.TxtMatchID.Text = prop.Id.ToString();
+			}
+			else
+			{
+				this.ChkMatchClassName.Checked = true;
+				this.TxtMatchClassName.Text = prop.ClassName;
+			}
 		}
 
 		/// <summary>
@@ -96,6 +106,12 @@ namespace Mabioned
 			if (this.ChkMatchID.Checked)
 			{
 				if (data.ClassID.ToString() != this.TxtMatchID.Text.Trim())
+					return false;
+			}
+
+			if (this.ChkMatchClassName.Checked)
+			{
+				if (data.ClassName != this.TxtMatchClassName.Text.Trim())
 					return false;
 			}
 

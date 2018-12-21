@@ -2538,9 +2538,9 @@ namespace Mabioned
 			if (_selectedEntity == null || !(_selectedEntity is Prop prop))
 				return;
 
-			// Open form to filter props, prefilled with the id of the
-			// selected prop.
-			var filter = new FrmFilterProps(prop.Id);
+			// Open form to filter props, prefilled with information to
+			// find similar props.
+			var filter = new FrmFilterProps(prop);
 			if (filter.ShowDialog() != DialogResult.OK)
 				return;
 
