@@ -104,8 +104,6 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			Settings.Default.Load();
-
 			this.ToolStrip.Renderer = new ToolStripRendererNL();
 
 			this.LoadViewOptions();

@@ -27,6 +27,8 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void FrmSettings_Load(object sender, EventArgs e)
 		{
+			this.ChkSingleInstance.Checked = Settings.Default.SingleInstance;
+
 			this.LblBackgroundColor.BackColor = Settings.Default.BackgroundColor;
 			this.LblPropsColor.BackColor = Settings.Default.PropsColor;
 			this.LblEventsColor.BackColor = Settings.Default.EventsColor;
@@ -43,6 +45,8 @@ namespace Mabioned
 		/// <param name="e"></param>
 		private void BtnOK_Click(object sender, EventArgs e)
 		{
+			Settings.Default.SingleInstance = this.ChkSingleInstance.Checked;
+
 			Settings.Default.BackgroundColor = this.LblBackgroundColor.BackColor;
 			Settings.Default.PropsColor = this.LblPropsColor.BackColor;
 			Settings.Default.EventsColor = this.LblEventsColor.BackColor;

@@ -26,6 +26,8 @@ namespace Mabioned
 		public int SplitterMain { get; set; } = -1;
 		public int SplitterSidebar { get; set; } = -1;
 
+		public bool SingleInstance { get; set; } = true;
+
 		public XmlColor BackgroundColor { get; set; } = Color.FromArgb(248, 219, 179);
 		public XmlColor PropsColor { get; set; } = Color.FromArgb(91, 77, 59);
 		public XmlColor EventsColor { get; set; } = Color.FromArgb(158, 133, 103);

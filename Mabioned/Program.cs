@@ -16,6 +16,8 @@ namespace Mabioned
 			Thread.CurrentThread.CurrentCulture = CultureInfo.DefaultThreadCurrentCulture;
 			Thread.CurrentThread.CurrentUICulture = CultureInfo.DefaultThreadCurrentUICulture;
 
+			Settings.Default.Load();
+
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new FrmMain());
@@ -35,7 +37,7 @@ namespace Mabioned
 		/// </summary>
 		public SingleInstanceController()
 		{
-			this.IsSingleInstance = true;
+			this.IsSingleInstance = Settings.Default.SingleInstance;
 			this.StartupNextInstance += this.OnStartupNextInstance;
 		}
 
