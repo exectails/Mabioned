@@ -1824,42 +1824,42 @@ namespace Mabioned
 			switch (entity)
 			{
 				case Prop prop:
+				{
+					var copy = prop.Copy();
+					copy.MoveTo(pos);
+
+					try
 					{
-						var copy = prop.Copy();
-						copy.MoveTo(pos);
-
-						try
-						{
-							this.AddProp(copy);
-						}
-						catch (NoEntityIdException)
-						{
-							MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-							return;
-						}
-
-						this.SetModified(true);
+						this.AddProp(copy);
 					}
-					break;
+					catch (NoEntityIdException)
+					{
+						MessageBox.Show("Failed to acquire a new prop entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}
+
+					this.SetModified(true);
+				}
+				break;
 
 				case Event evnt:
+				{
+					var copy = evnt.Copy();
+					copy.MoveTo(pos);
+
+					try
 					{
-						var copy = evnt.Copy();
-						copy.MoveTo(pos);
-
-						try
-						{
-							this.AddEvent(copy);
-						}
-						catch (NoEntityIdException)
-						{
-							MessageBox.Show("Failed to acquire a new event entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-							return;
-						}
-
-						this.SetModified(true);
+						this.AddEvent(copy);
 					}
-					break;
+					catch (NoEntityIdException)
+					{
+						MessageBox.Show("Failed to acquire a new event entity id.", Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}
+
+					this.SetModified(true);
+				}
+				break;
 			}
 		}
 
