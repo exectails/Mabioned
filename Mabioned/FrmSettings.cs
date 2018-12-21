@@ -53,8 +53,10 @@ namespace Mabioned
 			Settings.Default.AreasColor = this.LblAreasColor.BackColor;
 			Settings.Default.SelectionColor = this.LblSelectionColor.BackColor;
 
-			if (this.IsDataFolder(this.TxtDataFolder.Text))
-				Settings.Default.DataFolder = this.TxtDataFolder.Text;
+			if (!this.IsDataFolder(this.TxtDataFolder.Text))
+				MessageBox.Show("No prop data found in the selected data folder, make sure to select a complete data folder that contains the db and world folders.", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+			Settings.Default.DataFolder = this.TxtDataFolder.Text;
 
 			this.DialogResult = DialogResult.OK;
 			this.Close();
