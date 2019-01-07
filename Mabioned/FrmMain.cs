@@ -1433,6 +1433,27 @@ namespace Mabioned
 					if (entity.Tag is CanvasObject obj)
 						obj.Rotate(diff);
 				}
+				else if (propertyName == "Scale")
+				{
+					var oldValue = (float)e.OldValue;
+					var newValue = (float)e.ChangedItem.Value;
+					var multiplier = (1.0 / oldValue * newValue);
+
+					foreach (var shape in entity.Shapes)
+					{
+						var lenX = shape.LenX;
+						var lenY = shape.LenX;
+
+						lenX = lenX / oldValue * newValue;
+						lenY = lenY / oldValue * newValue;
+
+						shape.LenX = lenX;
+						shape.LenY = lenY;
+					}
+
+					if (entity.Tag is CanvasObject obj)
+						obj.Resize(multiplier);
+				}
 			}
 			else if (this.PropertyGrid.SelectedObject is MabiWorld.Region region)
 			{
