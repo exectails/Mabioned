@@ -518,6 +518,13 @@
             </summary>
             <param name="radians"></param>
         </member>
+        <member name="M:PrimitiveCanvas.Objects.CanvasObject.Resize(System.Double)">
+            <summary>
+            Resizes object's primitives by multiplying their sizes with
+            the given value.
+            </summary>
+            <param name="multiplier"></param>
+        </member>
         <member name="M:PrimitiveCanvas.Objects.CanvasObject.IsInside(System.Drawing.PointF)">
             <summary>
             Returns true if the given position is inside one of the
@@ -796,10 +803,18 @@
         </member>
         <member name="M:PrimitiveCanvas.Primitives.Circle.Rotate(System.Drawing.PointF,System.Double)">
             <summary>
-            Does not rotate this circle, as that would be pointless.
+            Updates circle's position around the pivot point.
             </summary>
             <param name="pivot"></param>
             <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Circle.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Resizes circle, multiplying its radius by the given multiplier
+            and updating its position in relation to the pivot point.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
         </member>
         <member name="T:PrimitiveCanvas.Primitives.FlatRect">
             <summary>
@@ -856,6 +871,14 @@
             </summary>
             <param name="pivot"></param>
             <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.FlatRect.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Resizes rect, multiplying its radius by the given multiplier
+            and updating its position in relation to the pivot point.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
         </member>
         <member name="T:PrimitiveCanvas.Primitives.Picture">
             <summary>
@@ -932,6 +955,15 @@
             <param name="pivot"></param>
             <param name="radians"></param>
         </member>
+        <member name="M:PrimitiveCanvas.Primitives.Picture.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Resizes destination rect, multiplying its radius by the
+            given multiplier and updating its position in relation to
+            the pivot point.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
+        </member>
         <member name="T:PrimitiveCanvas.Primitives.Primitive">
             <summary>
             Represents a primitive shape to be drawn on the canvas.
@@ -981,6 +1013,19 @@
             </summary>
             <param name="pivot"></param>
             <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.Resize(System.Double)">
+            <summary>
+            Resizes this primitive using the given multiplier.
+            </summary>
+            <param name="multiplier"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Primitive.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Resizes this primitive using the given multiplier.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
         </member>
         <member name="T:PrimitiveCanvas.Primitives.Polygon">
             <summary>
@@ -1036,6 +1081,13 @@
             </summary>
             <param name="pivot"></param>
             <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.Polygon.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Resizes polygon, multiplying its size by the given value.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
         </member>
         <member name="T:PrimitiveCanvas.Primitives.Rect">
             <summary>
@@ -1127,6 +1179,13 @@
             </summary>
             <param name="pivot"></param>
             <param name="radians"></param>
+        </member>
+        <member name="M:PrimitiveCanvas.Primitives.TextString.Resize(System.Drawing.PointF,System.Double)">
+            <summary>
+            Not supported.
+            </summary>
+            <param name="pivot"></param>
+            <param name="multiplier"></param>
         </member>
     </members>
 </doc>
