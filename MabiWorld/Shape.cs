@@ -65,6 +65,58 @@ namespace MabiWorld
 		}
 
 		/// <summary>
+		/// Reads legacy shape from reader and returns it.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Shape ReadLegacyFrom(BinaryReader br)
+		{
+			var shape = new Shape();
+
+			var pointCount = br.ReadByte(); // 5
+			var point1 = br.ReadPointF();
+			var point2 = br.ReadPointF();
+			var point3 = br.ReadPointF();
+			var point4 = br.ReadPointF();
+			var point5 = br.ReadPointF();
+			shape.Type = br.ReadInt32();
+			shape.Position = br.ReadPointF();
+			shape.BottomLeft = br.ReadPointF();
+			shape.TopRight = br.ReadPointF();
+
+			if (point1 == shape.TopRight)
+			{
+				var p1 = point1;
+				var p2 = point2;
+				var p3 = point3;
+				var p4 = point4;
+				point1 = p2;
+				point2 = p3;
+				point3 = p4;
+				point4 = p1;
+			}
+
+			// Calculate newer format values
+			// TODO: Make sure this is correct, there were minor issues
+			//   in Mabioned at one point.
+			var points = new PointF[] { point1, point2, point3, point4 };
+			var x = (points[0].X + points[2].X) * 0.5;
+			var y = (points[0].Y + points[2].Y) * 0.5;
+
+			var angle = Math.Atan2(points[1].Y - points[0].Y, points[1].X - points[0].X);
+
+			shape.DirX1 = (float)Math.Cos(angle);
+			shape.DirX2 = (float)Math.Sin(angle);
+			shape.DirY1 = (float)Math.Sin(angle);
+			shape.DirY2 = (float)-Math.Cos(angle);
+			shape.LenX = (float)Math.Abs((points[1].X - points[0].X) * 0.5 / Math.Cos(angle));
+			shape.LenY = (float)Math.Abs((points[2].Y - points[1].Y) * 0.5 / Math.Cos(angle));
+
+			return shape;
+		}
+
+		/// <summary>
 		/// Writes shape to given writer.
 		/// </summary>
 		/// <param name="bw"></param>

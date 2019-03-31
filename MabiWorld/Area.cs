@@ -56,6 +56,8 @@ namespace MabiWorld
 		[Editor(typeof(NotifyingCollectionEditor), typeof(UITypeEditor))]
 		public List<AreaPlane> AreaPlanes { get; internal set; } = new List<AreaPlane>();
 
+		public byte[] LegacyTerrain { get; set; }
+
 		public byte[] Unk10 { get; set; }
 
 		/// <summary>
@@ -88,8 +90,8 @@ namespace MabiWorld
 
 				area.Version = br.ReadInt16();
 
-				if (area.Version == 200)
-					throw new UnsupportedVersionException();
+				//if (area.Version == 200)
+				//	throw new UnsupportedVersionException();
 
 				area.Unk8 = br.ReadInt16();
 				area.Length = br.ReadInt32();
@@ -131,6 +133,13 @@ namespace MabiWorld
 				{
 					var evnt = Event.ReadFrom(area, br);
 					area.Events.Add(evnt);
+				}
+
+				if (area.Version == 200)
+				{
+					var terrainLength = (int)(br.BaseStream.Length - br.BaseStream.Position);
+					area.LegacyTerrain = br.ReadBytes(terrainLength);
+					return area;
 				}
 
 				var areaPlanesCount = (area.PlaneX * area.PlaneY);

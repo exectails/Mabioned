@@ -44,6 +44,8 @@ namespace MabiWorld
 		[DefaultValue(0)]
 		public int ShapeType { get; set; }
 
+		public byte Unk1 { get; set; }
+
 		[Editor(typeof(NotifyingCollectionEditor), typeof(UITypeEditor))]
 		public List<Shape> Shapes { get; internal set; } = new List<Shape>();
 
@@ -115,9 +117,15 @@ namespace MabiWorld
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Prop ReadFrom(Area area, BinaryReader br)
 		{
+			var areaVersion = 201;
+			if (area != null)
+				areaVersion = area.Version;
+
 			var prop = new Prop(area);
 
-			prop.Id = br.ReadInt32();
+			if (areaVersion > 200)
+				prop.Id = br.ReadInt32();
+
 			prop.EntityId = br.ReadUInt64();
 			prop.Name = br.ReadWString();
 			prop.Position = br.ReadVector3F_XYZ();
@@ -125,24 +133,45 @@ namespace MabiWorld
 			prop.ShapeType = br.ReadInt32();
 
 			prop.Shapes = new List<Shape>(shapeCount);
-			for (var i = 0; i < shapeCount; ++i)
+			if (areaVersion == 200)
 			{
-				var shape = Shape.ReadFrom(br);
-				prop.Shapes.Add(shape);
+				for (var i = 0; i < shapeCount; ++i)
+				{
+					var shape = Shape.ReadLegacyFrom(br);
+					prop.Shapes.Add(shape);
+				}
+
+				prop.Unk1 = br.ReadByte();
+				prop.Id = br.ReadInt32();
+			}
+			else
+			{
+				for (var i = 0; i < shapeCount; ++i)
+				{
+					var shape = Shape.ReadFrom(br);
+					prop.Shapes.Add(shape);
+				}
+
+				prop.IsCollision = br.ReadBoolean();
+				prop.FixedAltitude = br.ReadBoolean();
 			}
 
-			prop.IsCollision = br.ReadBoolean();
-			prop.FixedAltitude = br.ReadBoolean();
 			prop.Scale = br.ReadSingle();
 			prop.Rotation = br.ReadSingle();
-			prop.BottomLeft = br.ReadVector3F_XZY();
-			prop.TopRight = br.ReadVector3F_XZY();
-			prop.ColorOverride = br.ReadColor();
 
+			if (areaVersion > 200)
+			{
+				prop.BottomLeft = br.ReadVector3F_XZY();
+				prop.TopRight = br.ReadVector3F_XZY();
+			}
+
+			prop.ColorOverride = br.ReadColor();
 			for (var i = 0; i < ColorCount; ++i)
 				prop.Colors[i] = br.ReadColor();
 
-			prop.Title = br.ReadWString();
+			if (areaVersion > 200)
+				prop.Title = br.ReadWString();
+
 			prop.State = br.ReadWString();
 
 			var parameterCount = br.ReadByte();

@@ -164,7 +164,7 @@ namespace MabiWorld
 				region.GroupId = br.ReadInt32();
 				region.Name = br.ReadWString();
 
-				var supportedVersion = (/*region.Version == 100 ||*/ region.Version == 102 || region.Version == 103);
+				var supportedVersion = (region.Version == 100 || region.Version == 102 || region.Version == 103);
 				if (!supportedVersion || region.Name == "DungeonProp_Temp")
 					throw new UnsupportedVersionException();
 
