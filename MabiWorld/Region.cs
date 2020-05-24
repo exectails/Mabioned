@@ -42,6 +42,10 @@ namespace MabiWorld
 
 		[Browsable(false)]
 		public LegacyRegionType LegacyType { get; set; }
+		[Browsable(false)]
+		public int Unk32 { get; set; }
+		[Browsable(false)]
+		public float Unk33 { get; set; }
 
 		public IndoorType IndoorType { get; set; }
 		public float Unk2 { get; set; }
@@ -186,6 +190,11 @@ namespace MabiWorld
 				else
 				{
 					region.LegacyType = (LegacyRegionType)br.ReadInt32();
+					if (region.LegacyType >= LegacyRegionType.Unk100)
+					{
+						region.Unk32 = br.ReadInt32();
+						region.Unk33 = br.ReadSingle();
+					}
 				}
 
 				region.Scene = br.ReadWString();
@@ -353,6 +362,11 @@ namespace MabiWorld
 				else
 				{
 					bw.Write((int)this.LegacyType);
+					if (this.LegacyType >= LegacyRegionType.Unk100)
+					{
+						bw.Write(this.Unk32);
+						bw.Write(this.Unk33);
+					}
 				}
 
 				bw.WriteWString(this.Scene);

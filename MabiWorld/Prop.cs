@@ -74,7 +74,7 @@ namespace MabiWorld
 
 		public Color[] Colors { get; set; } = new Color[ColorCount] { DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor, DefaultColor };
 
-		public string Title { get; set; }
+		public string Title { get; set; } = "";
 		public string State { get; set; }
 		public byte ParameterCount => (byte)this.Parameters.Count;
 
