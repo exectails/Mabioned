@@ -31,6 +31,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataDogLib">
+      <HintPath>..\Libs\DataDogLib.dll</HintPath>
+    </Reference>
     <Reference Include="OpenPainter.ColorPicker">
       <HintPath>..\Libs\OpenPainter.ColorPicker.dll</HintPath>
     </Reference>
@@ -55,6 +58,7 @@
     <Compile Include="Data\MiniMapInfo.cs" />
     <Compile Include="Data\PropPalette.cs" />
     <Compile Include="Data\Tags.cs" />
+    <Compile Include="Data\TileIndex.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityParameter.cs" />
     <Compile Include="Event.cs" />
