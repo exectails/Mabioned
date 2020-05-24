@@ -20,31 +20,49 @@ namespace MabiWorld.Data
 		/// <returns></returns>
 		public static string GetString(string key)
 		{
-			if (key != null)
-			{
-				if (key.StartsWith("_LT[") && key.EndsWith("]"))
-					key = key.Substring(4, key.Length - 4 - 1);
+			if (!TryGetString(key, out var result))
+				return key;
 
-				key = key.ToLowerInvariant();
+			return result;
+		}
 
-				if (_entries.TryGetValue(key, out var result))
-					return result;
-			}
+		/// <summary>
+		/// Returns the localization string for the given key via out.
+		/// Returns false if the key doesn't exist.
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="result"></param>
+		/// <returns></returns>
+		public static bool TryGetString(string key, out string result)
+		{
+			result = null;
 
-			return key;
+			if (key == null)
+				return false;
+
+			if (!key.StartsWith("_LT[") || !key.EndsWith("]"))
+				return false;
+
+			key = key.Substring(4, key.Length - 4 - 1);
+			key = key.ToLowerInvariant();
+
+			if (!_entries.TryGetValue(key, out result))
+				return false;
+
+			return true;
 		}
 
 		/// <summary>
 		/// Loads all text files from given folder.
 		/// </summary>
-		/// <param name="path"></param>
-		public static void Load(string path)
+		/// <param name="localFolderPath"></param>
+		public static void Load(string localFolderPath)
 		{
-			path = path.Replace("\\", "/");
-			if (!path.EndsWith("/"))
-				path += "/";
+			localFolderPath = localFolderPath.Replace("\\", "/");
+			if (!localFolderPath.EndsWith("/"))
+				localFolderPath += "/";
 
-			foreach (var filePath in Directory.EnumerateFiles(path, "*.txt", SearchOption.AllDirectories))
+			foreach (var filePath in Directory.EnumerateFiles(localFolderPath, "*.txt", SearchOption.AllDirectories))
 			{
 				var fileName = Path.GetFileNameWithoutExtension(filePath);
 
@@ -65,27 +83,37 @@ namespace MabiWorld.Data
 
 				// Combine relative folder path and extensionless file name
 				// to dotted path.
-				var localPath = folderPath.Replace("\\", "/").Replace(path, "");
+				var localPath = folderPath.Replace("\\", "/").Replace(localFolderPath, "");
 				localPath = localPath + fileName;
 				localPath = localPath.Replace("/", ".");
 
 				// Read lines from file
 				using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-				using (var sr = new StreamReader(fs))
+					Load(localPath, fs);
+			}
+		}
+
+		/// <summary>
+		/// Loads translation strings from given stream.
+		/// </summary>
+		/// <param name="localPath"></param>
+		/// <param name="stream"></param>
+		public static void Load(string localPath, Stream stream)
+		{
+			using (var sr = new StreamReader(stream))
+			{
+				string line;
+				while ((line = sr.ReadLine()) != null)
 				{
-					string line;
-					while ((line = sr.ReadLine()) != null)
-					{
-						var index = line.IndexOf('\t');
-						if (index == -1)
-							continue;
+					var index = line.IndexOf('\t');
+					if (index == -1)
+						continue;
 
-						var key = localPath + "." + line.Substring(0, index);
-						var value = line.Substring(index + 1);
+					var key = localPath + "." + line.Substring(0, index);
+					var value = line.Substring(index + 1);
 
-						lock (_entries)
-							_entries[key.ToLowerInvariant()] = value;
-					}
+					lock (_entries)
+						_entries[key.ToLowerInvariant()] = value;
 				}
 			}
 		}

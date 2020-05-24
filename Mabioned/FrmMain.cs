@@ -40,7 +40,6 @@ namespace Mabioned
 
 		private ulong _selectedEntityId;
 		private IEntity _selectedEntity;
-		private IEntity _copyEntity;
 		private Dictionary<ulong, TreeNode> _entityNodes = new Dictionary<ulong, TreeNode>();
 		private Dictionary<Area, TreeNode> _areaNodes = new Dictionary<Area, TreeNode>();
 		private Dictionary<EventType, MenuItem> _eventTypeMenuItems = new Dictionary<EventType, MenuItem>();

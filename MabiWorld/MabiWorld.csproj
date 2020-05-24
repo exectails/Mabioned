@@ -80,7 +80,7 @@
     <Compile Include="PropertyEditing\XML\XmlTextEditor.cs" />
     <Compile Include="PropertyEditing\SafeEnum.cs" />
     <Compile Include="PropertyEditing\Vector3F.cs" />
-    <Compile Include="VectorF3.cs" />
+    <Compile Include="Vector3F.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditing\XML\FrmXmlTextEditor.resx">
