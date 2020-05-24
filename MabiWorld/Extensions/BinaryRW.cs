@@ -8,6 +8,45 @@ namespace MabiWorld.Extensions
 	public static class BinaryReaderExtensions
 	{
 		/// <summary>
+		/// Reads string with the given length from binary reader.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string ReadString(this BinaryReader br, int length)
+		{
+			var buffer = br.ReadBytes(length);
+
+			var terminatorIndex = -1;
+			for (var i = 0; i < length; ++i)
+			{
+				if (buffer[i] == 0)
+				{
+					terminatorIndex = i;
+					break;
+				}
+			}
+
+			var actualLength = length;
+			if (terminatorIndex != -1)
+				actualLength = terminatorIndex;
+
+			return Encoding.UTF8.GetString(buffer, 0, actualLength);
+		}
+
+		/// <summary>
+		/// Reads length prefixed string from binary reader.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string ReadLpString(this BinaryReader br)
+		{
+			var length = br.ReadInt32();
+			return ReadString(br, length);
+		}
+
+		/// <summary>
 		/// Reads null-terminated Unicode string from binary reader.
 		/// </summary>
 		/// <param name="br"></param>
@@ -150,6 +189,35 @@ namespace MabiWorld.Extensions
 		}
 
 		/// <summary>
+		/// Reads two floats from binary reader and returns them as
+		/// a vector.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Vector2F ReadVector2F(this BinaryReader br)
+		{
+			var result = new Vector2F();
+
+			result.X = br.ReadSingle();
+			result.Y = br.ReadSingle();
+
+			return result;
+		}
+
+		/// <summary>
+		/// Writes vector to binary writer using two floats.
+		/// </summary>
+		/// <param name="bw"></param>
+		/// <param name="vector"></param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void WriteVector2F(this BinaryWriter bw, Vector2F vector)
+		{
+			bw.Write(vector.X);
+			bw.Write(vector.Y);
+		}
+
+		/// <summary>
 		/// Writes vector to binary writer using three floats.
 		/// </summary>
 		/// <param name="bw"></param>
@@ -190,6 +258,26 @@ namespace MabiWorld.Extensions
 			var a = br.ReadByte();
 
 			return Color.FromArgb(a, r, g, b);
+		}
+
+		/// <summary>
+		/// Reads 16 floats from binary reader and returns them as a matrix.
+		/// </summary>
+		/// <param name="br"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Matrix4x4 ReadMatrix4x4(this BinaryReader br)
+		{
+			var matrix = new float[16];
+			for (var i = 0; i < matrix.Length; ++i)
+				matrix[i] = br.ReadSingle();
+
+			return new Matrix4x4(
+				matrix[00], matrix[04], matrix[08], matrix[12],
+				matrix[01], matrix[05], matrix[09], matrix[13],
+				matrix[02], matrix[06], matrix[10], matrix[14],
+				matrix[03], matrix[07], matrix[11], matrix[15]
+			);
 		}
 	}
 }
