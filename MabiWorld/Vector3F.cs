@@ -46,7 +46,7 @@ namespace MabiWorld
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return string.Format(CultureInfo.InvariantCulture, "VectorF3 [X={0:0.00}, Y={1:0.00}, Z={2:0.00}]", this.X, this.Y, this.Z);
+			return string.Format(CultureInfo.InvariantCulture, "Vector3F [X={0:0.00}, Y={1:0.00}, Z={2:0.00}]", this.X, this.Y, this.Z);
 		}
 
 		/// <summary>

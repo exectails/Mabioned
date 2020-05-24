@@ -19,6 +19,10 @@
 		Outdoor = 1,
 		DungeonLobby = 2,
 		DungeonField = 3,
+		Unk100 = 100,
+		Unk200 = 200,
+		Unk300 = 300,
+		Unk400 = 400,
 	}
 
 	public enum IndoorType : int

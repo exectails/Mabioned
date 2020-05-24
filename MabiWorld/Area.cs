@@ -56,8 +56,6 @@ namespace MabiWorld
 		[Editor(typeof(NotifyingCollectionEditor), typeof(UITypeEditor))]
 		public List<AreaPlane> AreaPlanes { get; internal set; } = new List<AreaPlane>();
 
-		public byte[] LegacyTerrain { get; set; }
-
 		public byte[] Unk10 { get; set; }
 
 		/// <summary>
@@ -135,18 +133,11 @@ namespace MabiWorld
 					area.Events.Add(evnt);
 				}
 
-				if (area.Version == 200)
-				{
-					var terrainLength = (int)(br.BaseStream.Length - br.BaseStream.Position);
-					area.LegacyTerrain = br.ReadBytes(terrainLength);
-					return area;
-				}
-
 				var areaPlanesCount = (area.PlaneX * area.PlaneY);
 				area.AreaPlanes = new List<AreaPlane>(areaPlanesCount);
 				for (var i = 0; i < areaPlanesCount; ++i)
 				{
-					var plane = AreaPlane.ReadFrom(br);
+					var plane = AreaPlane.ReadFrom(br, area.Version);
 					area.AreaPlanes.Add(plane);
 				}
 

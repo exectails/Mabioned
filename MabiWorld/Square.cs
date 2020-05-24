@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace MabiWorld
@@ -8,14 +9,7 @@ namespace MabiWorld
 	/// </summary>
 	public class Square
 	{
-		public byte[] Square1_0 { get; set; }
-		public byte[] Square2_0 { get; set; }
-		public byte[] Square3_0 { get; set; }
-		public byte[] Square4_0 { get; set; }
-		public byte[] Square1_1 { get; set; }
-		public byte[] Square2_1 { get; set; }
-		public byte[] Square3_1 { get; set; }
-		public byte[] Square4_1 { get; set; }
+		public List<byte[]> Values { get; set; } = new List<byte[]>();
 
 		/// <summary>
 		/// Reads square from reader and returns it.
@@ -27,14 +21,8 @@ namespace MabiWorld
 		{
 			var square = new Square();
 
-			square.Square1_0 = br.ReadBytes(4);
-			square.Square2_0 = br.ReadBytes(4);
-			square.Square3_0 = br.ReadBytes(4);
-			square.Square4_0 = br.ReadBytes(4);
-			square.Square1_1 = br.ReadBytes(4);
-			square.Square2_1 = br.ReadBytes(4);
-			square.Square3_1 = br.ReadBytes(4);
-			square.Square4_1 = br.ReadBytes(4);
+			for (var i = 0; i < 16; ++i)
+				square.Values.Add(br.ReadBytes(2));
 
 			return square;
 		}
@@ -46,14 +34,8 @@ namespace MabiWorld
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void WriteTo(BinaryWriter bw)
 		{
-			bw.Write(this.Square1_0);
-			bw.Write(this.Square2_0);
-			bw.Write(this.Square3_0);
-			bw.Write(this.Square4_0);
-			bw.Write(this.Square1_1);
-			bw.Write(this.Square2_1);
-			bw.Write(this.Square3_1);
-			bw.Write(this.Square4_1);
+			for (var i = 0; i < 16; ++i)
+				bw.Write(this.Values[i]);
 		}
 	}
 }

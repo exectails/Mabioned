@@ -16,7 +16,7 @@ namespace MabiWorld
 		public const int SquareCount = 4;
 		public const int MaterialSlotIndexCount = 16;
 
-		public byte Version { get; set; }
+		public byte? Version { get; set; }
 		public byte Unk1 { get; set; }
 		public byte Unk2 { get; set; }
 		public byte Unk3 { get; set; }
@@ -41,13 +41,17 @@ namespace MabiWorld
 		/// Reads area plane from given reader and returns it.
 		/// </summary>
 		/// <param name="br"></param>
+		/// <param name="areaVersion"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static AreaPlane ReadFrom(BinaryReader br)
+		public static AreaPlane ReadFrom(BinaryReader br, int areaVersion)
 		{
 			var areaPlane = new AreaPlane();
 
-			areaPlane.Version = br.ReadByte();
+			if (areaVersion == 200)
+				areaPlane.Version = null;
+			else
+				areaPlane.Version = br.ReadByte();
 
 			if (areaPlane.Version >= 240)
 			{
@@ -82,10 +86,13 @@ namespace MabiWorld
 			}
 
 			var planeCount = areaPlane.Size * areaPlane.Size;
+			if (areaVersion == 200 && areaPlane.ShowPlane != 0)
+				planeCount++;
+
 			areaPlane.Planes = new List<Plane>(planeCount);
 			for (var i = 0; i < planeCount; ++i)
 			{
-				var plane = Plane.ReadFrom(br);
+				var plane = Plane.ReadFrom(br, areaPlane.Version);
 				areaPlane.Planes.Add(plane);
 			}
 
@@ -103,10 +110,12 @@ namespace MabiWorld
 		/// Writes area plane to given writer.
 		/// </summary>
 		/// <param name="bw"></param>
+		/// <param name="areaVersion"></param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void WriteTo(BinaryWriter bw)
 		{
-			bw.Write(this.Version);
+			if (this.Version != null)
+				bw.Write((byte)this.Version);
 
 			if (this.Version >= 240)
 			{
@@ -142,7 +151,7 @@ namespace MabiWorld
 			}
 
 			for (var i = 0; i < this.Planes.Count; ++i)
-				this.Planes[i].WriteTo(bw);
+				this.Planes[i].WriteTo(bw, this.Version);
 
 			for (var i = 0; i < this.Squares.Count; ++i)
 				this.Squares[i].WriteTo(bw);

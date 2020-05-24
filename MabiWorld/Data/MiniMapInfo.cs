@@ -34,6 +34,19 @@ namespace MabiWorld.Data
 		private static Dictionary<int, MiniMapInfoEntry> _entries = new Dictionary<int, MiniMapInfoEntry>();
 
 		/// <summary>
+		/// Returns true if the db has any data loaded.
+		/// </summary>
+		public static bool HasEntries => (_entries.Count > 0);
+
+		/// <summary>
+		/// Removes all entries.
+		/// </summary>
+		public static void Clear()
+		{
+			_entries.Clear();
+		}
+
+		/// <summary>
 		/// Returns entry with given region id via out if it exists.
 		/// Returns true if entry was found.
 		/// </summary>

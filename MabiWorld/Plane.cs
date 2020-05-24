@@ -19,15 +19,19 @@ namespace MabiWorld
 		/// Reads plane from reader and returns it.
 		/// </summary>
 		/// <param name="br"></param>
+		/// <param name="areaPlaneVersion"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Plane ReadFrom(BinaryReader br)
+		public static Plane ReadFrom(BinaryReader br, byte? areaPlaneVersion)
 		{
 			var plane = new Plane();
 
 			plane.Height = br.ReadSingle();
-			plane.Unk1 = br.ReadSingle();
-			plane.Unk2 = br.ReadSingle();
+			if (areaPlaneVersion != null)
+			{
+				plane.Unk1 = br.ReadSingle();
+				plane.Unk2 = br.ReadSingle();
+			}
 			plane.Unk3 = br.ReadColor();
 
 			return plane;
@@ -37,12 +41,16 @@ namespace MabiWorld
 		/// Writes plane to given writer.
 		/// </summary>
 		/// <param name="bw"></param>
+		/// <param name="areaPlaneVersion"></param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public void WriteTo(BinaryWriter bw)
+		public void WriteTo(BinaryWriter bw, byte? areaPlaneVersion)
 		{
 			bw.Write(this.Height);
-			bw.Write(this.Unk1);
-			bw.Write(this.Unk2);
+			if (areaPlaneVersion != null)
+			{
+				bw.Write(this.Unk1);
+				bw.Write(this.Unk2);
+			}
 			bw.WriteColor(this.Unk3);
 		}
 	}

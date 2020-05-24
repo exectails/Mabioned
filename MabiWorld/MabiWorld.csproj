@@ -31,6 +31,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataDogLib">
+      <HintPath>..\Libs\DataDogLib.dll</HintPath>
+    </Reference>
     <Reference Include="OpenPainter.ColorPicker">
       <HintPath>..\Libs\OpenPainter.ColorPicker.dll</HintPath>
     </Reference>
@@ -51,20 +54,34 @@
     <Compile Include="AreaPlane.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="Data\Features.cs" />
+    <Compile Include="FileFormats\FormatVersion.cs" />
+    <Compile Include="FileFormats\PmgFormat\Mesh.cs" />
+    <Compile Include="FileFormats\PmgFormat\MeshGroup.cs" />
+    <Compile Include="FileFormats\PmgFormat\MeshHeader.cs" />
+    <Compile Include="FileFormats\PmgFormat\PmgFile.cs" />
+    <Compile Include="FileFormats\PmgFormat\PmgHeader.cs" />
+    <Compile Include="FileFormats\PmgFormat\Skin.cs" />
+    <Compile Include="FileFormats\PmgFormat\Vertex.cs" />
+    <Compile Include="FileFormats\SetFormat\SetFile.cs" />
+    <Compile Include="FileFormats\SetFormat\SetHeader.cs" />
+    <Compile Include="FileFormats\SetFormat\SetItem.cs" />
     <Compile Include="Data\Local.cs" />
     <Compile Include="Data\MiniMapInfo.cs" />
     <Compile Include="Data\PropPalette.cs" />
     <Compile Include="Data\Tags.cs" />
+    <Compile Include="Data\TileIndex.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityParameter.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions\BinaryRW.cs" />
+    <Compile Include="Matrix4x4.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Prop.cs" />
     <Compile Include="Data\PropDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditing\Color.cs" />
+    <Compile Include="PropertyEditing\Vector2F.cs" />
     <Compile Include="PropertyEditing\XML\FrmXmlTextEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,8 +96,9 @@
     <Compile Include="PropertyEditing\PointF.cs" />
     <Compile Include="PropertyEditing\XML\XmlTextEditor.cs" />
     <Compile Include="PropertyEditing\SafeEnum.cs" />
-    <Compile Include="PropertyEditing\VectorF3.cs" />
-    <Compile Include="VectorF3.cs" />
+    <Compile Include="PropertyEditing\Vector3F.cs" />
+    <Compile Include="Vector2F.cs" />
+    <Compile Include="Vector3F.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditing\XML\FrmXmlTextEditor.resx">

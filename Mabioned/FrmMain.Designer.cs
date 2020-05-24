@@ -90,10 +90,11 @@
 			this.RegionCanvas = new PrimitiveCanvas.Canvas();
 			this.OfdRegion = new System.Windows.Forms.OpenFileDialog();
 			this.CtxMap = new System.Windows.Forms.ContextMenu();
-			this.MnuMapRemoveSimilarProps = new System.Windows.Forms.MenuItem();
 			this.MnuMapAddProp = new System.Windows.Forms.MenuItem();
 			this.MnuAddEvent = new System.Windows.Forms.MenuItem();
 			this.MnuSpacer8 = new System.Windows.Forms.MenuItem();
+			this.MnuMapRemoveSimilarProps = new System.Windows.Forms.MenuItem();
+			this.MnuSpacer10 = new System.Windows.Forms.MenuItem();
 			this.MnuCopyCoordinates = new System.Windows.Forms.MenuItem();
 			this.MnuCopyAuraWarp = new System.Windows.Forms.MenuItem();
 			this.SfdRegion = new System.Windows.Forms.SaveFileDialog();
@@ -101,7 +102,6 @@
 			this.MnuAreaRemoveAllProps = new System.Windows.Forms.MenuItem();
 			this.MnuAreaRemoveEvents = new System.Windows.Forms.MenuItem();
 			this.MnuAreaFlattenTerrain = new System.Windows.Forms.MenuItem();
-			this.MnuSpacer10 = new System.Windows.Forms.MenuItem();
 			this.ToolStrip.SuspendLayout();
 			this.StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplMain)).BeginInit();
@@ -642,12 +642,6 @@
             this.MnuCopyCoordinates,
             this.MnuCopyAuraWarp});
 			// 
-			// MnuMapRemoveSimilarProps
-			// 
-			this.MnuMapRemoveSimilarProps.Index = 3;
-			this.MnuMapRemoveSimilarProps.Text = "Remove Similar Props...";
-			this.MnuMapRemoveSimilarProps.Click += new System.EventHandler(this.MnuMapRemoveSimilarProps_Click);
-			// 
 			// MnuMapAddProp
 			// 
 			this.MnuMapAddProp.Index = 0;
@@ -664,6 +658,17 @@
 			// 
 			this.MnuSpacer8.Index = 2;
 			this.MnuSpacer8.Text = "-";
+			// 
+			// MnuMapRemoveSimilarProps
+			// 
+			this.MnuMapRemoveSimilarProps.Index = 3;
+			this.MnuMapRemoveSimilarProps.Text = "Remove Similar Props...";
+			this.MnuMapRemoveSimilarProps.Click += new System.EventHandler(this.MnuMapRemoveSimilarProps_Click);
+			// 
+			// MnuSpacer10
+			// 
+			this.MnuSpacer10.Index = 4;
+			this.MnuSpacer10.Text = "-";
 			// 
 			// MnuCopyCoordinates
 			// 
@@ -701,11 +706,6 @@
 			this.MnuAreaFlattenTerrain.Index = 2;
 			this.MnuAreaFlattenTerrain.Text = "Flatten Terrain...";
 			this.MnuAreaFlattenTerrain.Click += new System.EventHandler(this.MnuAreaFlattenTerrain_Click);
-			// 
-			// MnuSpacer10
-			// 
-			this.MnuSpacer10.Index = 4;
-			this.MnuSpacer10.Text = "-";
 			// 
 			// FrmMain
 			// 
