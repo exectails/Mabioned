@@ -570,7 +570,11 @@ namespace Mabioned
 			if (prop.Shapes.Any())
 			{
 				foreach (var shape in prop.Shapes)
-					obj.Add(new Polygon(shape.GetPoints()));
+				{
+					var points = shape.GetPoints();
+					var polygon = new Polygon(points);
+					obj.Add(polygon);
+				}
 			}
 			else
 			{

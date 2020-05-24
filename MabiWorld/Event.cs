@@ -84,10 +84,21 @@ namespace MabiWorld
 			evnt.ShapeType = br.ReadInt32();
 
 			evnt.Shapes = new List<Shape>(shapeCount);
-			for (var i = 0; i < shapeCount; ++i)
+			if (area.Version == 200)
 			{
-				var shape = Shape.ReadFrom(br);
-				evnt.Shapes.Add(shape);
+				for (var i = 0; i < shapeCount; ++i)
+				{
+					var shape = Shape.ReadLegacyFrom(br);
+					evnt.Shapes.Add(shape);
+				}
+			}
+			else
+			{
+				for (var i = 0; i < shapeCount; ++i)
+				{
+					var shape = Shape.ReadFrom(br);
+					evnt.Shapes.Add(shape);
+				}
 			}
 
 			evnt.Type = (EventType)br.ReadInt32();
