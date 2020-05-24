@@ -79,7 +79,7 @@
     <Compile Include="PropertyEditing\PointF.cs" />
     <Compile Include="PropertyEditing\XML\XmlTextEditor.cs" />
     <Compile Include="PropertyEditing\SafeEnum.cs" />
-    <Compile Include="PropertyEditing\VectorF3.cs" />
+    <Compile Include="PropertyEditing\Vector3F.cs" />
     <Compile Include="VectorF3.cs" />
   </ItemGroup>
   <ItemGroup>
