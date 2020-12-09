@@ -38,7 +38,7 @@
 			this.ImgPatreon = new System.Windows.Forms.PictureBox();
 			this.ImgGitHub = new System.Windows.Forms.PictureBox();
 			this.GrpLicense = new System.Windows.Forms.GroupBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.TxtLicense = new System.Windows.Forms.TextBox();
 			this.PnlHeader.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ImgIcon)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ImgPatreon)).BeginInit();
@@ -144,7 +144,7 @@
 			this.GrpLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.GrpLicense.Controls.Add(this.textBox1);
+			this.GrpLicense.Controls.Add(this.TxtLicense);
 			this.GrpLicense.Location = new System.Drawing.Point(12, 87);
 			this.GrpLicense.Name = "GrpLicense";
 			this.GrpLicense.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
@@ -153,18 +153,18 @@
 			this.GrpLicense.TabStop = false;
 			this.GrpLicense.Text = "License";
 			// 
-			// textBox1
+			// TxtLicense
 			// 
-			this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox1.Location = new System.Drawing.Point(12, 21);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(346, 163);
-			this.textBox1.TabIndex = 0;
-			this.textBox1.Text = resources.GetString("textBox1.Text");
+			this.TxtLicense.BackColor = System.Drawing.SystemColors.Control;
+			this.TxtLicense.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.TxtLicense.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TxtLicense.Location = new System.Drawing.Point(12, 21);
+			this.TxtLicense.Multiline = true;
+			this.TxtLicense.Name = "TxtLicense";
+			this.TxtLicense.ReadOnly = true;
+			this.TxtLicense.Size = new System.Drawing.Size(346, 163);
+			this.TxtLicense.TabIndex = 0;
+			this.TxtLicense.Text = resources.GetString("TxtLicense.Text");
 			// 
 			// FrmAbout
 			// 
@@ -208,6 +208,6 @@
 		private System.Windows.Forms.PictureBox ImgGitHub;
 		private System.Windows.Forms.Label LblVersion;
 		private System.Windows.Forms.GroupBox GrpLicense;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox TxtLicense;
 	}
 }
