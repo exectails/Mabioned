@@ -96,19 +96,24 @@ namespace MabiWorld.Data
 					if (!isFeatureEmpty && !Features.IsEnabled(featureName))
 						continue;
 
+					// There is at least one mini map entry without heights
+					// and widths, so we need to check for null on those,
+					// or we'll get an exception. Still want to include the
+					// data though, just in case.
+
 					var entry = new MiniMapInfoEntry();
 
 					entry.RegionID = regionId;
 					entry.feature = featureName;
 					entry.MapName = xmlReader.GetAttribute("MapName");
 					entry.MapLocalName = xmlReader.GetAttribute("MapLocalName");
-					entry.MapWidth = int.Parse(xmlReader.GetAttribute("MapWidth"));
-					entry.MapHeight = int.Parse(xmlReader.GetAttribute("MapHeight"));
+					entry.MapWidth = int.Parse(xmlReader.GetAttribute("MapWidth") ?? "0");
+					entry.MapHeight = int.Parse(xmlReader.GetAttribute("MapHeight") ?? "0");
 					entry.MapFile = xmlReader.GetAttribute("MapFile");
-					entry.MapImageWidth = int.Parse(xmlReader.GetAttribute("MapImageWidth"));
-					entry.MapImageHeight = int.Parse(xmlReader.GetAttribute("MapImageHeight"));
-					entry.MapOffsetX = int.Parse(xmlReader.GetAttribute("MapOffsetX"));
-					entry.MapOffsetY = int.Parse(xmlReader.GetAttribute("MapOffsetY"));
+					entry.MapImageWidth = int.Parse(xmlReader.GetAttribute("MapImageWidth") ?? "0");
+					entry.MapImageHeight = int.Parse(xmlReader.GetAttribute("MapImageHeight") ?? "0");
+					entry.MapOffsetX = int.Parse(xmlReader.GetAttribute("MapOffsetX") ?? "0");
+					entry.MapOffsetY = int.Parse(xmlReader.GetAttribute("MapOffsetY") ?? "0");
 
 					entry.MapName = Local.GetString(entry.MapName);
 					entry.MapLocalName = Local.GetString(entry.MapLocalName);
