@@ -46,6 +46,8 @@ namespace MabiWorld
 
 		public byte Unk1 { get; set; }
 
+		public byte Unk2 { get; set; }
+
 		[Editor(typeof(NotifyingCollectionEditor), typeof(UITypeEditor))]
 		public List<Shape> Shapes { get; internal set; } = new List<Shape>();
 
@@ -121,6 +123,8 @@ namespace MabiWorld
 			if (area != null)
 				areaVersion = area.Version;
 
+			var kr165Hack = false;
+
 			var prop = new Prop(area);
 
 			if (areaVersion > 200)
@@ -142,6 +146,29 @@ namespace MabiWorld
 				}
 
 				prop.Unk1 = br.ReadByte();
+
+				// KR165 has a different structure for version 200 than KR72,
+				// and unfortunately we have no real way to check for this
+				// version looking at just the prop and its area. To work
+				// around this, we're gonna check the next byte for 0 here.
+				// Since there is no prop with the id 0, and the id is stored
+				// in little endian, the next byte should be != 0 if it's
+				// the KR72 structure. Meanwhile, the KR165 structure appears
+				// to always have a 0 here, possibly for padding. If we find
+				// this 0 byte, we're gonna read it, and we're gonna use that
+				// information to also read the title, further down, which
+				// would otherwise require version 201+.
+				// If this part doesn't work correctly, parsing KR165 areas
+				// will usually throw an exception on parsing the shapes
+				// above, because the previous prop in the loop wasn't parsed
+				// correctly, and the shapes have some sanity checks.
+				var unk2 = br.ReadByte();
+				br.BaseStream.Seek(-1, SeekOrigin.Current);
+				kr165Hack = (unk2 == 0) || (prop.Unk1 == 0 && unk2 == 1);
+
+				if (kr165Hack)
+					prop.Unk2 = br.ReadByte();
+
 				prop.Id = br.ReadInt32();
 			}
 			else
@@ -169,7 +196,7 @@ namespace MabiWorld
 			for (var i = 0; i < ColorCount; ++i)
 				prop.Colors[i] = br.ReadColor();
 
-			if (areaVersion > 200)
+			if (areaVersion > 200 || kr165Hack)
 				prop.Title = br.ReadWString();
 
 			prop.State = br.ReadWString();

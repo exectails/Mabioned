@@ -70,7 +70,11 @@ namespace MabiWorld.Data
 				entry.TileID = (int)obj.Fields["TileID"].Value;
 				entry.TileName = (string)obj.Fields["TileName"].Value;
 				entry.BillBoardName = (string)obj.Fields["BillBoardName"].Value;
-				entry.Property = (byte)obj.Fields["Property"].Value;
+
+				// Conditional reading of Property, as it doesn't exist in
+				// KR281.
+				if (obj.Fields.TryGetValue("Property", out var property))
+					entry.Property = (byte)property.Value;
 
 				_entries[entry.TileID] = entry;
 			}
