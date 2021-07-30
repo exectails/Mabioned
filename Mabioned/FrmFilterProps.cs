@@ -115,6 +115,12 @@ namespace Mabioned
 					return false;
 			}
 
+			if (this.ChkNotMatchClassName.Checked)
+			{
+				if (string.Compare(data.ClassName, this.TxtNotMatchClassName.Text.Trim(), true) == 0)
+					return false;
+			}
+
 			if (this.ChkMatchTag.Checked)
 			{
 				if (!data.StringID.Matches(this.TxtMatchTag.Text))

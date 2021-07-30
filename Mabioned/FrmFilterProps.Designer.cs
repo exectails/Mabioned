@@ -30,6 +30,8 @@
 		{
 			this.ChkAllPropsThat = new System.Windows.Forms.RadioButton();
 			this.GrpFilters = new System.Windows.Forms.GroupBox();
+			this.TxtMatchClassName = new System.Windows.Forms.TextBox();
+			this.ChkMatchClassName = new System.Windows.Forms.CheckBox();
 			this.TxtMatchID = new System.Windows.Forms.TextBox();
 			this.ChkMatchID = new System.Windows.Forms.CheckBox();
 			this.PnlTerrain = new System.Windows.Forms.Panel();
@@ -44,8 +46,8 @@
 			this.BtnOK = new System.Windows.Forms.Button();
 			this.BtnCancel = new System.Windows.Forms.Button();
 			this.LblDataFolderInfo = new System.Windows.Forms.Label();
-			this.TxtMatchClassName = new System.Windows.Forms.TextBox();
-			this.ChkMatchClassName = new System.Windows.Forms.CheckBox();
+			this.TxtNotMatchClassName = new System.Windows.Forms.TextBox();
+			this.ChkNotMatchClassName = new System.Windows.Forms.CheckBox();
 			this.GrpFilters.SuspendLayout();
 			this.PnlTerrain.SuspendLayout();
 			this.SuspendLayout();
@@ -67,6 +69,8 @@
 			this.GrpFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.GrpFilters.Controls.Add(this.TxtNotMatchClassName);
+			this.GrpFilters.Controls.Add(this.ChkNotMatchClassName);
 			this.GrpFilters.Controls.Add(this.TxtMatchClassName);
 			this.GrpFilters.Controls.Add(this.ChkMatchClassName);
 			this.GrpFilters.Controls.Add(this.TxtMatchID);
@@ -80,15 +84,36 @@
 			this.GrpFilters.Enabled = false;
 			this.GrpFilters.Location = new System.Drawing.Point(12, 58);
 			this.GrpFilters.Name = "GrpFilters";
-			this.GrpFilters.Size = new System.Drawing.Size(437, 160);
+			this.GrpFilters.Size = new System.Drawing.Size(479, 186);
 			this.GrpFilters.TabIndex = 4;
 			this.GrpFilters.TabStop = false;
 			// 
+			// TxtMatchClassName
+			// 
+			this.TxtMatchClassName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TxtMatchClassName.Location = new System.Drawing.Point(155, 123);
+			this.TxtMatchClassName.Name = "TxtMatchClassName";
+			this.TxtMatchClassName.Size = new System.Drawing.Size(309, 20);
+			this.TxtMatchClassName.TabIndex = 20;
+			// 
+			// ChkMatchClassName
+			// 
+			this.ChkMatchClassName.AutoSize = true;
+			this.ChkMatchClassName.Location = new System.Drawing.Point(16, 125);
+			this.ChkMatchClassName.Name = "ChkMatchClassName";
+			this.ChkMatchClassName.Size = new System.Drawing.Size(111, 17);
+			this.ChkMatchClassName.TabIndex = 19;
+			this.ChkMatchClassName.Text = "match ClassName";
+			this.ChkMatchClassName.UseVisualStyleBackColor = true;
+			// 
 			// TxtMatchID
 			// 
-			this.TxtMatchID.Location = new System.Drawing.Point(133, 97);
+			this.TxtMatchID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TxtMatchID.Location = new System.Drawing.Point(155, 97);
 			this.TxtMatchID.Name = "TxtMatchID";
-			this.TxtMatchID.Size = new System.Drawing.Size(289, 20);
+			this.TxtMatchID.Size = new System.Drawing.Size(309, 20);
 			this.TxtMatchID.TabIndex = 18;
 			// 
 			// ChkMatchID
@@ -105,9 +130,9 @@
 			// 
 			this.PnlTerrain.Controls.Add(this.ChkTerrainNo);
 			this.PnlTerrain.Controls.Add(this.ChkTerrainYes);
-			this.PnlTerrain.Location = new System.Drawing.Point(133, 71);
+			this.PnlTerrain.Location = new System.Drawing.Point(155, 71);
 			this.PnlTerrain.Name = "PnlTerrain";
-			this.PnlTerrain.Size = new System.Drawing.Size(200, 18);
+			this.PnlTerrain.Size = new System.Drawing.Size(178, 18);
 			this.PnlTerrain.TabIndex = 16;
 			// 
 			// ChkTerrainNo
@@ -149,9 +174,9 @@
 			// 
 			this.TxtNotMatchTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TxtNotMatchTag.Location = new System.Drawing.Point(133, 45);
+			this.TxtNotMatchTag.Location = new System.Drawing.Point(155, 45);
 			this.TxtNotMatchTag.Name = "TxtNotMatchTag";
-			this.TxtNotMatchTag.Size = new System.Drawing.Size(289, 20);
+			this.TxtNotMatchTag.Size = new System.Drawing.Size(309, 20);
 			this.TxtNotMatchTag.TabIndex = 6;
 			// 
 			// ChkNotMatchTag
@@ -168,9 +193,9 @@
 			// 
 			this.TxtMatchTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TxtMatchTag.Location = new System.Drawing.Point(133, 19);
+			this.TxtMatchTag.Location = new System.Drawing.Point(155, 19);
 			this.TxtMatchTag.Name = "TxtMatchTag";
-			this.TxtMatchTag.Size = new System.Drawing.Size(289, 20);
+			this.TxtMatchTag.Size = new System.Drawing.Size(309, 20);
 			this.TxtMatchTag.TabIndex = 4;
 			// 
 			// ChkMatchTag
@@ -197,7 +222,7 @@
 			// BtnOK
 			// 
 			this.BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnOK.Location = new System.Drawing.Point(293, 224);
+			this.BtnOK.Location = new System.Drawing.Point(335, 250);
 			this.BtnOK.Name = "BtnOK";
 			this.BtnOK.Size = new System.Drawing.Size(75, 23);
 			this.BtnOK.TabIndex = 10;
@@ -208,7 +233,7 @@
 			// BtnCancel
 			// 
 			this.BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnCancel.Location = new System.Drawing.Point(374, 224);
+			this.BtnCancel.Location = new System.Drawing.Point(416, 250);
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtnCancel.TabIndex = 11;
@@ -221,34 +246,36 @@
 			this.LblDataFolderInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.LblDataFolderInfo.AutoSize = true;
 			this.LblDataFolderInfo.ForeColor = System.Drawing.Color.Gray;
-			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 229);
+			this.LblDataFolderInfo.Location = new System.Drawing.Point(9, 255);
 			this.LblDataFolderInfo.Name = "LblDataFolderInfo";
 			this.LblDataFolderInfo.Size = new System.Drawing.Size(221, 13);
 			this.LblDataFolderInfo.TabIndex = 12;
 			this.LblDataFolderInfo.Text = "Enter data folder in settings to enable filtering.";
 			// 
-			// TxtMatchClassName
+			// TxtNotMatchClassName
 			// 
-			this.TxtMatchClassName.Location = new System.Drawing.Point(133, 123);
-			this.TxtMatchClassName.Name = "TxtMatchClassName";
-			this.TxtMatchClassName.Size = new System.Drawing.Size(289, 20);
-			this.TxtMatchClassName.TabIndex = 20;
+			this.TxtNotMatchClassName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TxtNotMatchClassName.Location = new System.Drawing.Point(155, 149);
+			this.TxtNotMatchClassName.Name = "TxtNotMatchClassName";
+			this.TxtNotMatchClassName.Size = new System.Drawing.Size(309, 20);
+			this.TxtNotMatchClassName.TabIndex = 22;
 			// 
-			// ChkMatchClassName
+			// ChkNotMatchClassName
 			// 
-			this.ChkMatchClassName.AutoSize = true;
-			this.ChkMatchClassName.Location = new System.Drawing.Point(16, 125);
-			this.ChkMatchClassName.Name = "ChkMatchClassName";
-			this.ChkMatchClassName.Size = new System.Drawing.Size(111, 17);
-			this.ChkMatchClassName.TabIndex = 19;
-			this.ChkMatchClassName.Text = "match ClassName";
-			this.ChkMatchClassName.UseVisualStyleBackColor = true;
+			this.ChkNotMatchClassName.AutoSize = true;
+			this.ChkNotMatchClassName.Location = new System.Drawing.Point(16, 151);
+			this.ChkNotMatchClassName.Name = "ChkNotMatchClassName";
+			this.ChkNotMatchClassName.Size = new System.Drawing.Size(137, 17);
+			this.ChkNotMatchClassName.TabIndex = 21;
+			this.ChkNotMatchClassName.Text = "don\'t match ClassName";
+			this.ChkNotMatchClassName.UseVisualStyleBackColor = true;
 			// 
 			// FrmFilterProps
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(461, 259);
+			this.ClientSize = new System.Drawing.Size(503, 285);
 			this.Controls.Add(this.LblDataFolderInfo);
 			this.Controls.Add(this.BtnCancel);
 			this.Controls.Add(this.BtnOK);
@@ -292,5 +319,7 @@
 		private System.Windows.Forms.TextBox TxtMatchID;
 		private System.Windows.Forms.TextBox TxtMatchClassName;
 		private System.Windows.Forms.CheckBox ChkMatchClassName;
+		private System.Windows.Forms.TextBox TxtNotMatchClassName;
+		private System.Windows.Forms.CheckBox ChkNotMatchClassName;
 	}
 }
